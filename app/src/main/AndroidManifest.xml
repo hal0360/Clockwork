@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="nz.co.udenbrothers.clockwork">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true"
+        tools:ignore="UnusedAttribute" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/app_icon"
+        android:label="@string/app_name"
+        android:supportsRtl="true">
+        <activity
+            android:name=".SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SignActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".SignUpBusinessActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".SignUpStaffActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".SignInActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".StaffHomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/StaffTheme" />
+        <activity
+            android:name=".StaffHistoryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/StaffTheme" />
+        <activity
+            android:name=".StaffProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/StaffTheme" />
+        <activity
+            android:screenOrientation="portrait"
+            android:theme="@style/StaffTheme"
+            android:name=".StaffEditProfileActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:theme="@style/StaffTheme"
+            android:name=".StaffSettingActivity"/>
+    </application>
+
+</manifest>

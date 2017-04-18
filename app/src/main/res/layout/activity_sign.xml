@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context="nz.co.udenbrothers.clockwork.SignActivity">
+
+    <ImageView
+        android:contentDescription="@string/imgDes"
+        app:layout_widthPercent="22%"
+        app:layout_heightPercent="22%"
+        app:layout_marginTopPercent="16%"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/app_logo" />
+
+    <ImageView
+        android:contentDescription="@string/imgDes"
+        app:layout_widthPercent="42%"
+        app:layout_heightPercent="7%"
+        app:layout_marginTopPercent="35%"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/app_words" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_widthPercent="90%"
+        app:layout_heightPercent="8%"
+        app:layout_marginTopPercent="63%"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/staffButton"
+        android:background="@drawable/orange_button">
+
+        <ImageView
+            android:contentDescription="@string/imgDes"
+            android:layout_height="25dp"
+            android:layout_width="25dp"
+            android:src="@drawable/staff_button"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:id="@+id/imageViewio" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="SIGN UP AS A STAFF MEMBER"
+            android:textColor="#FFFFFF"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/imageViewio"
+            android:layout_toEndOf="@+id/imageViewio"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_widthPercent="90%"
+        app:layout_heightPercent="8%"
+        app:layout_marginTopPercent="74%"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/businessButton"
+        android:background="@drawable/blue_button">
+
+        <ImageView
+            android:contentDescription="@string/imgDes"
+            android:layout_height="25dp"
+            android:layout_width="25dp"
+            android:src="@drawable/business_button"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:id="@+id/imageViewioi" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="SIGN UP AS A BUSINESS"
+            android:textColor="#FFFFFF"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/imageViewioi"
+            android:layout_toEndOf="@+id/imageViewioi"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="Already of account? SIGN IN"
+        android:textColor="#FFFFFF"
+        android:gravity="center"
+        android:id="@+id/signinText"
+        app:layout_marginTopPercent="88%"
+        android:layout_centerHorizontal="true" />
+
+</android.support.percent.PercentRelativeLayout>

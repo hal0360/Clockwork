@@ -28,23 +28,11 @@ public class SiteDAO extends ModelDAO {
         load();
         while (cur.next()){
             Site site = new Site();
+            site.id = cur.getLong("id");
             site.name = cur.getStr("name");
             site.owner = cur.getStr("owner");
             sites.add(site);
         }
         return sites;
-    }
-
-    public ArrayList<Site> getAllTest(){
-        ArrayList<Site> list = new ArrayList<>();
-        int iii = 0;
-        while (iii < 10){
-            iii ++;
-            Site site = new Site();
-            site.name = "test " + iii;
-            site.owner = "";
-            list.add(site);
-        }
-        return list;
     }
 }

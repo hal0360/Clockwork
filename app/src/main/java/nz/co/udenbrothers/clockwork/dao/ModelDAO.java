@@ -92,6 +92,10 @@ public abstract class ModelDAO {
         sql.get(table, name, v+"", cur);
     }
 
+    protected final void loadBy(String name, long v){
+        sql.get(table, name, v+"", cur);
+    }
+
     protected final void loadByQuery(String query){
         sql.getByQuery(query, cur);
     }

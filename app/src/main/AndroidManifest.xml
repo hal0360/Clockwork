@@ -26,6 +26,7 @@
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -58,13 +59,21 @@
             android:screenOrientation="portrait"
             android:theme="@style/StaffTheme" />
         <activity
+            android:name=".StaffEditProfileActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/StaffTheme"
-            android:name=".StaffEditProfileActivity" />
+            android:theme="@style/StaffTheme" />
         <activity
+            android:name=".StaffSettingActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/StaffTheme"
-            android:name=".StaffSettingActivity"/>
+            android:theme="@style/StaffTheme" />
+        <activity
+            android:name=".BossHomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BossTheme" />
+        <activity android:name=".BossProfileActivity" />
+        <activity android:name=".BossSettingActivity" />
+        <activity android:name=".BossMyTeamActivity" />
+        <activity android:name=".SignUpActivity"></activity>
     </application>
 
 </manifest>

@@ -21,6 +21,10 @@ public class Cur{
         return cursor.getInt(cursor.getColumnIndex(field));
     }
 
+    public long getLong(String field){
+        return cursor.getLong(cursor.getColumnIndex(field));
+    }
+
     public String getStr(String field){
         return cursor.getString(cursor.getColumnIndex(field));
     }

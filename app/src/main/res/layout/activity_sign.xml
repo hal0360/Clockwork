@@ -23,87 +23,31 @@
         android:layout_centerHorizontal="true"
         android:src="@drawable/app_words" />
 
-    <RelativeLayout
+    <Button
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_widthPercent="90%"
         app:layout_heightPercent="8%"
         app:layout_marginTopPercent="63%"
         android:layout_centerHorizontal="true"
-        android:id="@+id/staffButton"
-        android:background="@drawable/orange_button">
+        android:id="@+id/signUpButton"
+        android:textSize="20sp"
+        android:text="SIGN UP"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/orange_button" />
 
-        <ImageView
-            android:contentDescription="@string/imgDes"
-            android:layout_height="25dp"
-            android:layout_width="25dp"
-            android:src="@drawable/staff_button"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:id="@+id/imageViewio" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:text="SIGN UP AS A STAFF MEMBER"
-            android:textColor="#FFFFFF"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/imageViewio"
-            android:layout_toEndOf="@+id/imageViewio"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
+    <Button
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_widthPercent="90%"
         app:layout_heightPercent="8%"
         app:layout_marginTopPercent="74%"
         android:layout_centerHorizontal="true"
-        android:id="@+id/businessButton"
-        android:background="@drawable/blue_button">
-
-        <ImageView
-            android:contentDescription="@string/imgDes"
-            android:layout_height="25dp"
-            android:layout_width="25dp"
-            android:src="@drawable/business_button"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:id="@+id/imageViewioi" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:text="SIGN UP AS A BUSINESS"
-            android:textColor="#FFFFFF"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/imageViewioi"
-            android:layout_toEndOf="@+id/imageViewioi"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp" />
-
-    </RelativeLayout>
-
-    <TextView
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:text="Already of account? SIGN IN"
+        android:text="SIGN IN"
         android:textColor="#FFFFFF"
-        android:gravity="center"
-        android:id="@+id/signinText"
-        app:layout_marginTopPercent="88%"
-        android:layout_centerHorizontal="true" />
+        android:id="@+id/signInButton"
+        android:background="@drawable/blue_button"/>
+
 
 </android.support.percent.PercentRelativeLayout>

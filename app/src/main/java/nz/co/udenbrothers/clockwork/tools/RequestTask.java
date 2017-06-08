@@ -15,7 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import nz.co.udenbrothers.clockwork.abstractions.AsynCallback;
-import nz.co.udenbrothers.clockwork.models.Response;
+import nz.co.udenbrothers.clockwork.serverObjects.Response;
 
 public class RequestTask extends AsyncTask<String,String,Response>
 {
@@ -49,30 +49,14 @@ public class RequestTask extends AsyncTask<String,String,Response>
 
     @Override
     protected void onPostExecute(Response response) {
-        if(response.statusCode == 204){
-            Toast.makeText(context,"Operation succeeded", Toast.LENGTH_SHORT).show();
-            asynCallback.postCallback("ok");
-        }
-        else if(response.statusCode == 200){
-            asynCallback.postCallback(response.content);
-        }
-        else if(response.statusCode == 999){
-            Toast.makeText(context,response.content, Toast.LENGTH_SHORT).show();
-            asynCallback.postCallback("dooh");
-        }
-        else if(response.statusCode == 401){
-            asynCallback.postCallback("denied");
-        }
-        else {
-            Toast.makeText(context,"Error: " + response.statusCode, Toast.LENGTH_SHORT).show();
-        }
+       asynCallback.postCallback(response);
         mDialog.dismiss();
     }
 
     private static Response myHttpConnection(String method, String content, String url, String aus){
         HttpURLConnection urlConnection = null;
         String result = "N/A";
-        int statusCode = 999;
+        int statusCode = 500;
         try {
             urlConnection = (HttpURLConnection) ((new URL(url).openConnection()));
             if(content != null) urlConnection.setDoOutput(true);

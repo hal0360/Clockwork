@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FF8C00">
+    android:background="#00BFFF">
 
     <View
         android:layout_width="0dp"
@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:text="HOME"
+            android:text="PROJECTS"
             android:textColor="#FFFFFF"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/imageViewtt1"
@@ -103,13 +103,13 @@
         app:layout_heightPercent="10%"
         app:layout_marginTopPercent="22%"
         android:background="@drawable/mybutton3"
-        android:id="@+id/historyButton">
+        android:id="@+id/myTeamButton">
 
         <ImageView
             android:contentDescription="@string/imgDes"
             android:layout_height="25dp"
             android:layout_width="25dp"
-            android:src="@drawable/my_team_icon"
+            android:src="@drawable/staff_button"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -121,7 +121,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:text="HISTORY"
+            android:text="MY TEAM"
             android:textColor="#FFFFFF"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/imageViewtt3"
@@ -219,90 +219,6 @@
         android:layout_width="0dp"
         android:layout_height="1dp"
         app:layout_marginTopPercent="52%"
-        app:layout_widthPercent="85%"
-        android:layout_centerHorizontal="true"
-        android:background="#FFFFFF" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_heightPercent="10%"
-        app:layout_marginTopPercent="52%"
-        android:background="@drawable/mybutton3"
-        android:id="@+id/noAdsButton">
-
-        <ImageView
-            android:contentDescription="@string/imgDes"
-            android:layout_height="25dp"
-            android:layout_width="25dp"
-            android:src="@drawable/remove_ads_icon"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:id="@+id/imageViewtt6" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="REMOVE ADS"
-            android:textColor="#FFFFFF"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/imageViewtt6"
-            android:layout_toEndOf="@+id/imageViewtt6"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp" />
-
-    </RelativeLayout>
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        app:layout_marginTopPercent="62%"
-        app:layout_widthPercent="85%"
-        android:layout_centerHorizontal="true"
-        android:background="#FFFFFF" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_heightPercent="10%"
-        app:layout_marginTopPercent="62%"
-        android:background="@drawable/mybutton3"
-        android:id="@+id/upgradeButton">
-
-        <ImageView
-            android:contentDescription="@string/imgDes"
-            android:layout_height="25dp"
-            android:layout_width="25dp"
-            android:src="@drawable/remove_ads_icon"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:id="@+id/imageViewtt7" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="UPGRADE TO BUSSINESS"
-            android:textColor="#FFFFFF"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/imageViewtt7"
-            android:layout_toEndOf="@+id/imageViewtt7"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp" />
-
-    </RelativeLayout>
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        app:layout_marginTopPercent="72%"
         app:layout_widthPercent="85%"
         android:layout_centerHorizontal="true"
         android:background="#FFFFFF" />

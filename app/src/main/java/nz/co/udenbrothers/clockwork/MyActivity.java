@@ -42,44 +42,36 @@ public abstract class MyActivity extends AppCompatActivity implements View.OnCli
 
         sideMenu = new Dialog(this, R.style.MyCustomDialog);
         sideMenu.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        sideMenu.setContentView(R.layout.side_menu_layout);
 
-        clicked(sideMenu.findViewById(R.id.homeButton), ()-> toActivity(StaffHomeActivity.class));
-        clicked(sideMenu.findViewById(R.id.profileButton), ()-> toActivity(StaffProfileActivity.class));
-        clicked(sideMenu.findViewById(R.id.historyButton), ()-> toActivity(StaffHistoryActivity.class));
-        clicked(sideMenu.findViewById(R.id.settingsButton), ()-> toActivity(StaffSettingActivity.class));
-        clicked(sideMenu.findViewById(R.id.logoutButton), ()-> {
-            pref.putStr("profileName","");
-            toActivity(SplashActivity.class);
-        });
+        if(pref.getInt("profileRole") == 1){
+            sideMenu.setContentView(R.layout.side_menu_layout);
+            clicked(sideMenu.findViewById(R.id.homeButton), ()-> toActivity(StaffHomeActivity.class));
+            clicked(sideMenu.findViewById(R.id.profileButton), ()-> toActivity(StaffProfileActivity.class));
+            clicked(sideMenu.findViewById(R.id.historyButton), ()-> toActivity(StaffHistoryActivity.class));
+            clicked(sideMenu.findViewById(R.id.settingsButton), ()-> toActivity(StaffSettingActivity.class));
+        }
+        else if(pref.getInt("profileRole") == 2){
+            sideMenu.setContentView(R.layout.side_menu_layout_boss);
+            clicked(sideMenu.findViewById(R.id.homeButton), ()-> toActivity(BossHomeActivity.class));
+            clicked(sideMenu.findViewById(R.id.profileButton), ()-> toActivity(BossProfileActivity.class));
+            clicked(sideMenu.findViewById(R.id.myTeamButton), ()-> toActivity(BossMyTeamActivity.class));
+            clicked(sideMenu.findViewById(R.id.settingsButton), ()-> toActivity(BossSettingActivity.class));
+        }
+        else {
+            logout();
+        }
+
+        clicked(sideMenu.findViewById(R.id.logoutButton), this::logout);
         clicked(sideMenu.findViewById(R.id.exportCSVButton), ()-> {
-            CSVWriter writer = null;
-            StampDAO stampDAO = new StampDAO(this);
-            ArrayList<Stamp> stamps = stampDAO.getAll();
-            try {
-                File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-                File file = new File(path, "Cloclwork.csv");
-                file.delete();
-                writer = new CSVWriter(new FileWriter(new File(path, "Cloclwork.csv"), true), ',');
-                List<String[]> data = new ArrayList<>();
-                for(Stamp stamp: stamps){
-                    data.add(new String[] {stamp.site_name, stamp.staff_name, stamp.startTime, stamp.endTime, stamp.comment});
-                }
-                writer.writeAll(data);
-                writer.close();
 
-                File filelocation = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "Cloclwork.csv");
-                Uri pathh = Uri.fromFile(filelocation);
-                Intent emailIntent = new Intent(Intent.ACTION_SEND);
-                emailIntent.setType("vnd.android.cursor.dir/email");
-                emailIntent.putExtra(Intent.EXTRA_STREAM, pathh);
-                startActivity(Intent.createChooser(emailIntent , "EXPORTING CSV FILE..."));
-
-            } catch (IOException e) {
-                alert("Error! Cannot create CSV file");
-            }
             hideMenu();
         });
+    }
+
+    protected final void logout(){
+        pref.putStr("profileName","");
+        pref.putInt("profileRole",0);
+        toActivity(SplashActivity.class);
     }
 
     protected final void showMenu(){

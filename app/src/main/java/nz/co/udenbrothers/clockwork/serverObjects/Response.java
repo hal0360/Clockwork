@@ -1,4 +1,4 @@
-package nz.co.udenbrothers.clockwork.models;
+package nz.co.udenbrothers.clockwork.serverObjects;
 
 public class Response {
     public String content;

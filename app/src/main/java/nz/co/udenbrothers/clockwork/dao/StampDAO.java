@@ -8,9 +8,6 @@ import java.util.Date;
 import nz.co.udenbrothers.clockwork.models.Stamp;
 import nz.co.udenbrothers.clockwork.tools.Kit;
 
-/**
- * Created by user on 19/03/2017.
- */
 
 public class StampDAO extends ModelDAO{
 
@@ -51,7 +48,7 @@ public class StampDAO extends ModelDAO{
         load();
         while (cur.next()){
             Stamp stamp = new Stamp();
-            stamp.id = cur.getInt("id");
+            stamp.id = cur.getLong("id");
             stamp.endTime = cur.getStr("endTime");
             stamp.startTime = cur.getStr("startTime");
             stamp.site_name = cur.getStr("site_name");
@@ -67,7 +64,7 @@ public class StampDAO extends ModelDAO{
         loadBy(ki, val);
         while (cur.next()){
             Stamp stamp = new Stamp();
-            stamp.id = cur.getInt("id");
+            stamp.id = cur.getLong("id");
             stamp.endTime = cur.getStr("endTime");
             stamp.startTime = cur.getStr("startTime");
             stamp.site_name = cur.getStr("site_name");
@@ -103,26 +100,5 @@ public class StampDAO extends ModelDAO{
             total = total + Kit.strToDate(cur.getStr("endTime")).getTime() - Kit.strToDate(cur.getStr("startTime")).getTime();
         }
         return total;
-    }
-
-    public ArrayList<Stamp> getAllTest(){
-        ArrayList<Stamp> list = new ArrayList<>();
-        int iii = 0;
-        while (iii < 20){
-            iii ++;
-            Stamp stamp = new Stamp();
-            stamp.endTime = "2017-04-17 17:22:45";
-            stamp.startTime = Kit.dateToStr(new Date());
-            stamp.site_name = "dodod " + iii;
-            stamp.staff_name = "ron";
-            if(iii % 5 == 1){
-                stamp.comment = "wfsfs sfsfsfsfsfsfs fssfsfsfsf sfsfsfsfsf sfsfsfsfsfsf sf";
-            }
-            if(iii % 7 == 1) {
-                stamp.comment = "bbo nnguyg ";
-            }
-            list.add(stamp);
-        }
-        return list;
     }
 }

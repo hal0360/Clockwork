@@ -9,8 +9,7 @@ public class SignActivity extends MyActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign);
 
-        clicked(R.id.staffButton,()-> toActivity(SignUpStaffActivity.class));
-        clicked(R.id.businessButton,()-> toActivity(SignUpBusinessActivity.class));
-        clicked(R.id.signinText,()-> toActivity(SignInActivity.class));
+        clicked(R.id.signUpButton,()-> toActivity(SignUpActivity.class));
+        clicked(R.id.signInButton,()-> toActivity(SignInActivity.class));
     }
 }

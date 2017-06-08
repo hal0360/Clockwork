@@ -22,6 +22,15 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
+    <style name="BossTheme" parent="Theme.AppCompat">
+        <item name="android:windowAnimationStyle">@style/MyActivityAnimation</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor" tools:ignore="NewApi">#00BFFF</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
     <style name="MenuAnimation">
         <item name="android:windowEnterAnimation">@anim/slide_in</item>
         <item name="android:windowExitAnimation">@anim/slide_out</item>

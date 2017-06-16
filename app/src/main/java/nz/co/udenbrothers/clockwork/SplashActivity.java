@@ -6,7 +6,7 @@ import android.util.DisplayMetrics;
 
 import nz.co.udenbrothers.clockwork.global.Screen;
 
-public class SplashActivity extends MyActivity {
+public class SplashActivity extends MainActivity {
 
     private Handler handler;
 
@@ -20,6 +20,8 @@ public class SplashActivity extends MyActivity {
         Screen.density = metrics.density;
         Screen.height = metrics.heightPixels;
         Screen.width = metrics.widthPixels;
+
+       // pref.putInt("profileRole",1);
 
         handler = new Handler();
       //  if(pref.getStr("profileName").equals("")){

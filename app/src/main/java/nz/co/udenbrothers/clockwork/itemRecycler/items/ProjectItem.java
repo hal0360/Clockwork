@@ -3,22 +3,21 @@ package nz.co.udenbrothers.clockwork.itemRecycler.items;
 import android.content.Context;
 
 import nz.co.udenbrothers.clockwork.global.Type;
-import nz.co.udenbrothers.clockwork.models.Site;
+import nz.co.udenbrothers.clockwork.models.Project;
 
 /**
- * Created by user on 09/04/2017.
+ * Created by user on 15/06/2017.
  */
 
-public class SiteItem extends Item{
-
-    public Site site;
+public class ProjectItem extends Item {
+    public Project project;
     public boolean active = false;
 
-    public SiteItem(int type, Site site, Context context) {
+    public ProjectItem(int type, Project project, Context context) {
         super(type, context);
-        if(type != Type.SITE){
+        if(type != Type.PROJECT){
             throw new IllegalArgumentException("INVALID ITEM TYPE");
         }
-        this.site =site;
+        this.project =project;
     }
 }

@@ -1,6 +1,5 @@
 package nz.co.udenbrothers.clockwork.itemRecycler;
 
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -29,10 +28,10 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemHolder>{
     public ItemAdaptor(ArrayList<Item> items) {
         this.items = items;
 
-        holders.put(Type.SITE, v-> new SiteViewHolder(inflate(v, R.layout.site_card_layout)));
+        holders.put(Type.PROJECT, v-> new SiteViewHolder(inflate(v, R.layout.site_card_layout)));
         holders.put(Type.TOTAL, v-> new TotalViewHolder(inflate(v, R.layout.total_card_layout)));
         holders.put(Type.TOP, v-> new TopViewHolder(inflate(v, R.layout.top_card_layout)));
-        holders.put(Type.STAMP, v-> new StampViewHolder(inflate(v, R.layout.stamp_card_layout)));
+        holders.put(Type.SHIFT, v-> new StampViewHolder(inflate(v, R.layout.stamp_card_layout)));
         holders.put(Type.HEADER, v-> new HeaderViewHolder(inflate(v, R.layout.header_card_layout)));
     }
 

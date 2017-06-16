@@ -26,8 +26,8 @@ public class RequestTask extends AsyncTask<String,String,Response>
     private String method;
     private String aus;
 
-    public RequestTask(AsynCallback asynCallback, String meth, String content, String au) {
-        this.asynCallback = asynCallback;
+    public RequestTask(AsynCallback asyn, String meth, String content, String au) {
+        asynCallback = asyn;
         uploadString = content;
         method = meth;
         context = asynCallback.getContex();
@@ -56,7 +56,7 @@ public class RequestTask extends AsyncTask<String,String,Response>
     private static Response myHttpConnection(String method, String content, String url, String aus){
         HttpURLConnection urlConnection = null;
         String result = "N/A";
-        int statusCode = 500;
+        int statusCode = 900;
         try {
             urlConnection = (HttpURLConnection) ((new URL(url).openConnection()));
             if(content != null) urlConnection.setDoOutput(true);

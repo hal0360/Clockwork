@@ -19,7 +19,7 @@
         android:contentDescription="@string/imgDes"
         app:layout_widthPercent="42%"
         app:layout_heightPercent="7%"
-        app:layout_marginTopPercent="35%"
+        app:layout_marginTopPercent="36%"
         android:layout_centerHorizontal="true"
         android:src="@drawable/app_words" />
 
@@ -28,7 +28,7 @@
         android:layout_height="0dp"
         app:layout_widthPercent="90%"
         app:layout_heightPercent="8%"
-        app:layout_marginTopPercent="63%"
+        app:layout_marginTopPercent="62%"
         android:layout_centerHorizontal="true"
         android:id="@+id/signUpButton"
         android:textSize="20sp"
@@ -41,13 +41,24 @@
         android:layout_height="0dp"
         app:layout_widthPercent="90%"
         app:layout_heightPercent="8%"
-        app:layout_marginTopPercent="74%"
+        app:layout_marginTopPercent="73%"
         android:layout_centerHorizontal="true"
         android:textSize="20sp"
         android:text="SIGN IN"
         android:textColor="#FFFFFF"
         android:id="@+id/signInButton"
         android:background="@drawable/blue_button"/>
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        app:layout_marginTopPercent="87%"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:id="@+id/signInTxt"
+        android:text="Already have account? Sign in"
+        android:textColor="#ffffff"
+        android:textSize="19sp" />
 
 
 </android.support.percent.PercentRelativeLayout>

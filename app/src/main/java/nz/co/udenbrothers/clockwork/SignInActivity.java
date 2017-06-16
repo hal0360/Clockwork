@@ -8,9 +8,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import nz.co.udenbrothers.clockwork.abstractions.AsynCallback;
+import nz.co.udenbrothers.clockwork.serverObjects.LoginInfo;
+import nz.co.udenbrothers.clockwork.serverObjects.Profile;
+import nz.co.udenbrothers.clockwork.serverObjects.Response;
 import nz.co.udenbrothers.clockwork.tools.RequestTask;
 
-public class SignInActivity extends MyActivity  implements AsynCallback {
+public class SignInActivity extends MainActivity  implements AsynCallback {
 
     private EditText Email, Epass;
 
@@ -38,16 +41,36 @@ public class SignInActivity extends MyActivity  implements AsynCallback {
                 Email.setText("");
                 return;
             }
-            new RequestTask(this,"POST","dssd",null).execute("http://yoobie-api.azurewebdfsfsfsites.net/login");
 
-            pref.putStr("profileName","Ron");
+            Profile profile = new Profile("N","N",mail,pass);
+            new RequestTask(this,"POST",profile.toJson(),null).execute("https://clockwork-api.azurewebsites.net/v1/authentication/login");
             pref.putStr("profileEmail",mail);
         });
     }
 
     @Override
-    public void postCallback(String result) {
-        toActivity(StaffHomeActivity.class);
+    public void postCallback(Response response) {
+        if(response.statusCode == 200){
+            alert("Sign in successful");
+            LoginInfo loginInfo = LoginInfo.fromJsom(response.content);
+            if (loginInfo != null) {
+                pref.putStr("profileName",loginInfo.firstName + " " + loginInfo.lastName);
+                pref.putStr("token",loginInfo.apiToken);
+                pref.putInt("profileRole",1);
+                pref.putStr("userId",loginInfo.userId);
+                toActivity(StaffHomeActivity.class);
+            }
+            else{
+                alert("Error occured");
+            }
+        }
+        else if(response.statusCode == 404){
+            Email.requestFocus();
+            Email.setError("Invalid mail or password");
+        }
+        else {
+            alert("Problem with connection or server. Try again later");
+        }
     }
 
     @Override

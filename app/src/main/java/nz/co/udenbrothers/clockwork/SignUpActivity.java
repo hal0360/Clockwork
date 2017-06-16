@@ -18,16 +18,17 @@ import nz.co.udenbrothers.clockwork.serverObjects.Response;
 import nz.co.udenbrothers.clockwork.tools.Kit;
 import nz.co.udenbrothers.clockwork.tools.RequestTask;
 
-public class SignUpActivity extends MyActivity implements AsynCallback {
+public class SignUpActivity extends MainActivity implements AsynCallback {
 
     private CheckBox terms;
-    private EditText Ename, Email, Epass, Epass2;
+    private EditText Efname, Elname, Email, Epass, Epass2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up_staff);
-        Ename = (EditText) findViewById(R.id.editStaffName);
+        setContentView(R.layout.activity_sign_up);
+        Efname = (EditText) findViewById(R.id.firstName);
+        Elname = (EditText) findViewById(R.id.lastName);
         Email = (EditText) findViewById(R.id.editStaffMail);
         Epass = (EditText) findViewById(R.id.editStaffPass);
         Epass2 = (EditText) findViewById(R.id.editStaffPass2);
@@ -49,8 +50,8 @@ public class SignUpActivity extends MyActivity implements AsynCallback {
 
     public void postCallback(Response response){
         if(response.statusCode == 204){
-            alert("Sign in successful");
-            toActivity(StaffHomeActivity.class);
+            alert("Sign up successful");
+            toActivity(SignInActivity.class);
         }
         else if(response.statusCode == 400){
             Email.requestFocus();
@@ -61,19 +62,27 @@ public class SignUpActivity extends MyActivity implements AsynCallback {
         }
     }
 
-    public Context getContex(){
+    @Override
+    public Context getContex() {
         return this;
     }
 
     private void createAccount(){
-        String usr = Ename.getText().toString().trim();
+        String fusr = Efname.getText().toString().trim();
+        String lusr = Elname.getText().toString().trim();
         String pass = Epass.getText().toString().trim();
         String pass2 = Epass2.getText().toString().trim();
         String mail = Email.getText().toString().trim();
 
-        if (usr.equals("")){
-            Ename.requestFocus();
-            Ename.setError("Invalid name");
+        if (fusr.equals("")){
+            Efname.requestFocus();
+            Efname.setError("Invalid name");
+            return;
+        }
+
+        if (fusr.equals("")){
+            Elname.requestFocus();
+            Elname.setError("Invalid name");
             return;
         }
 
@@ -103,10 +112,7 @@ public class SignUpActivity extends MyActivity implements AsynCallback {
             return;
         }
 
-        Profile profile = new Profile(usr, mail, pass);
-        new RequestTask(this,"POST", profile.toJson(), null).execute("http://yoobie-api.azurewebdfsfsfsites.net/login");
-        pref.putStr("profileName",usr);
-        pref.putStr("profileEmail",mail);
-        pref.putInt("profileRole",1);
+        Profile profile = new Profile(fusr, lusr, mail, pass);
+        new RequestTask(this,"POST", profile.toJson(), null).execute("https://clockwork-api.azurewebsites.net/v1/authentication/create");
     }
 }

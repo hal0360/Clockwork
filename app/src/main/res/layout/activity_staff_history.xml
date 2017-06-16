@@ -43,7 +43,7 @@
 
     </RelativeLayout>
 
-    <Button
+    <Spinner
         android:layout_width="0dp"
         app:layout_widthPercent="90%"
         android:layout_height="0dp"
@@ -55,7 +55,7 @@
         android:textColor="#FF8C00"
         android:background="@drawable/white_button"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="130dp"/>
+        android:layout_marginTop="130dp" />
 
     <RelativeLayout
         android:layout_width="0dp"

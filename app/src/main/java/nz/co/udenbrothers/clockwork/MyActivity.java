@@ -3,10 +3,8 @@ package nz.co.udenbrothers.clockwork;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Rect;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
 import android.view.Gravity;
@@ -14,18 +12,10 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 
-import com.opencsv.CSVWriter;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import com.google.gson.Gson;
 
 import nz.co.udenbrothers.clockwork.abstractions.Cmd;
-import nz.co.udenbrothers.clockwork.dao.StampDAO;
 import nz.co.udenbrothers.clockwork.global.Screen;
-import nz.co.udenbrothers.clockwork.models.Stamp;
 import nz.co.udenbrothers.clockwork.tools.Pref;
 
 
@@ -34,11 +24,13 @@ public abstract class MyActivity extends AppCompatActivity implements View.OnCli
     protected Pref pref;
     private SparseArray<Cmd> cmds = new SparseArray<>();
     private Dialog sideMenu;
+    protected Gson gson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         pref = new Pref(this);
+        gson = new Gson();
 
         sideMenu = new Dialog(this, R.style.MyCustomDialog);
         sideMenu.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -75,6 +67,7 @@ public abstract class MyActivity extends AppCompatActivity implements View.OnCli
     }
 
     protected final void showMenu(){
+        alert("sdsd");
         Rect rectangle = new Rect();
         Window win = getWindow();
         win.getDecorView().getWindowVisibleDisplayFrame(rectangle);

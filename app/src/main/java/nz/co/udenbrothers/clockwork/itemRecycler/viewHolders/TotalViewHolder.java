@@ -1,12 +1,13 @@
 package nz.co.udenbrothers.clockwork.itemRecycler.viewHolders;
 
 import android.view.View;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import nz.co.udenbrothers.clockwork.R;
-import nz.co.udenbrothers.clockwork.dao.StampDAO;
+import nz.co.udenbrothers.clockwork.dao.ShiftDAO;
 import nz.co.udenbrothers.clockwork.itemRecycler.items.Item;
 import nz.co.udenbrothers.clockwork.tools.Kit;
+import nz.co.udenbrothers.clockwork.tools.Pref;
+import nz.co.udenbrothers.clockwork.tools.ShiftRecord;
 
 public class TotalViewHolder extends ItemHolder {
 
@@ -18,20 +19,14 @@ public class TotalViewHolder extends ItemHolder {
         yesterday =  (TextView) v.findViewById(R.id.yesterdayHour);
         week =  (TextView) v.findViewById(R.id.weekHour);
         month =  (TextView) v.findViewById(R.id.monthHour);
-
     }
 
     public void init(Item item){
         title.setText(item.des);
-
-        StampDAO stampDAO = new StampDAO(item.context);
-        long yseterdayTotal = stampDAO.getBeforeTotal(1);
-        yesterday.setText(Kit.gethourMin(yseterdayTotal));
-
-        long weekTotal = stampDAO.getBeforeTotal(7);
-        week.setText(Kit.gethourMin(weekTotal));
-
-        long monthTotal = stampDAO.getBeforeTotal(30);
-        month.setText(Kit.gethourMin(monthTotal));
+        ShiftDAO shiftDAO = new ShiftDAO(item.context);
+        ShiftRecord shiftRecord = new ShiftRecord(item.context, shiftDAO.getAll());
+        yesterday.setText(shiftRecord.beforeTotal(1));
+        week.setText(shiftRecord.beforeTotal(7));
+        month.setText(shiftRecord.beforeTotal(30));
     }
 }

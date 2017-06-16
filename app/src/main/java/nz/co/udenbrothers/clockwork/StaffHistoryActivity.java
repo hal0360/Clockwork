@@ -15,11 +15,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import nz.co.udenbrothers.clockwork.dao.StampDAO;
+import nz.co.udenbrothers.clockwork.dao.ShiftDAO;
 import nz.co.udenbrothers.clockwork.itemRecycler.ItemAdaptor;
+import nz.co.udenbrothers.clockwork.itemRecycler.itemFactories.HistoryItemMaker;
 import nz.co.udenbrothers.clockwork.itemRecycler.itemFactories.ItemMaker;
-import nz.co.udenbrothers.clockwork.itemRecycler.itemFactories.StampItemMaker;
-import nz.co.udenbrothers.clockwork.models.Stamp;
+import nz.co.udenbrothers.clockwork.models.Shift;
 import nz.co.udenbrothers.clockwork.tools.Kit;
 
 
@@ -31,17 +31,17 @@ public class StaffHistoryActivity extends MyActivity {
         setContentView(R.layout.activity_staff_history);
 
         clicked(R.id.imageHam, this::showMenu);
-        StampDAO stampDAO = new StampDAO(this);
-        ArrayList<Stamp> stamps = stampDAO.getAll();
+        ShiftDAO shiftDAO = new ShiftDAO(this);
+        ArrayList<Shift> stamps = shiftDAO.getAll();
 
-        ItemMaker itemMaker = new StampItemMaker(this);
+        ItemMaker itemMaker = new HistoryItemMaker(this);
 
         ItemAdaptor itemAdaptor = new ItemAdaptor(itemMaker.toItems(stamps));
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.stampList);
         Kit.recyclerSetup(this,recyclerView, itemAdaptor);
 
         TextView totalHM = (TextView) findViewById(R.id.totalStampHourTxt);
-        totalHM.setText(Kit.gethourMin(stampDAO.getBeforeTotal()));
+      //  totalHM.setText(Kit.gethourMin(stampDAO.getBeforeTotal()));
 
        // Dialog dialog = Kit.getDialog(this,R.layout.export_layout);
        // clicked(dialog.findViewById(R.id.exportButton),()->{
@@ -49,29 +49,7 @@ public class StaffHistoryActivity extends MyActivity {
        // });
 
         clicked(R.id.exportDataButton,()->{
-            CSVWriter writer = null;
-            try {
-                File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-                File file = new File(path, "Cloclwork.csv");
-                file.delete();
-                writer = new CSVWriter(new FileWriter(new File(path, "Cloclwork.csv"), true), ',');
-                List<String[]> data = new ArrayList<>();
-                for(Stamp stamp: stamps){
-                    data.add(new String[] {stamp.site_name, stamp.staff_name, stamp.startTime, stamp.endTime, stamp.comment});
-                }
-                writer.writeAll(data);
-                writer.close();
 
-                File filelocation = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "Cloclwork.csv");
-                Uri pathh = Uri.fromFile(filelocation);
-                Intent emailIntent = new Intent(Intent.ACTION_SEND);
-                emailIntent.setType("vnd.android.cursor.dir/email");
-                emailIntent.putExtra(Intent.EXTRA_STREAM, pathh);
-                startActivity(Intent.createChooser(emailIntent , "EXPORTING CSV FILE..."));
-
-            } catch (IOException e) {
-                alert("Error! Cannot create CSV file");
-            }
         });
     }
 }

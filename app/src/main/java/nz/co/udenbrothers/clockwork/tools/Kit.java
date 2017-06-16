@@ -1,13 +1,10 @@
 package nz.co.udenbrothers.clockwork.tools;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import java.text.ParseException;
@@ -16,11 +13,15 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import nz.co.udenbrothers.clockwork.R;
 import nz.co.udenbrothers.clockwork.global.Screen;
 import nz.co.udenbrothers.clockwork.itemRecycler.ItemAdaptor;
 
 public class Kit {
+
+    public static float hoursDifference(Date date1, Date date2) {
+        final float MILLI_TO_HOUR = 1000 * 60 * 60.0f;
+        return (date1.getTime() - date2.getTime()) / MILLI_TO_HOUR;
+    }
 
     public static void recyclerSetup(Context context, RecyclerView recyclerView, ItemAdaptor itemAdaptor){
         recyclerView.setHasFixedSize(true);

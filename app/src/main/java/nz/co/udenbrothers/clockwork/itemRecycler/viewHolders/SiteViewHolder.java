@@ -1,20 +1,16 @@
 package nz.co.udenbrothers.clockwork.itemRecycler.viewHolders;
 
 import android.view.View;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import nz.co.udenbrothers.clockwork.R;
-import nz.co.udenbrothers.clockwork.dao.StampDAO;
-import nz.co.udenbrothers.clockwork.models.Site;
-
-import nz.co.udenbrothers.clockwork.models.Stamp;
-import nz.co.udenbrothers.clockwork.tools.Kit;
+import nz.co.udenbrothers.clockwork.dao.ShiftDAO;
 import nz.co.udenbrothers.clockwork.itemRecycler.items.Item;
-import nz.co.udenbrothers.clockwork.itemRecycler.items.SiteItem;
+import nz.co.udenbrothers.clockwork.itemRecycler.items.ProjectItem;
+import nz.co.udenbrothers.clockwork.models.Project;
+import nz.co.udenbrothers.clockwork.tools.Kit;
 import nz.co.udenbrothers.clockwork.tools.Pref;
+import nz.co.udenbrothers.clockwork.tools.ShiftRecord;
 
 
 public class SiteViewHolder extends ItemHolder{
@@ -47,26 +43,18 @@ public class SiteViewHolder extends ItemHolder{
     }
 
     public void init(Item item){
-        SiteItem siteItem = (SiteItem) item;
-        Site site = siteItem.site;
+        ProjectItem projectItem = (ProjectItem) item;
+        Project project = projectItem.project;
         setHeight(Kit.dps(120));
-        title.setText(site.name);
-
-        StampDAO stampDAO = new StampDAO(siteItem.context);
-        long yseterdayTotal = stampDAO.getBeforeTotal("site_name", site.name, 1);
-        yesterday.setText(Kit.gethourMin(yseterdayTotal));
-
-        long weekTotal = stampDAO.getBeforeTotal("site_name", site.name, 7);
-        week.setText(Kit.gethourMin(weekTotal));
-
-        long monthTotal = stampDAO.getBeforeTotal("site_name", site.name, 30);
-        month.setText(Kit.gethourMin(monthTotal));
-
-        ArrayList<Stamp> stamps = stampDAO.getBy("site_name", site.name);
-        records.setText(stamps.size() + " records in this project");
-
-        Pref pref = new Pref(siteItem.context);
-        if(pref.getStr("currentSite").equals(site.name)){
+        title.setText(project.qrCodeIdentifier);
+        ShiftDAO shiftDAO = new ShiftDAO(projectItem.context);
+        ShiftRecord shiftRecord = new ShiftRecord(projectItem.context, shiftDAO.getBy("qrCodeIdentifier",project.qrCodeIdentifier));
+        yesterday.setText(shiftRecord.beforeTotal(1));
+        week.setText(shiftRecord.beforeTotal(7));
+        month.setText(shiftRecord.beforeTotal(30));
+        records.setText(shiftRecord.getCount() + " records in this project");
+        Pref pref = new Pref(projectItem.context);
+        if(pref.getStr("currentProject").equals(project.qrCodeIdentifier)){
             activeDot.setBackgroundResource( R.drawable.green_dot );
         }
         else {

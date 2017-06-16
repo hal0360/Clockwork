@@ -6,18 +6,19 @@ import android.os.Handler;
 import java.util.ArrayList;
 
 import nz.co.udenbrothers.clockwork.global.Type;
-import nz.co.udenbrothers.clockwork.models.Model;
-import nz.co.udenbrothers.clockwork.models.Site;
 import nz.co.udenbrothers.clockwork.itemRecycler.items.Item;
-import nz.co.udenbrothers.clockwork.itemRecycler.items.SiteItem;
+
+import nz.co.udenbrothers.clockwork.itemRecycler.items.ProjectItem;
 import nz.co.udenbrothers.clockwork.itemRecycler.items.TopItem;
+import nz.co.udenbrothers.clockwork.models.Model;
+import nz.co.udenbrothers.clockwork.models.Project;
 
 /**
- * Created by user on 08/04/2017.
+ * Created by user on 15/06/2017.
  */
 
-public class SiteItemMaker extends ItemMaker {
-    public SiteItemMaker(Context context) {
+public class HomeItemMaker extends ItemMaker {
+    public HomeItemMaker(Context context) {
         super(context);
     }
 
@@ -25,8 +26,8 @@ public class SiteItemMaker extends ItemMaker {
     public ArrayList<Item> toItems(ArrayList<? extends Model> models) {
         ArrayList<Item> items = new ArrayList<>();
         for (Model model : models){
-            SiteItem siteItem = new SiteItem(Type.SITE,(Site) model,context);
-            items.add(siteItem);
+            ProjectItem projectItem = new ProjectItem(Type.PROJECT,(Project) model,context);
+            items.add(projectItem);
         }
         items.add(newItem(Type.TOTAL,"TOTAL"));
         return items;
@@ -34,7 +35,7 @@ public class SiteItemMaker extends ItemMaker {
 
     @Override
     public Item toItem(Model model) {
-        return new SiteItem(Type.SITE,(Site) model,context);
+        return new ProjectItem(Type.PROJECT,(Project) model,context);
     }
 
     public TopItem getTopItem(Handler handler, String des){

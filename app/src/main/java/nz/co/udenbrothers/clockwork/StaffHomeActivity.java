@@ -16,23 +16,25 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import nz.co.udenbrothers.clockwork.abstractions.RecycleCallback;
-import nz.co.udenbrothers.clockwork.dao.SiteDAO;
-import nz.co.udenbrothers.clockwork.dao.StampDAO;
+import nz.co.udenbrothers.clockwork.dao.ProjectDAO;
+import nz.co.udenbrothers.clockwork.dao.ShiftDAO;
 import nz.co.udenbrothers.clockwork.itemRecycler.ItemAdaptor;
-import nz.co.udenbrothers.clockwork.itemRecycler.itemFactories.SiteItemMaker;
+import nz.co.udenbrothers.clockwork.itemRecycler.itemFactories.HomeItemMaker;
 import nz.co.udenbrothers.clockwork.itemRecycler.items.Item;
-import nz.co.udenbrothers.clockwork.models.Site;
-import nz.co.udenbrothers.clockwork.models.Stamp;
+import nz.co.udenbrothers.clockwork.models.Project;
+import nz.co.udenbrothers.clockwork.models.Shift;
+import nz.co.udenbrothers.clockwork.serverObjects.UploadShift;
 import nz.co.udenbrothers.clockwork.tools.Kit;
 
-public class StaffHomeActivity extends MyActivity implements RecycleCallback {
+public class StaffHomeActivity extends MyActivity implements RecycleCallback{
 
     private ItemAdaptor itemAdaptor;
-    private ArrayList<Site> sites;
+    private ArrayList<Project> projects;
     private Handler handler;
     private  RecyclerView recyclerView;
-    private SiteItemMaker siteItemMaker;
-    private SiteDAO siteDAO;
+    private HomeItemMaker homeItemMaker;
+    private ProjectDAO projectDAO;
+    private ShiftDAO shiftDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,17 +42,11 @@ public class StaffHomeActivity extends MyActivity implements RecycleCallback {
         setContentView(R.layout.activity_staff_home);
 
         handler = new Handler();
-        siteDAO = new SiteDAO(this);
-        sites = siteDAO.getAll();
-        siteItemMaker = new SiteItemMaker(this);
-
-        ArrayList<Item> items = siteItemMaker.toItems(sites);
-        if(!pref.getStr("currentSite").equals("")){
-            items.add(0,siteItemMaker.getTopItem(handler,"Working now: " + pref.getStr("currentSite")));
-        }
-        itemAdaptor = new ItemAdaptor(items);
+        projectDAO = new ProjectDAO(this);
+        homeItemMaker = new HomeItemMaker(this);
+        shiftDAO = new ShiftDAO(this);
         recyclerView = (RecyclerView) findViewById(R.id.siteList);
-        Kit.recyclerSetup(this,recyclerView, itemAdaptor);
+        setUpItems();
 
         clicked(R.id.imageHam, this::showMenu);
         clicked(R.id.activityButton, ()-> new IntentIntegrator(this).initiateScan());
@@ -58,6 +54,16 @@ public class StaffHomeActivity extends MyActivity implements RecycleCallback {
 
     public void deleteItem(int index){
         itemAdaptor.delete(index);
+    }
+
+    private void setUpItems(){
+        projects = projectDAO.getAll();
+        ArrayList<Item> items = homeItemMaker.toItems(projects);
+        if(!pref.getStr("currentProject").equals("")){
+            items.add(0,homeItemMaker.getTopItem(handler,"Working now: " + pref.getStr("currentProject")));
+        }
+        itemAdaptor = new ItemAdaptor(items);
+        Kit.recyclerSetup(this,recyclerView, itemAdaptor);
     }
 
     @Override
@@ -74,54 +80,43 @@ public class StaffHomeActivity extends MyActivity implements RecycleCallback {
                 return;
             }
 
-            Site newSite = new Site();
-            newSite.name = newName;
-            if(!sites.contains(newSite)){
-                siteDAO.add(newSite);
-                sites.add(newSite);
+            Project newPro = new Project(newName);
+            if(!projects.contains(newPro)){
+                projectDAO.add(newPro);
             }
-            ArrayList<Item> items = siteItemMaker.toItems(sites);
 
-            if(!pref.getStr("currentSite").equals("")){
-                alert("Finish working: " + pref.getStr("currentSite"));
-                StampDAO stampDAO = new StampDAO(this);
-                Stamp stamp = new Stamp();
-                stamp.site_name = pref.getStr("currentSite");
-                stamp.staff_name = pref.getStr("profileName");
-                stamp.endTime = Kit.dateToStr(new Date());
-                stamp.startTime = pref.getStr("startTime");
-                stampDAO.add(stamp);
-
+            if(!pref.getStr("currentProject").equals("")){
+                alert("Finish working: " + pref.getStr("currentProject"));
+                Shift shift = new Shift(pref.getStr("currentProject"),pref.getStr("startTime"),Kit.dateToStr(new Date()),pref.getStr("uid"));
+                shiftDAO.add(shift);
                 Dialog dialog = Kit.getDialog(this, R.layout.comment_layout);
                 Button saveButton = (Button) dialog.findViewById(R.id.saveButton);
                 EditText commentBox = (EditText) dialog.findViewById(R.id.commentBox);
                 TextView boxTxt = (TextView) dialog.findViewById(R.id.boxTitle);
                 boxTxt.setText("Checkout: " + newName);
                 clicked(saveButton, ()->{
-                    stamp.comment = commentBox.getText().toString().trim();
-                    stampDAO.update(stamp);
+                    shift.comment = commentBox.getText().toString().trim();
+                    shiftDAO.update(shift);
+                    new UploadShift(this).upload(shift);
                     dialog.dismiss();
                 });
                 dialog.show();
 
-                if(!pref.getStr("currentSite").equals(newName)){
-                    pref.putStr("currentSite", newName);
+                if(!pref.getStr("currentProject").equals(newName)){
+                    pref.putStr("currentProject", newName);
                     pref.putStr("startTime", Kit.dateToStr(new Date()));
-                    items.add(0,siteItemMaker.getTopItem(handler,"Working now: " + pref.getStr("currentSite")));
                     alert("Start working: " + newName);
                 }
                 else{
-                    pref.putStr("currentSite", "");
+                    pref.putStr("currentProject", "");
                 }
             }
             else {
-                pref.putStr("currentSite", newName);
+                pref.putStr("currentProject", newName);
                 pref.putStr("startTime", Kit.dateToStr(new Date()));
-                items.add(0,siteItemMaker.getTopItem(handler,"Working now: " + pref.getStr("currentSite")));
                 alert("Start working: " + newName);
             }
-            itemAdaptor.update(items);
-          //  LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+            setUpItems();
             recyclerView.scrollToPosition(0);
         } else {
             super.onActivityResult(requestCode, resultCode, data);

@@ -11,7 +11,7 @@
         android:contentDescription="@string/imgDes"
         app:layout_widthPercent="22%"
         app:layout_heightPercent="22%"
-        app:layout_marginTopPercent="8%"
+        app:layout_marginTopPercent="3%"
         android:layout_centerHorizontal="true"
         android:src="@drawable/app_logo" />
 
@@ -19,22 +19,22 @@
         android:contentDescription="@string/imgDes"
         app:layout_widthPercent="42%"
         app:layout_heightPercent="7%"
-        app:layout_marginTopPercent="27%"
+        app:layout_marginTopPercent="23%"
         android:layout_centerHorizontal="true"
         android:src="@drawable/app_words" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_marginTopPercent="36%"
+        app:layout_marginTopPercent="30%"
         android:layout_centerHorizontal="true"
         android:text="SIGN UP"
         android:textColor="#ffffff"
         android:textSize="27sp" />
 
     <android.support.percent.PercentRelativeLayout
-        app:layout_heightPercent="32%"
-        app:layout_marginTopPercent="42%"
+        app:layout_heightPercent="40%"
+        app:layout_marginTopPercent="39%"
         app:layout_widthPercent="90%"
         android:layout_centerHorizontal="true"
         android:background="@drawable/border_field">
@@ -44,20 +44,20 @@
             android:layout_height="22dp"
             app:layout_marginStartPercent="5%"
             app:layout_marginLeftPercent="5%"
-            app:layout_marginTopPercent="6.5%"
+            app:layout_marginTopPercent="5%"
             android:contentDescription="@string/imgDes"
             android:src="@drawable/name_icon" />
 
         <EditText
-            android:id="@+id/editStaffName"
+            android:id="@+id/firstName"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_heightPercent="25%"
+            app:layout_heightPercent="20%"
             app:layout_marginTopPercent="0%"
             android:paddingLeft="50dp"
             android:paddingStart="50dp"
             android:background="@null"
-            android:hint="Your Name"
+            android:hint="First Name"
             android:inputType="text"
             android:textColor="#FFFF00"
             android:textColorHint="#FFFFFF" />
@@ -65,7 +65,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            app:layout_marginTopPercent="25%"
+            app:layout_marginTopPercent="20%"
             android:background="#FFFFFF" />
 
         <ImageView
@@ -73,7 +73,36 @@
             android:layout_height="22dp"
             app:layout_marginStartPercent="5%"
             app:layout_marginLeftPercent="5%"
-            app:layout_marginTopPercent="31.5%"
+            app:layout_marginTopPercent="25%"
+            android:contentDescription="@string/imgDes"
+            android:src="@drawable/name_icon" />
+
+        <EditText
+            android:id="@+id/lastName"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_heightPercent="20%"
+            app:layout_marginTopPercent="20%"
+            android:paddingLeft="50dp"
+            android:paddingStart="50dp"
+            android:background="@null"
+            android:hint="Last Name"
+            android:inputType="text"
+            android:textColor="#FFFF00"
+            android:textColorHint="#FFFFFF" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_marginTopPercent="40%"
+            android:background="#FFFFFF" />
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            app:layout_marginStartPercent="5%"
+            app:layout_marginLeftPercent="5%"
+            app:layout_marginTopPercent="45%"
             android:contentDescription="@string/imgDes"
             android:src="@drawable/email_icon" />
 
@@ -81,8 +110,8 @@
             android:id="@+id/editStaffMail"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_heightPercent="25%"
-            app:layout_marginTopPercent="25%"
+            app:layout_heightPercent="20%"
+            app:layout_marginTopPercent="40%"
             android:paddingLeft="50dp"
             android:paddingStart="50dp"
             android:background="@null"
@@ -94,7 +123,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            app:layout_marginTopPercent="50%"
+            app:layout_marginTopPercent="60%"
             android:background="#FFFFFF" />
 
         <ImageView
@@ -102,7 +131,7 @@
             android:layout_height="22dp"
             app:layout_marginStartPercent="5%"
             app:layout_marginLeftPercent="5%"
-            app:layout_marginTopPercent="56.5%"
+            app:layout_marginTopPercent="65%"
             android:contentDescription="@string/imgDes"
             android:src="@drawable/password_icon" />
 
@@ -110,8 +139,8 @@
             android:id="@+id/editStaffPass"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_heightPercent="25%"
-            app:layout_marginTopPercent="50%"
+            app:layout_heightPercent="20%"
+            app:layout_marginTopPercent="60%"
             android:paddingLeft="50dp"
             android:paddingStart="50dp"
             android:background="@null"
@@ -123,7 +152,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            app:layout_marginTopPercent="75%"
+            app:layout_marginTopPercent="80%"
             android:background="#FFFFFF" />
 
         <ImageView
@@ -131,7 +160,7 @@
             android:layout_height="22dp"
             app:layout_marginStartPercent="5%"
             app:layout_marginLeftPercent="5%"
-            app:layout_marginTopPercent="81.5%"
+            app:layout_marginTopPercent="85%"
             android:contentDescription="@string/imgDes"
             android:src="@drawable/password_icon" />
 
@@ -139,8 +168,8 @@
             android:id="@+id/editStaffPass2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_heightPercent="25%"
-            app:layout_marginTopPercent="75%"
+            app:layout_heightPercent="20%"
+            app:layout_marginTopPercent="80%"
             android:paddingLeft="50dp"
             android:paddingStart="50dp"
             android:background="@null"
@@ -157,7 +186,7 @@
         android:layout_height="wrap_content"
         app:layout_marginStartPercent="4%"
         app:layout_marginLeftPercent="4%"
-        app:layout_marginTopPercent="77%"
+        app:layout_marginTopPercent="81.6%"
         android:layout_centerHorizontal="true"
         android:textSize="15sp"
         android:text="I agree to the Terms Of Service"
@@ -169,12 +198,13 @@
         app:layout_widthPercent="90%"
         app:layout_heightPercent="8%"
         app:layout_marginTopPercent="90%"
-        android:layout_centerHorizontal="true"
         android:textSize="20sp"
         android:text="CREATE ACCOUNT"
         android:textColor="#FFFFFF"
         android:id="@+id/staffCreateButton"
-        android:background="@drawable/orange_button"/>
+        android:background="@drawable/orange_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="12dp" />
 
 </android.support.percent.PercentRelativeLayout>
 

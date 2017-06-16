@@ -6,28 +6,27 @@ import android.support.annotation.NonNull;
 import java.util.Date;
 
 import nz.co.udenbrothers.clockwork.global.Type;
-import nz.co.udenbrothers.clockwork.models.Stamp;
+import nz.co.udenbrothers.clockwork.models.Shift;
 
 /**
- * Created by user on 09/04/2017.
+ * Created by user on 15/06/2017.
  */
 
-public class StampItem extends Item implements Comparable<StampItem>{
-
-    public Stamp stamp;
+public class ShiftItem extends Item  implements Comparable<ShiftItem>{
+    public Shift shift;
     public Date startDate;
     public Date endDate;
 
-    public StampItem(int type, Stamp stamp, Context context) {
+    public ShiftItem(int type, Shift shift, Context context) {
         super(type, context);
-        if(type != Type.STAMP){
+        if(type != Type.SHIFT){
             throw new IllegalArgumentException("INVALID ITEM TYPE");
         }
-        this.stamp = stamp;
+        this.shift = shift;
     }
 
     @Override
-    public int compareTo(@NonNull StampItem item) {
+    public int compareTo(@NonNull ShiftItem item) {
         if (this.startDate == null || item.startDate == null) return 0;
         return item.startDate.compareTo(this.startDate);
     }

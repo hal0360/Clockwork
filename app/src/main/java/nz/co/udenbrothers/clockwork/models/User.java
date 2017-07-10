@@ -6,15 +6,17 @@ package nz.co.udenbrothers.clockwork.models;
 
 public class User extends Model {
 
-    public String UserId;
-    public String FirstName;
-    public String LastName;
-    public String Email;
+    public String userId;
+    public String firstName;
+    public String lastName;
+    public String email;
+    public int active;
 
-    public User (String uid, String fn, String ln, String email){
-        UserId = uid;
-        FirstName = fn;
-        LastName = ln;
-        Email = email;
+    public User (String uid, String fn, String ln, String emai){
+        userId = uid;
+        firstName = fn;
+        lastName = ln;
+        email = emai;
+        active = 0;
     }
 }

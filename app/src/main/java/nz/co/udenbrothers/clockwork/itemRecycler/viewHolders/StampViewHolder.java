@@ -11,10 +11,9 @@ import nz.co.udenbrothers.clockwork.itemRecycler.items.Item;
 import nz.co.udenbrothers.clockwork.itemRecycler.items.ShiftItem;
 import nz.co.udenbrothers.clockwork.models.Shift;
 import nz.co.udenbrothers.clockwork.tools.Kit;
+import nz.co.udenbrothers.clockwork.tools.MyDate;
 
-/**
- * Created by user on 07/04/2017.
- */
+
 
 public class StampViewHolder extends ItemHolder{
 
@@ -38,12 +37,12 @@ public class StampViewHolder extends ItemHolder{
         ShiftItem shiftItem = (ShiftItem) item;
         Shift shift = shiftItem.shift;
         siteNameTxt.setText(shift.qrCodeIdentifier);
-        Date startdate = Kit.strToDate(shift.shiftTimeStartOnUtc);
-        Date endDate = Kit.strToDate(shift.shiftTimeEndOnUtc);
-        startTimeTxt.setText(Kit.dateToStr(startdate, "HH:mm"));
-        endTimeTxt.setText(Kit.dateToStr(endDate, "HH:mm"));
+        Date startdate = MyDate.strToDate(shift.shiftTimeStartOnUtc);
+        Date endDate = MyDate.strToDate(shift.shiftTimeEndOnUtc);
+        startTimeTxt.setText(MyDate.dateToStr(startdate, "HH:mm"));
+        endTimeTxt.setText(MyDate.dateToStr(endDate, "HH:mm"));
 
-        workedTimeTxt.setText(Kit.gethourMin(endDate.getTime() - startdate.getTime()));
+        workedTimeTxt.setText(MyDate.gethourMin(endDate.getTime() - startdate.getTime()));
 
         commentTxt.setText(shift.comment);
         card.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));

@@ -13,9 +13,6 @@ import nz.co.udenbrothers.clockwork.tools.Kit;
 import nz.co.udenbrothers.clockwork.tools.Pref;
 import nz.co.udenbrothers.clockwork.tools.RequestTask;
 
-/**
- * Created by user on 15/06/2017.
- */
 
 public class UploadShift implements AsynCallback{
 
@@ -35,12 +32,12 @@ public class UploadShift implements AsynCallback{
     public void upload(Shift shift){
         shifts = new ArrayList<>();
         shifts.add(shift);
-        new RequestTask(this,"POST", gson.toJson(shifts), pref.getStr("token")).execute("https://clockwork-api.azurewebsites.net/v1/projects/shifts/save");
+        new RequestTask(this,"POST", gson.toJson(shifts), pref.getStr("token"),false).execute("https://clockwork-api.azurewebsites.net/v1/projects/shifts/save");
     }
 
     public void upload(ArrayList<Shift> shiftys){
         shifts = shiftys;
-        new RequestTask(this,"POST", gson.toJson(shifts), pref.getStr("token")).execute("https://clockwork-api.azurewebsites.net/v1/projects/shifts/save");
+        new RequestTask(this,"POST", gson.toJson(shifts), pref.getStr("token"),false).execute("https://clockwork-api.azurewebsites.net/v1/projects/shifts/save");
     }
 
     @Override

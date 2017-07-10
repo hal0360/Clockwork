@@ -1,24 +1,21 @@
 package nz.co.udenbrothers.clockwork.dao;
 
 import android.content.Context;
+import android.util.Log;
+
+import com.google.gson.JsonParseException;
 
 import java.util.ArrayList;
 
 import nz.co.udenbrothers.clockwork.models.Project;
 
-/**
- * Created by user on 14/06/2017.
- */
 
 public class ProjectDAO extends ModelDAO {
 
     protected void init(){
         table = "Project";
         field("qrCodeIdentifier", "text");
-        field("totalHoursToday", "float");
-        field("totalHoursThisWeek", "float");
-        field("totalHoursThisMonth", "float");
-        field("businessId", "int");
+        field("businessId", "text");
         field("companyName", "text");
     }
 
@@ -27,13 +24,25 @@ public class ProjectDAO extends ModelDAO {
     }
 
     public void add(Project project){
+        if(search(project.qrCodeIdentifier)) return;
         key.put("qrCodeIdentifier", project.qrCodeIdentifier);
-        key.put("totalHoursToday", project.totalHoursToday);
-        key.put("totalHoursThisWeek", project.totalHoursThisWeek);
-        key.put("totalHoursThisMonth", project.totalHoursThisMonth);
-        key.put("companyName", project.companyName);
         key.put("businessId", project.businessId);
+        key.put("companyName", project.companyName);
         project.id = save();
+    }
+
+    public void addFromJson(String json, Class clsssss){
+        try {
+            Project[] projects = gson.fromJson(json, Project[].class);
+            for (Project project : projects) add(project);
+        } catch (JsonParseException e) { Log.e("Parse",e+""); }
+
+    }
+
+    public boolean search(String name){
+        load();
+        while (cur.next()) if(name.equals(cur.getStr("qrCodeIdentifier"))) return true;
+        return false;
     }
 
     public ArrayList<Project> getAll(){
@@ -42,11 +51,8 @@ public class ProjectDAO extends ModelDAO {
         while (cur.next()){
             Project project = new Project(cur.getStr("qrCodeIdentifier"));
             project.id = cur.getLong("id");
-            project.totalHoursThisMonth = cur.getFloat("totalHoursThisMonth");
-            project.totalHoursThisWeek = cur.getFloat("totalHoursThisWeek");
-            project.totalHoursToday = cur.getFloat("totalHoursToday");
+            project.businessId = cur.getStr("businessId");
             project.companyName = cur.getStr("companyName");
-            project.businessId = cur.getInt("businessId");
             projects.add(project);
         }
         return projects;

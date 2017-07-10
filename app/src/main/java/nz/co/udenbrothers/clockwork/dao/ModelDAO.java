@@ -3,6 +3,8 @@ package nz.co.udenbrothers.clockwork.dao;
 import android.content.ContentValues;
 import android.content.Context;
 
+import com.google.gson.Gson;
+
 import java.util.HashSet;
 
 import nz.co.udenbrothers.clockwork.tools.Cur;
@@ -15,10 +17,12 @@ public abstract class ModelDAO {
     protected String table = "";
     private HashSet<String> fields = new HashSet<>();
     protected final Cur cur = new Cur();
+    protected Gson gson;
 
     protected abstract void init();
 
     public ModelDAO(Context context){
+        gson = new Gson();
         sql = new SqlAccess(context);
         fields.add("id integer primary key");
         init();
@@ -29,22 +33,16 @@ public abstract class ModelDAO {
         type = type.toLowerCase();
         switch (type) {
             case "string":
-            case "String":
             case "text":
-            case "date":
             case "str":
                 fields.add(name + " text");
                 break;
             case "int":
-            case "INT":
-            case "Int":
             case "integer":
                 fields.add(name + " integer");
                 break;
             case "float":
             case "double":
-            case "Float":
-            case "Double":
             case "real":
                 fields.add(name + " real");
                 break;
@@ -56,6 +54,8 @@ public abstract class ModelDAO {
     protected final long save(){
         long id = sql.add(table, key);
         key.clear();
+
+
         return id;
     }
 

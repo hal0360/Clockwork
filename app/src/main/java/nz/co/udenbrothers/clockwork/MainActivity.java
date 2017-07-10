@@ -1,35 +1,42 @@
 package nz.co.udenbrothers.clockwork;
 
-/**
- * Created by user on 13/06/2017.
- */
 
-import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
-import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 import nz.co.udenbrothers.clockwork.abstractions.Cmd;
-import nz.co.udenbrothers.clockwork.global.Screen;
 import nz.co.udenbrothers.clockwork.tools.Pref;
 
 public abstract class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
     protected Pref pref;
     private SparseArray<Cmd> cmds = new SparseArray<>();
+    protected Gson gson;
+    private float startingY;
+    private InputMethodManager imm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         pref = new Pref(this);
+        gson = new Gson();
+        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
     }
 
     protected final void toActivity(Class actClass){
@@ -39,6 +46,11 @@ public abstract class MainActivity extends AppCompatActivity implements View.OnC
         }
         startActivity(intent);
         this.finish();
+    }
+
+    protected final void pushActivity(Class actClass){
+        Intent intent = new Intent(this, actClass);
+        startActivity(intent);
     }
 
     protected final void clicked(int id, Cmd cd){
@@ -56,7 +68,39 @@ public abstract class MainActivity extends AppCompatActivity implements View.OnC
     }
 
     @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        View viewCurrent = getCurrentFocus();
+        if(viewCurrent == null) return super.dispatchTouchEvent(event);
+        switch (event.getAction()){
+            case MotionEvent.ACTION_UP:
+                float deltaa = startingY - event.getRawY();
+                if (deltaa > 100)
+                {
+                    TextView nextField = (TextView)viewCurrent.focusSearch(View.FOCUS_DOWN);
+                    if(nextField != null) nextField.requestFocus();
+                    else {
+                        viewCurrent.clearFocus();
+                        imm.hideSoftInputFromWindow(viewCurrent.getWindowToken(), 0);
+                    }
+                }
+                else{
+                    int scrcoords[] = new int[2];
+                    viewCurrent.getLocationOnScreen(scrcoords);
+                    float x = event.getRawX() + viewCurrent.getLeft() - scrcoords[0];
+                    float y = event.getRawY() + viewCurrent.getTop() - scrcoords[1];
+                    if (x < viewCurrent.getLeft() || x > viewCurrent.getRight() || y < viewCurrent.getTop() || y > viewCurrent.getBottom()) imm.hideSoftInputFromWindow(viewCurrent.getWindowToken(), 0);
+                }
+                break;
+            case MotionEvent.ACTION_DOWN:
+                startingY = event.getRawY();
+                break;
+        }
+        return super.dispatchTouchEvent(event);
+    }
+
+    @Override
     public void onClick(View v) {
         cmds.get(v.getId()).exec();
     }
+
 }

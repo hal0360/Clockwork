@@ -8,20 +8,14 @@ import java.util.Date;
 import nz.co.udenbrothers.clockwork.global.Type;
 import nz.co.udenbrothers.clockwork.models.Shift;
 
-/**
- * Created by user on 15/06/2017.
- */
 
 public class ShiftItem extends Item  implements Comparable<ShiftItem>{
     public Shift shift;
     public Date startDate;
     public Date endDate;
 
-    public ShiftItem(int type, Shift shift, Context context) {
-        super(type, context);
-        if(type != Type.SHIFT){
-            throw new IllegalArgumentException("INVALID ITEM TYPE");
-        }
+    public ShiftItem(Shift shift, Context context) {
+        super(Type.SHIFT, context);
         this.shift = shift;
     }
 

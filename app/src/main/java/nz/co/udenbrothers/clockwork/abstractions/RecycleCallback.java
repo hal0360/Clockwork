@@ -8,6 +8,12 @@ import android.content.Context;
 
 public interface RecycleCallback {
 
-    public void deleteItem(int index);
+    public void deleteProject(String name, int pos);
+
+    public void forceStop();
+
+    public Object getObj();
+
+    public void moreInfo(String name);
 
 }

@@ -21,18 +21,15 @@ public class SplashActivity extends MainActivity {
         Screen.height = metrics.heightPixels;
         Screen.width = metrics.widthPixels;
 
-       // pref.putInt("profileRole",1);
-
         handler = new Handler();
-      //  if(pref.getStr("profileName").equals("")){
         if(pref.getInt("profileRole") == 1){
-            handler.postDelayed(()->toActivity(StaffHomeActivity.class), 700);
+            handler.postDelayed(()->toActivity(StaffHomeActivity.class), 600);
         }
         else if (pref.getInt("profileRole") == 2){
-            handler.postDelayed(()->toActivity(BossHomeActivity.class), 700);
+            handler.postDelayed(()->toActivity(BossHomeActivity.class), 600);
         }
         else {
-            handler.postDelayed(()->toActivity(SignActivity.class), 700);
+            handler.postDelayed(()->toActivity(SignActivity.class), 600);
         }
     }
 

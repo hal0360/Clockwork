@@ -6,11 +6,8 @@ import android.widget.TextView;
 import nz.co.udenbrothers.clockwork.R;
 import nz.co.udenbrothers.clockwork.itemRecycler.items.HeaderItem;
 import nz.co.udenbrothers.clockwork.itemRecycler.items.Item;
-import nz.co.udenbrothers.clockwork.tools.Kit;
+import nz.co.udenbrothers.clockwork.tools.MyDate;
 
-/**
- * Created by user on 09/04/2017.
- */
 
 public class HeaderViewHolder extends ItemHolder {
 
@@ -20,7 +17,7 @@ public class HeaderViewHolder extends ItemHolder {
     public void init(Item item) {
         HeaderItem headerItem = (HeaderItem) item;
         dateHeader.setText(headerItem.des);
-        totalhour.setText(Kit.gethourMin(headerItem.total));
+        totalhour.setText(MyDate.gethourMin(headerItem.total));
     }
 
     public HeaderViewHolder(View v) {

@@ -15,7 +15,8 @@ public class Pref {
 
     public void putStr(String key, String val){
         SharedPreferences.Editor editor = p.edit();
-        editor.putString(key, val);
+        if(val == null) editor.putString(key, "");
+        else editor.putString(key, val);
         editor.apply();
     }
 

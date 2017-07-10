@@ -2,31 +2,44 @@ package nz.co.udenbrothers.clockwork.itemRecycler.viewHolders;
 
 import android.os.Handler;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.Date;
 import java.util.Locale;
 
 import nz.co.udenbrothers.clockwork.R;
-import nz.co.udenbrothers.clockwork.tools.Kit;
-import nz.co.udenbrothers.clockwork.tools.Pref;
+import nz.co.udenbrothers.clockwork.abstractions.RecycleCallback;
 import nz.co.udenbrothers.clockwork.itemRecycler.items.Item;
-import nz.co.udenbrothers.clockwork.itemRecycler.items.TopItem;
+import nz.co.udenbrothers.clockwork.tools.Kit;
+import nz.co.udenbrothers.clockwork.tools.MyDate;
+import nz.co.udenbrothers.clockwork.tools.Pref;
 
 public class TopViewHolder extends ItemHolder {
 
-    private TextView title, started, worked;
+    private boolean isViewExpanded = false;
+    private TextView started, worked, projectName;
     private Date startDate;
     private Handler handler;
-    private RelativeLayout topHeaderBx;
+    private RecycleCallback recycleCallback;
 
     public TopViewHolder(View v) {
         super(v);
-        title =  (TextView) v.findViewById(R.id.cardTitle);
         started =  (TextView) v.findViewById(R.id.startedHour);
         worked =  (TextView) v.findViewById(R.id.workedHour);
-        topHeaderBx = (RelativeLayout) v.findViewById(R.id.topHeaderBox);
+        projectName = (TextView) v.findViewById(R.id.currentProjectTxt);
+
+        clicked(v.findViewById(R.id.stopSessionButton), ()-> recycleCallback.forceStop());
+
+        clicked(card, ()->{
+            if(isViewExpanded){
+                expandView(Kit.dps(120));
+                isViewExpanded = false;
+            }
+            else {
+                expandView(Kit.dps(175));
+                isViewExpanded = true;
+            }
+        });
     }
 
     private void countDownStart() {
@@ -49,14 +62,14 @@ public class TopViewHolder extends ItemHolder {
         handler.postDelayed(runnable, 0);
     }
 
-
     public void init(Item item){
-        TopItem topItem = (TopItem) item;
-        title.setText(topItem.des);
-        Pref pref = new Pref(topItem.context);
-        handler = topItem.handler;
-        startDate = Kit.strToDate(pref.getStr("startTime"));
-        started.setText(Kit.dateToStr(startDate,"HH:mm"));
+        projectName.setText(item.des);
+        setHeight(Kit.dps(120));
+        Pref pref = new Pref(item.context);
+        recycleCallback = (RecycleCallback) item.context;
+        handler = (Handler) recycleCallback.getObj();
+        startDate = MyDate.strToDate(pref.getStr("startTime"));
+        started.setText(MyDate.dateToStr(startDate,"HH:mm"));
         countDownStart();
     }
 }

@@ -2,7 +2,6 @@ package nz.co.udenbrothers.clockwork;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.widget.CheckBox;
@@ -113,6 +112,11 @@ public class SignUpActivity extends MainActivity implements AsynCallback {
         }
 
         Profile profile = new Profile(fusr, lusr, mail, pass);
-        new RequestTask(this,"POST", profile.toJson(), null).execute("https://clockwork-api.azurewebsites.net/v1/authentication/create");
+        new RequestTask(this,"POST", profile.toJson(), null,true).execute("https://clockwork-api.azurewebsites.net/v1/authentication/create");
+    }
+
+    @Override
+    public void onBackPressed() {
+        toActivity(SignActivity.class);
     }
 }

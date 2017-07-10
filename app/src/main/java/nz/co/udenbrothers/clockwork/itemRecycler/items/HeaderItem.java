@@ -12,10 +12,7 @@ import nz.co.udenbrothers.clockwork.global.Type;
 public class HeaderItem extends Item{
     public long total = 0;
 
-    public HeaderItem(int type, Context context) {
-        super(type, context);
-        if(type != Type.HEADER){
-            throw new IllegalArgumentException("INVALID ITEM TYPE");
-        }
+    public HeaderItem(Context context) {
+        super(Type.HEADER, context);
     }
 }

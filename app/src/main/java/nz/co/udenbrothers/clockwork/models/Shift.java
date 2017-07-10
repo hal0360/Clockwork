@@ -1,11 +1,7 @@
 package nz.co.udenbrothers.clockwork.models;
 
-/**
- * Created by user on 14/06/2017.
- */
 
 public class Shift extends Model {
-
 
     public String userId;
     public String qrCodeIdentifier;

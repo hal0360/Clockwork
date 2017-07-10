@@ -13,11 +13,8 @@ public class ProjectItem extends Item {
     public Project project;
     public boolean active = false;
 
-    public ProjectItem(int type, Project project, Context context) {
-        super(type, context);
-        if(type != Type.PROJECT){
-            throw new IllegalArgumentException("INVALID ITEM TYPE");
-        }
+    public ProjectItem(Project project, Context context) {
+        super(Type.PROJECT, context);
         this.project =project;
     }
 }

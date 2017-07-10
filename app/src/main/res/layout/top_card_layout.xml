@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/card"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
+    android:layout_height="175dp"
     android:background="@drawable/white_button"
     android:layout_marginEnd="15dp"
     android:layout_marginRight="15dp"
@@ -92,7 +92,7 @@
             android:id="@+id/cardTitle"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="Current: "
+            android:text="YOUR DAY TODAY"
             android:textSize="20sp"
             android:textColor="#ffffff"
             android:ellipsize="end"
@@ -112,5 +112,35 @@
             android:background="#333333" />
 
     </RelativeLayout>
+
+    <TextView
+        android:text="149 Ilam Road"
+        android:textSize="18sp"
+        android:textColor="#000"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="135dp"
+        android:id="@+id/currentProjectTxt" />
+
+    <Button
+        android:layout_width="130dp"
+        android:layout_height="35dp"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:text="Stop Session"
+        android:textSize="17sp"
+        android:textColor="#ffffff"
+        android:background="@drawable/blue_button"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="130dp"
+        android:id="@+id/stopSessionButton" />
 
 </RelativeLayout>

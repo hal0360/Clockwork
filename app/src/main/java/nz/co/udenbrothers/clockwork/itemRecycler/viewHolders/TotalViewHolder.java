@@ -5,13 +5,11 @@ import android.widget.TextView;
 import nz.co.udenbrothers.clockwork.R;
 import nz.co.udenbrothers.clockwork.dao.ShiftDAO;
 import nz.co.udenbrothers.clockwork.itemRecycler.items.Item;
-import nz.co.udenbrothers.clockwork.tools.Kit;
-import nz.co.udenbrothers.clockwork.tools.Pref;
 import nz.co.udenbrothers.clockwork.tools.ShiftRecord;
 
 public class TotalViewHolder extends ItemHolder {
 
-    private TextView title, yesterday, week, month;;
+    private TextView title, yesterday, week, month;
 
     public TotalViewHolder(View v) {
         super(v);

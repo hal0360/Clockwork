@@ -3,7 +3,6 @@ package nz.co.udenbrothers.clockwork.tools;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -25,21 +24,25 @@ public class RequestTask extends AsyncTask<String,String,Response>
     private ProgressDialog mDialog;
     private String method;
     private String aus;
+    private Boolean blocked;
 
-    public RequestTask(AsynCallback asyn, String meth, String content, String au) {
+    public RequestTask(AsynCallback asyn, String meth, String content, String au, Boolean block) {
         asynCallback = asyn;
         uploadString = content;
         method = meth;
         context = asynCallback.getContex();
         aus = au;
+        blocked = block;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        mDialog = new ProgressDialog(context);
-        mDialog.setMessage("Please wait...");
-        mDialog.show();
+        if(blocked){
+            mDialog = new ProgressDialog(context);
+            mDialog.setMessage("Please wait...");
+            mDialog.show();
+        }
     }
 
     @Override
@@ -49,8 +52,8 @@ public class RequestTask extends AsyncTask<String,String,Response>
 
     @Override
     protected void onPostExecute(Response response) {
-       asynCallback.postCallback(response);
-        mDialog.dismiss();
+        asynCallback.postCallback(response);
+        if(blocked) mDialog.dismiss();
     }
 
     private static Response myHttpConnection(String method, String content, String url, String aus){

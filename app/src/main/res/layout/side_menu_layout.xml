@@ -36,7 +36,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:text="HOME"
             android:textColor="#FFFFFF"
             android:layout_centerVertical="true"
@@ -78,7 +78,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:text="PROFILE"
             android:textColor="#FFFFFF"
             android:layout_centerVertical="true"
@@ -120,7 +120,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:text="HISTORY"
             android:textColor="#FFFFFF"
             android:layout_centerVertical="true"
@@ -162,8 +162,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="EXPORT TO CSV"
+            android:textSize="18sp"
+            android:text="EXPORT CSV"
             android:textColor="#FFFFFF"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/imageViewtt4"
@@ -204,7 +204,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:text="SETTINGS"
             android:textColor="#FFFFFF"
             android:layout_centerVertical="true"
@@ -246,7 +246,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:text="REMOVE ADS"
             android:textColor="#FFFFFF"
             android:layout_centerVertical="true"
@@ -261,48 +261,6 @@
         android:layout_width="0dp"
         android:layout_height="1dp"
         app:layout_marginTopPercent="62%"
-        app:layout_widthPercent="85%"
-        android:layout_centerHorizontal="true"
-        android:background="#FFFFFF" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_heightPercent="10%"
-        app:layout_marginTopPercent="62%"
-        android:background="@drawable/mybutton3"
-        android:id="@+id/upgradeButton">
-
-        <ImageView
-            android:contentDescription="@string/imgDes"
-            android:layout_height="25dp"
-            android:layout_width="25dp"
-            android:src="@drawable/remove_ads_icon"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:id="@+id/imageViewtt7" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="UPGRADE TO BUSSINESS"
-            android:textColor="#FFFFFF"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/imageViewtt7"
-            android:layout_toEndOf="@+id/imageViewtt7"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp" />
-
-    </RelativeLayout>
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        app:layout_marginTopPercent="72%"
         app:layout_widthPercent="85%"
         android:layout_centerHorizontal="true"
         android:background="#FFFFFF" />

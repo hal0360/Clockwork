@@ -14,6 +14,7 @@ import nz.co.udenbrothers.clockwork.global.Type;
 import nz.co.udenbrothers.clockwork.itemRecycler.items.Item;
 import nz.co.udenbrothers.clockwork.itemRecycler.viewHolders.HeaderViewHolder;
 import nz.co.udenbrothers.clockwork.itemRecycler.viewHolders.ItemHolder;
+import nz.co.udenbrothers.clockwork.itemRecycler.viewHolders.NoticeViewHolder;
 import nz.co.udenbrothers.clockwork.itemRecycler.viewHolders.SiteViewHolder;
 import nz.co.udenbrothers.clockwork.itemRecycler.viewHolders.StampViewHolder;
 import nz.co.udenbrothers.clockwork.itemRecycler.viewHolders.TopViewHolder;
@@ -33,6 +34,8 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemHolder>{
         holders.put(Type.TOP, v-> new TopViewHolder(inflate(v, R.layout.top_card_layout)));
         holders.put(Type.SHIFT, v-> new StampViewHolder(inflate(v, R.layout.stamp_card_layout)));
         holders.put(Type.HEADER, v-> new HeaderViewHolder(inflate(v, R.layout.header_card_layout)));
+        holders.put(Type.NOTICE, v-> new NoticeViewHolder(inflate(v, R.layout.notice_card_layout)));
+        holders.put(Type.NOTICE, v-> new NoticeViewHolder(inflate(v, R.layout.site_card_layout)));
     }
 
     @Override
@@ -54,8 +57,9 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemHolder>{
         notifyItemRemoved(index);
     }
 
-    public void update(ArrayList<Item> items){
-        this.items = items;
+    public void update(ArrayList<Item> newItems){
+        items.clear();
+        items.addAll(newItems);
         notifyDataSetChanged();
     }
 

@@ -48,7 +48,7 @@
         android:layout_height="0dp"
         android:background="#ffaf4d"
         app:layout_marginTopPercent="8%"
-        app:layout_heightPercent="23%"
+        app:layout_heightPercent="18%"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
@@ -59,7 +59,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginLeft="40dp"
             android:layout_marginStart="40dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="8dp"
             android:textSize="20sp"
             android:text="NAME"
             android:textStyle="bold"
@@ -76,7 +76,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginLeft="130dp"
             android:layout_marginStart="130dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="8dp"
             android:ellipsize="end"
             android:lines="1"
             android:id="@+id/profileNameTxt" />
@@ -88,7 +88,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginLeft="40dp"
             android:layout_marginStart="40dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="38dp"
             android:textSize="20sp"
             android:text="EMAIL"
             android:textStyle="bold"
@@ -107,7 +107,7 @@
             android:layout_marginStart="130dp"
             android:ellipsize="end"
             android:lines="1"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="38dp"
             android:id="@+id/profileMailTxt" />
 
         <TextView
@@ -117,7 +117,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="95dp"
+            android:layout_marginTop="68dp"
             android:textSize="20sp"
             android:text="COMPANY"
             android:textStyle="bold"
@@ -136,10 +136,27 @@
             android:ellipsize="end"
             android:lines="1"
             android:layout_marginStart="130dp"
-            android:layout_marginTop="95dp"
+            android:layout_marginTop="68dp"
             android:id="@+id/profileComTxt" />
 
     </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        app:layout_marginTopPercent="26.5%"
+        android:textSize="25sp"
+        android:text="NOTIFICATIONS"
+        android:textStyle="bold"
+        android:textColor="#000" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/noticeList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_heightPercent="55.5%"
+        app:layout_marginTopPercent="32.5%"/>
 
     <Button
         android:layout_width="0dp"
@@ -153,8 +170,6 @@
         android:textSize="18sp"
         android:textColor="#ffffff"
         android:background="@drawable/blue_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="130dp"/>
-
+        android:layout_centerHorizontal="true" />
 
 </android.support.percent.PercentRelativeLayout>

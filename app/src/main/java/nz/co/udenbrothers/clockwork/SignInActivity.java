@@ -43,7 +43,7 @@ public class SignInActivity extends MainActivity  implements AsynCallback {
             }
 
             Profile profile = new Profile("N","N",mail,pass);
-            new RequestTask(this,"POST",profile.toJson(),null).execute("https://clockwork-api.azurewebsites.net/v1/authentication/login");
+            new RequestTask(this,"POST",profile.toJson(),null,true).execute("https://clockwork-api.azurewebsites.net/v1/authentication/login");
             pref.putStr("profileEmail",mail);
         });
     }
@@ -54,7 +54,8 @@ public class SignInActivity extends MainActivity  implements AsynCallback {
             alert("Sign in successful");
             LoginInfo loginInfo = LoginInfo.fromJsom(response.content);
             if (loginInfo != null) {
-                pref.putStr("profileName",loginInfo.firstName + " " + loginInfo.lastName);
+                pref.putStr("firstName",loginInfo.firstName);
+                pref.putStr("lastName",loginInfo.lastName);
                 pref.putStr("token",loginInfo.apiToken);
                 pref.putInt("profileRole",1);
                 pref.putStr("userId",loginInfo.userId);
@@ -76,5 +77,10 @@ public class SignInActivity extends MainActivity  implements AsynCallback {
     @Override
     public Context getContex() {
         return this;
+    }
+
+    @Override
+    public void onBackPressed() {
+        toActivity(SignActivity.class);
     }
 }

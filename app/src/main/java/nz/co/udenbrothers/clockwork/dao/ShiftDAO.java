@@ -1,9 +1,13 @@
 package nz.co.udenbrothers.clockwork.dao;
 
 import android.content.Context;
+import android.util.Log;
+
+import com.google.gson.JsonParseException;
 
 import java.util.ArrayList;
 
+import nz.co.udenbrothers.clockwork.models.Project;
 import nz.co.udenbrothers.clockwork.models.Shift;
 
 /**
@@ -34,6 +38,13 @@ public class ShiftDAO extends ModelDAO {
         key.put("shiftTimeEndOnUtc", shift.shiftTimeEndOnUtc);
         key.put("comment", shift.comment);
         shift.id = save();
+    }
+
+    public void addFromJson(String json){
+        try {
+            Shift[] shifts = gson.fromJson(json, Shift[].class);
+            for (Shift shift : shifts) add(shift);
+        } catch (JsonParseException e) { Log.e("Parse",e+""); }
     }
 
     public void update(Shift shift){

@@ -16,4 +16,4 @@
 #   public *;
 #}
 
--dontwarn InnerClasses
+-dontwarn java.lang.invoke.*

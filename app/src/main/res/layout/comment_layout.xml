@@ -5,12 +5,10 @@
     android:background="#ffffff">
 
     <TextView
-        android:text="TextView"
+        android:text="Checking Out"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:paddingLeft="20dp"
-        android:paddingStart="20dp"
-        android:gravity="start|center"
+        android:gravity="center"
         android:textColor="#fff"
         android:layout_alignParentTop="true"
         android:background="#DC143C"

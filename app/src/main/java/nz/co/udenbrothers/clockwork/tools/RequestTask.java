@@ -19,30 +19,24 @@ import nz.co.udenbrothers.clockwork.serverObjects.Response;
 public class RequestTask extends AsyncTask<String,String,Response>
 {
     private AsynCallback asynCallback;
-    private Context context;
     private String uploadString;
-    private ProgressDialog mDialog;
     private String method;
     private String aus;
-    private Boolean blocked;
+    private ProgressDialog progressDialog;
 
-    public RequestTask(AsynCallback asyn, String meth, String content, String au, Boolean block) {
-        asynCallback = asyn;
+    public RequestTask(Context con, String meth, String content, String au) {
         uploadString = content;
         method = meth;
-        context = asynCallback.getContex();
+        asynCallback = (AsynCallback) con;
         aus = au;
-        blocked = block;
+        progressDialog = new ProgressDialog(con);
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        if(blocked){
-            mDialog = new ProgressDialog(context);
-            mDialog.setMessage("Please wait...");
-            mDialog.show();
-        }
+        progressDialog.setMessage("Please wait...");
+        progressDialog.show();
     }
 
     @Override
@@ -52,11 +46,11 @@ public class RequestTask extends AsyncTask<String,String,Response>
 
     @Override
     protected void onPostExecute(Response response) {
+        progressDialog.dismiss();
         asynCallback.postCallback(response);
-        if(blocked) mDialog.dismiss();
     }
 
-    private static Response myHttpConnection(String method, String content, String url, String aus){
+    private Response myHttpConnection(String method, String content, String url, String aus){
         HttpURLConnection urlConnection = null;
         String result = "N/A";
         int statusCode = 900;
@@ -102,6 +96,6 @@ public class RequestTask extends AsyncTask<String,String,Response>
         finally {
             if (urlConnection != null) urlConnection.disconnect();
         }
-        return new Response(result, statusCode);
+        return new Response(result, statusCode, url);
     }
 }

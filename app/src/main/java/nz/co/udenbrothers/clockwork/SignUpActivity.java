@@ -1,7 +1,6 @@
 package nz.co.udenbrothers.clockwork;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.text.Html;
 import android.widget.CheckBox;
@@ -12,6 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import nz.co.udenbrothers.clockwork.abstractions.AsynCallback;
+import nz.co.udenbrothers.clockwork.global.URL;
 import nz.co.udenbrothers.clockwork.serverObjects.Profile;
 import nz.co.udenbrothers.clockwork.serverObjects.Response;
 import nz.co.udenbrothers.clockwork.tools.Kit;
@@ -48,6 +48,7 @@ public class SignUpActivity extends MainActivity implements AsynCallback {
     }
 
     public void postCallback(Response response){
+        unblock();
         if(response.statusCode == 204){
             alert("Sign up successful");
             toActivity(SignInActivity.class);
@@ -61,10 +62,6 @@ public class SignUpActivity extends MainActivity implements AsynCallback {
         }
     }
 
-    @Override
-    public Context getContex() {
-        return this;
-    }
 
     private void createAccount(){
         String fusr = Efname.getText().toString().trim();
@@ -112,11 +109,12 @@ public class SignUpActivity extends MainActivity implements AsynCallback {
         }
 
         Profile profile = new Profile(fusr, lusr, mail, pass);
-        new RequestTask(this,"POST", profile.toJson(), null,true).execute("https://clockwork-api.azurewebsites.net/v1/authentication/create");
+        block("Please wait....");
+        new RequestTask(this,"POST", profile.toJson(), null).execute(URL.SIGNUP);
     }
 
     @Override
     public void onBackPressed() {
-        toActivity(SignActivity.class);
+        toActivity(SignInActivity.class);
     }
 }

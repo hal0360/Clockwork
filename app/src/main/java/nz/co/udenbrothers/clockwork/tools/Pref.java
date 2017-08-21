@@ -40,8 +40,8 @@ public class Pref {
         editor.apply();
     }
 
-    public Boolean getBool(String key){
-        return p.getBoolean(key, false);
+    public Boolean getBool(String key, Boolean def){
+        return p.getBoolean(key, def);
     }
 
     public void clear(String key){

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.HashSet;
 
 public class SqlAccess extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "clockDB";
 
     public SqlAccess(Context context) {
@@ -23,7 +24,7 @@ public class SqlAccess extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {}
 
     public void makeTable(HashSet<String> fields, String table) {
-        final SQLiteDatabase db = getWritableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
         String CREATE_TABLE_NEW = "CREATE TABLE IF NOT EXISTS " + table + " (";
 
         for (String field : fields){
@@ -34,6 +35,12 @@ public class SqlAccess extends SQLiteOpenHelper {
         CREATE_TABLE_NEW = CREATE_TABLE_NEW + ")";
 
         db.execSQL(CREATE_TABLE_NEW);
+        db.close();
+    }
+
+    public void createTable(String sqls) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL(sqls);
         db.close();
     }
 
@@ -64,9 +71,9 @@ public class SqlAccess extends SQLiteOpenHelper {
         db.close();
     }
 
-    public long add(String table, ContentValues cv){
+    public int add(String table, ContentValues cv){
         SQLiteDatabase db = this.getWritableDatabase();
-        long id = db.insert(table, null, cv);
+        int id = (int) db.insert(table, null, cv);
         db.close();
         return id;
     }
@@ -74,13 +81,21 @@ public class SqlAccess extends SQLiteOpenHelper {
     public void get(String table, Cur cur) {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT  * FROM " + table;
-        cur.setup(db.rawQuery(query, null),db);
+        try {
+            cur.setup(db.rawQuery(query, null),db);
+        } catch(SQLiteException e) {
+            cur.setNull();
+        }
     }
 
     public void get(String table, String field, String value, Cur cur) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT  * FROM " + table + " WHERE " + field + "= '" + value + "'";
-        cur.setup(db.rawQuery(query, null),db);
+        String query = "SELECT  * FROM " + table + " WHERE " + field + "= ?";
+        try {
+            cur.setup(db.rawQuery(query, new String[] { value }),db);
+        } catch(SQLiteException e) {
+            cur.setNull();
+        }
     }
 
     public void getByQuery(String query, Cur cur){

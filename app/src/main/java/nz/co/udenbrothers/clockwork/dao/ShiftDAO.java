@@ -63,7 +63,7 @@ public class ShiftDAO extends ModelDAO {
         load();
         while (cur.next()){
             Shift shift = new Shift(cur.getStr("qrCodeIdentifier"),cur.getStr("shiftTimeStartOnUtc"),cur.getStr("shiftTimeEndOnUtc"),cur.getStr("userId"));
-            shift.id = cur.getLong("id");
+            shift.id = cur.getInt("id");
             shift.uploaded = cur.getInt("uploaded");
             shift.comment = cur.getStr("comment");
             shifts.add(shift);
@@ -76,7 +76,7 @@ public class ShiftDAO extends ModelDAO {
         loadBy(ki, val);
         while (cur.next()){
             Shift shift = new Shift(cur.getStr("qrCodeIdentifier"),cur.getStr("shiftTimeStartOnUtc"),cur.getStr("shiftTimeEndOnUtc"),cur.getStr("userId"));
-            shift.id = cur.getLong("id");
+            shift.id = cur.getInt("id");
             shift.uploaded = cur.getInt("uploaded");
             shift.comment = cur.getStr("comment");
             shifts.add(shift);

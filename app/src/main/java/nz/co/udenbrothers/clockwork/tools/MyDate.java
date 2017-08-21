@@ -2,6 +2,7 @@ package nz.co.udenbrothers.clockwork.tools;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -41,5 +42,29 @@ public class MyDate {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
         df.setTimeZone(TimeZone.getDefault());
         return df.format(date);
+    }
+
+    public static String weekDay(){
+        Calendar c = Calendar.getInstance();
+        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+        String weekDay;
+
+        if (Calendar.MONDAY == dayOfWeek) {
+            weekDay = "monday";
+        } else if (Calendar.TUESDAY == dayOfWeek) {
+            weekDay = "tuesday";
+        } else if (Calendar.WEDNESDAY == dayOfWeek ) {
+            weekDay = "wednesday";
+        } else if (Calendar.THURSDAY == dayOfWeek) {
+            weekDay = "thursday";
+        } else if (Calendar.FRIDAY == dayOfWeek) {
+            weekDay = "friday";
+        } else if (Calendar.SATURDAY == dayOfWeek) {
+            weekDay = "saturday";
+        } else  {
+            weekDay = "sunday";
+        }
+
+        return weekDay;
     }
 }

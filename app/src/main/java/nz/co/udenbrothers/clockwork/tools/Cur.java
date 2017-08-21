@@ -1,5 +1,6 @@
 package nz.co.udenbrothers.clockwork.tools;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -8,9 +9,24 @@ public class Cur{
     private Cursor cursor;
     private SQLiteDatabase db;
 
+    public Cur(String table, Context context){
+        SqlAccess sql = new SqlAccess(context);
+        sql.get(table,this);
+    }
+
+    public Cur(String table, Context context,String field, String value){
+        SqlAccess sql = new SqlAccess(context);
+        sql.get(table,field,value,this);
+    }
+
     public void setup(Cursor c, SQLiteDatabase sql){
         cursor = c;
         db = sql;
+    }
+
+    public void setNull(){
+        cursor = null;
+        db = null;
     }
 
     public int getCount(){
@@ -21,8 +37,8 @@ public class Cur{
         return cursor.getInt(cursor.getColumnIndex(field));
     }
 
-    public float getFloat(String field){
-        return cursor.getFloat(cursor.getColumnIndex(field));
+    public double getDouble(String field){
+        return cursor.getDouble(cursor.getColumnIndex(field));
     }
 
     public long getLong(String field){
@@ -40,6 +56,8 @@ public class Cur{
     }
 
     public boolean next() {
-        return cursor.moveToNext() || done();
+
+        return cursor != null && (cursor.moveToNext() || done());
+
     }
 }

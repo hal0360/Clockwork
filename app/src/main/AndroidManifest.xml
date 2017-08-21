@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="com.android.vending.BILLING" />
 
     <supports-screens
         android:anyDensity="true"
@@ -24,17 +25,13 @@
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
+            android:theme="@style/StaffTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".SignActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
         <activity
             android:name=".SignInActivity"
             android:screenOrientation="portrait"
@@ -84,37 +81,52 @@
             android:screenOrientation="portrait"
             android:theme="@style/FloatTheme" />
 
-        <activity
-            android:name=".StaffProjectHistoryActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/StaffTheme" />
-
         <receiver
-            android:name=".Reciever.ClockOutReceiver"
+            android:name=".receiver.ClockOutReceiver"
             android:enabled="true"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="clockWorkClockOut" />
             </intent-filter>
         </receiver>
-
         <receiver
-            android:name=".Reciever.ClockInReceiver"
+            android:name=".receiver.ClockInReceiver"
             android:enabled="true"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="clockWorkClockIn" />
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".Reciever.CheckReceiver"
+            android:name=".receiver.CheckReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name=".UpgradeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".UpgradeBussActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ForgotPassActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".JoinBussActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/StaffTheme" />
+
+        <activity
+            android:screenOrientation="portrait"
+            android:theme="@style/WorkDaysTheme"
+            android:name=".WorkdaysSelectActivity"/>
     </application>
 
 </manifest>

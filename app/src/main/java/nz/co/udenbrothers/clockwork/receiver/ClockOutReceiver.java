@@ -1,4 +1,4 @@
-package nz.co.udenbrothers.clockwork.Reciever;
+package nz.co.udenbrothers.clockwork.receiver;
 
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -13,8 +13,8 @@ import android.support.v4.app.NotificationCompat;
 import java.util.Calendar;
 
 import nz.co.udenbrothers.clockwork.R;
-import nz.co.udenbrothers.clockwork.dao.NoticeDAO;
 import nz.co.udenbrothers.clockwork.models.Notice;
+import nz.co.udenbrothers.clockwork.tools.MyDate;
 import nz.co.udenbrothers.clockwork.tools.Pref;
 
 public class ClockOutReceiver extends BroadcastReceiver {
@@ -23,6 +23,11 @@ public class ClockOutReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+
+        Pref pref = new Pref(context);
+
+        if(!pref.getBool(MyDate.weekDay(),true)) return;
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setContentTitle("Reminder")
                 .setContentText("Don't forget to clock out")
@@ -35,8 +40,11 @@ public class ClockOutReceiver extends BroadcastReceiver {
         notification.defaults |= Notification.DEFAULT_VIBRATE;
         mNotifyMgr.notify(4327, notification);
 
-        NoticeDAO noticeDAO = new NoticeDAO(context);
-        noticeDAO.add(new Notice("Reminder","Don't forget to clock out"));
+
+        if(pref.getBool("notification", true)){
+            Notice notice = new Notice("Reminder","Don't forget to clock out");
+            notice.save(context);
+        }
     }
 
     public void starting(Context context)

@@ -5,7 +5,7 @@
         <item name="android:windowExitAnimation">@anim/fade_out</item>
     </style>
 
-    <style name="AppTheme" parent="Theme.AppCompat">
+    <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
         <item name="android:windowAnimationStyle">@style/MyActivityAnimation</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -13,22 +13,12 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
-    <style name="StaffTheme" parent="Theme.AppCompat">
-        <item name="android:windowAnimationStyle">@style/MyActivityAnimation</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name="StaffTheme" parent="AppTheme">
         <item name="android:statusBarColor" tools:ignore="NewApi">#FF8C00</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
-    <style name="BossTheme" parent="Theme.AppCompat">
-        <item name="android:windowAnimationStyle">@style/MyActivityAnimation</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name="BossTheme" parent="AppTheme">
         <item name="android:statusBarColor" tools:ignore="NewApi">#00BFFF</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
     <style name="MenuAnimation">
@@ -36,14 +26,16 @@
         <item name="android:windowExitAnimation">@anim/slide_out</item>
     </style>
 
-    <style name="MyCustomDialog">
+    <style name="MyMenuDialog" parent="android:Theme.Dialog">
         <item name="android:windowIsFloating">true</item>
         <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowNoTitle">true</item>
         <item name="android:windowAnimationStyle">@style/MenuAnimation</item>
         <item name="android:windowCloseOnTouchOutside" tools:targetApi="honeycomb">true</item>
     </style>
 
-    <style name="FloatTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="FloatTheme" parent="Theme.AppCompat">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowContentOverlay">@null</item>
@@ -51,7 +43,20 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowFullscreen">true</item>
-        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+        <item name="colorControlActivated">#0000FF</item>
+        <item name="colorControlNormal">#0000FF</item>
+        <item name="android:windowCloseOnTouchOutside" tools:targetApi="honeycomb">true</item>
+    </style>
+
+    <style name="TimeDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">#00BFFF</item>
+    </style>
+
+    <style name="WorkDaysTheme" parent="FloatTheme">
+        <item name="colorControlActivated">#FFFFFF</item>
+        <item name="colorControlNormal">#FFFFFF</item>
     </style>
 
 </resources>

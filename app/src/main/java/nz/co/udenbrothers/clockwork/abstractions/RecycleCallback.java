@@ -8,7 +8,7 @@ import android.content.Context;
 
 public interface RecycleCallback {
 
-    public void deleteProject(String name, int pos);
+    public void delete(int pos);
 
     public void forceStop();
 

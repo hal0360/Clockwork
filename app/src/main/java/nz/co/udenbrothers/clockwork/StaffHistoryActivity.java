@@ -1,73 +1,50 @@
 package nz.co.udenbrothers.clockwork;
 
-import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.TextView;
 
-import nz.co.udenbrothers.clockwork.itemRecycler.ItemAdaptor;
+import nz.co.udenbrothers.clockwork.itemRecycler.CollectionView;
 import nz.co.udenbrothers.clockwork.itemRecycler.itemFactories.HistoryItemMaker;
-import nz.co.udenbrothers.clockwork.tools.Kit;
+import nz.co.udenbrothers.clockwork.tools.Choser;
 
 
-public class StaffHistoryActivity extends StaffActivity {
+public class StaffHistoryActivity extends StaffActivity{
 
-    private ItemAdaptor itemAdaptor;
     private HistoryItemMaker itemMaker;
-    private RecyclerView recyclerView;
+    private CollectionView collectionView;
     private TextView totalHM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_staff_history);
-
         clicked(R.id.imageHam, this::showMenu);
 
+        collectionView = (CollectionView) findViewById(R.id.stampList);
         itemMaker = new HistoryItemMaker(this);
-        itemAdaptor = new ItemAdaptor(itemMaker.fetch(0));
-        recyclerView = (RecyclerView) findViewById(R.id.stampList);
-        Kit.recyclerSetup(this,recyclerView, itemAdaptor);
+
+        String ProName = pref.getStr("selectedProjectName");
+        if(ProName.equals("")){
+            collectionView.init(itemMaker.fetch(0));
+        }
+        else{
+            TextView ttxt = (TextView)  findViewById(R.id.detailTitle);
+            ttxt.setText(ProName);
+            collectionView.init(itemMaker.fetchBy("qrCodeIdentifier", ProName, 0));
+            pref.putStr("selectedProjectName","");
+        }
 
         totalHM = (TextView) findViewById(R.id.totalStampHourTxt);
         totalHM.setText(itemMaker.getTotal(0));
 
-        Button timeButt = (Button) findViewById(R.id.timeSelectButton);
-        Dialog dialog = Kit.getDialog(this, R.layout.time_select_layout);
-        Window window = dialog.getWindow();
-        assert window != null;
-        window.setGravity(Gravity.TOP | Gravity.CENTER);
-        clicked(timeButt, dialog::show);
-        Button allButt = (Button) dialog.findViewById(R.id.allTimeButton);
-        Button weekButt = (Button) dialog.findViewById(R.id.thisWeekButton);
-        Button monButt = (Button) dialog.findViewById(R.id.thisMonthButton);
-        Button yearButt = (Button) dialog.findViewById(R.id.thisYearButton);
-        clicked(allButt, ()-> {
-            timeButt.setText("ALL TIME");
-            dialog.dismiss();
-        });
-        clicked(monButt, ()->  {
-            timeButt.setText("THIS MONTH");
-            dialog.dismiss();
-        });
-        clicked(weekButt, ()->  {
-            timeButt.setText("THIS WEEK");
-            dialog.dismiss();
-        });
-        clicked(yearButt, ()->  {
-            timeButt.setText("THIS YEAR");
-            dialog.dismiss();
+        String[] categories = {"ALL TIME","THIS YEAR","THIS MONTH","THIS WEEK"};
+        Choser spinner = (Choser) findViewById(R.id.timeSelectButton);
+        spinner.init(categories, R.layout.time_select_spinner_item);
+        spinner.selected(i -> {
+            alert(categories[i]);
         });
 
         clicked(R.id.exportDataButton,()-> pushActivity(StaffExportActivity.class));
     }
 
-    private void refresh(int days){
-        itemAdaptor.update(itemMaker.fetch(days));
-        recyclerView.scrollToPosition(0);
-    }
 }

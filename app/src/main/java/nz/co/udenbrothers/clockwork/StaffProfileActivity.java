@@ -4,8 +4,9 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
-import nz.co.udenbrothers.clockwork.itemRecycler.ItemAdaptor;
-import nz.co.udenbrothers.clockwork.itemRecycler.itemFactories.NoticeItemMaker;
+import nz.co.udenbrothers.clockwork.global.Type;
+import nz.co.udenbrothers.clockwork.itemRecycler.itemFactories.ItemMaker;
+import nz.co.udenbrothers.clockwork.models.Notice;
 import nz.co.udenbrothers.clockwork.tools.Kit;
 
 public class StaffProfileActivity extends StaffActivity {
@@ -31,10 +32,11 @@ public class StaffProfileActivity extends StaffActivity {
 
         clicked(R.id.editProfileButton,() -> pushActivity(StaffEditProfileActivity.class));
 
-        NoticeItemMaker noticeItemMaker = new NoticeItemMaker(this);
-        ItemAdaptor itemAdaptor = new ItemAdaptor(noticeItemMaker.fetch());
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.noticeList);
-        Kit.recyclerSetup(this,recyclerView, itemAdaptor);
+        ItemMaker itemMaker = new ItemMaker(this);
+
+       // ItemAdaptor itemAdaptor = new ItemAdaptor(itemMaker.toItems(Notice.get(this), Type.NOTICE));
+       // RecyclerView recyclerView = (RecyclerView) findViewById(R.id.noticeList);
+       // Kit.recyclerSetup(this,recyclerView, itemAdaptor);
 
     }
 }

@@ -15,10 +15,10 @@ public class ShiftRecord {
 
     private ArrayList<ShiftItem> shiftItems;
 
-    public ShiftRecord(Context context, ArrayList<Shift> shifts){
+    public ShiftRecord( ArrayList<Shift> shifts){
         shiftItems = new ArrayList<>();
         for (Shift shift : shifts){
-            ShiftItem shiftItem = new ShiftItem(shift,context);
+            ShiftItem shiftItem = new ShiftItem(shift);
             shiftItem.startDate = MyDate.strToDate(shift.shiftTimeStartOnUtc);
             shiftItem.endDate = MyDate.strToDate(shift.shiftTimeEndOnUtc);
             shiftItems.add(shiftItem);

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="190dp"
+    android:layout_height="398dp"
+    tools:context="nz.co.udenbrothers.clockwork.WorkdaysSelectActivity"
+    android:background="#00BFFF">
+
+    <CheckBox
+        android:text="MONDAY"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingLeft="10dp"
+        android:paddingStart="10dp"
+        android:textSize="22sp"
+        android:id="@+id/checkMon" />
+
+    <CheckBox
+        android:text="TUESDAY"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/checkMon"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingLeft="10dp"
+        android:paddingStart="10dp"
+        android:textSize="22sp"
+        android:id="@+id/checkTue" />
+
+    <CheckBox
+        android:text="WEDNESDAY"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/checkTue"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingLeft="10dp"
+        android:paddingStart="10dp"
+        android:textSize="22sp"
+        android:id="@+id/checkWed" />
+
+    <CheckBox
+        android:text="THURSDAY"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/checkWed"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingLeft="10dp"
+        android:paddingStart="10dp"
+        android:textSize="22sp"
+        android:id="@+id/checkThu" />
+
+    <CheckBox
+        android:text="FRIDAY"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/checkThu"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingLeft="10dp"
+        android:paddingStart="10dp"
+        android:textSize="22sp"
+        android:id="@+id/checkFri" />
+
+    <CheckBox
+        android:text="SATURDAY"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/checkFri"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingLeft="10dp"
+        android:paddingStart="10dp"
+        android:textSize="22sp"
+        android:id="@+id/checkSat" />
+
+    <CheckBox
+        android:text="SUNDAY"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/checkSat"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingLeft="10dp"
+        android:paddingStart="10dp"
+        android:textSize="22sp"
+        android:id="@+id/checkSun" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/comButton"
+        android:layout_below="@+id/checkSun"
+        android:textSize="20sp"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:text="COMFRIM"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/white_border_button"/>
+
+</RelativeLayout>

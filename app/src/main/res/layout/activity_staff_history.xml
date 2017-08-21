@@ -43,17 +43,13 @@
 
     </RelativeLayout>
 
-    <Button
+    <nz.co.udenbrothers.clockwork.tools.Choser
         android:layout_width="0dp"
         app:layout_widthPercent="90%"
         android:layout_height="0dp"
         app:layout_heightPercent="8%"
         app:layout_marginTopPercent="9.5%"
-        style="@style/Base.Widget.AppCompat.Button.Borderless"
-        android:text="ALL TIME"
         android:id="@+id/timeSelectButton"
-        android:textSize="25sp"
-        android:textColor="#FF8C00"
         android:background="@drawable/white_button"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="130dp" />
@@ -68,7 +64,7 @@
         app:layout_heightPercent="69%"
         android:id="@+id/relativeLayout">
 
-        <android.support.v7.widget.RecyclerView
+        <nz.co.udenbrothers.clockwork.itemRecycler.CollectionView
             android:id="@+id/stampList"
             android:layout_width="match_parent"
             android:layout_height="250dp"

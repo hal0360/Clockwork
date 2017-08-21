@@ -41,7 +41,7 @@ public class UserDAO extends ModelDAO {
         while (cur.next()){
             User user = new User(cur.getStr("userId"), cur.getStr("firstName"), cur.getStr("lastName"), cur.getStr("email"));
             user.active = cur.getInt("active");
-            user.id = cur.getLong("id");
+            user.id = cur.getInt("id");
             users.add(user);
         }
         return users;
@@ -53,7 +53,7 @@ public class UserDAO extends ModelDAO {
         while (cur.next()){
             User user = new User(cur.getStr("userId"), cur.getStr("firstName"), cur.getStr("lastName"), cur.getStr("email"));
             user.active = cur.getInt("active");
-            user.id = cur.getLong("id");
+            user.id = cur.getInt("id");
             users.add(user);
         }
         return users;

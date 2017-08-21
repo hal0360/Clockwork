@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/card"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="75dp"
-    android:background="@drawable/orange_button"
-    android:layout_marginEnd="15dp"
-    android:layout_marginRight="15dp"
-    android:layout_marginStart="15dp"
-    android:layout_marginLeft="15dp"
-    android:layout_marginTop="6dp"
-    android:layout_marginBottom="6dp">
+    android:layout_height="80dp"
+    android:layout_marginEnd="13dp"
+    android:layout_marginRight="13dp"
+    android:layout_marginStart="13dp"
+    android:layout_marginLeft="13dp"
+    android:layout_marginTop="3dp"
+    android:background="@android:drawable/dialog_holo_light_frame"
+    android:layout_marginBottom="3dp"
+    tools:ignore="NewApi">
+
+    <RelativeLayout
+        android:id="@+id/card"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
 
     <TextView
         android:text="sdsdsdsdsdsdsd"
@@ -21,21 +27,20 @@
         android:layout_alignParentStart="true"
         android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="6dp"
-        android:textSize="25sp"
-        android:textColor="#fff"
+        android:layout_marginTop="3dp"
+        android:textSize="24sp"
+        android:textColor="#ffaf4d"
         android:id="@+id/title" />
 
     <TextView
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/title"
-        android:layout_alignLeft="@+id/title"
-        android:layout_alignStart="@+id/title"
-        android:layout_marginTop="4dp"
-        android:textSize="20sp"
-        android:textColor="#fff"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="37dp"
+        android:textSize="18sp"
+        android:textColor="#000"
         android:id="@+id/message" />
 
 

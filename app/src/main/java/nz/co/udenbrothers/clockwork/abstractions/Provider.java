@@ -2,6 +2,7 @@ package nz.co.udenbrothers.clockwork.abstractions;
 
 import android.view.ViewGroup;
 
+import nz.co.udenbrothers.clockwork.itemRecycler.CollectionView;
 import nz.co.udenbrothers.clockwork.itemRecycler.viewHolders.ItemHolder;
 
 /**
@@ -10,5 +11,5 @@ import nz.co.udenbrothers.clockwork.itemRecycler.viewHolders.ItemHolder;
 
 public interface Provider {
 
-    public ItemHolder getHolder(ViewGroup v);
+    public ItemHolder getHolder(CollectionView v);
 }

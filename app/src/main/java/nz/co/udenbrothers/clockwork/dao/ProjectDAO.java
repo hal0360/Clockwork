@@ -50,7 +50,7 @@ public class ProjectDAO extends ModelDAO {
         load();
         while (cur.next()){
             Project project = new Project(cur.getStr("qrCodeIdentifier"));
-            project.id = cur.getLong("id");
+            project.id = cur.getInt("id");
             project.businessId = cur.getStr("businessId");
             project.companyName = cur.getStr("companyName");
             projects.add(project);

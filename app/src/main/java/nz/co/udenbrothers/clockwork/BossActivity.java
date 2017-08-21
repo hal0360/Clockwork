@@ -18,7 +18,7 @@ public abstract class BossActivity extends MainActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        sideMenu = new Dialog(this, R.style.MyCustomDialog);
+        sideMenu = new Dialog(this, R.style.MyMenuDialog);
         sideMenu.requestWindowFeature(Window.FEATURE_NO_TITLE);
         sideMenu.setContentView(R.layout.side_menu_layout_boss);
         clicked(sideMenu.findViewById(R.id.homeButton), ()-> navigate(BossHomeActivity.class));
@@ -34,7 +34,7 @@ public abstract class BossActivity extends MainActivity{
     protected final void logout(){
         pref.putStr("profileName","");
         pref.putInt("profileRole",0);
-        toActivity(SplashActivity.class);
+        navigate(SplashActivity.class);
     }
 
     protected void navigate(Class actClass){
@@ -47,6 +47,14 @@ public abstract class BossActivity extends MainActivity{
             sideMenu.dismiss();
         }
         this.finish();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        if(pref.getInt("profileRole") != 2){
+            navigate(SplashActivity.class);
+        }
     }
 
     protected final void showMenu(){

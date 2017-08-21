@@ -16,7 +16,7 @@ public abstract class ModelDAO {
     protected final ContentValues key = new ContentValues();
     protected String table = "";
     private HashSet<String> fields = new HashSet<>();
-    protected final Cur cur = new Cur();
+    protected final Cur cur;
     protected Gson gson;
 
     protected abstract void init();
@@ -27,6 +27,7 @@ public abstract class ModelDAO {
         fields.add("id integer primary key");
         init();
         sql.makeTable(fields, table);
+        cur = new Cur(table,context);
     }
 
     protected final void field(String name, String type){
@@ -51,11 +52,9 @@ public abstract class ModelDAO {
         }
     }
 
-    protected final long save(){
-        long id = sql.add(table, key);
+    protected final int save(){
+        int id = sql.add(table, key);
         key.clear();
-
-
         return id;
     }
 

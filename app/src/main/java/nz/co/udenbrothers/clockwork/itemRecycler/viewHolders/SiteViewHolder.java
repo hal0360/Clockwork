@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import nz.co.udenbrothers.clockwork.R;
-import nz.co.udenbrothers.clockwork.abstractions.RecycleCallback;
-import nz.co.udenbrothers.clockwork.dao.ShiftDAO;
+import nz.co.udenbrothers.clockwork.StaffActivity;
+import nz.co.udenbrothers.clockwork.StaffHistoryActivity;
+import nz.co.udenbrothers.clockwork.itemRecycler.CollectionView;
 import nz.co.udenbrothers.clockwork.itemRecycler.items.Item;
-import nz.co.udenbrothers.clockwork.itemRecycler.items.ProjectItem;
 import nz.co.udenbrothers.clockwork.models.Project;
 import nz.co.udenbrothers.clockwork.models.Shift;
 import nz.co.udenbrothers.clockwork.tools.Kit;
@@ -23,21 +23,16 @@ public class SiteViewHolder extends ItemHolder{
     private boolean isViewExpanded = false;
     private TextView title, yesterday, week, month, records;
     private View activeDot;
-    private RecycleCallback recycleCallback;
-    private String projectName;
 
-    public SiteViewHolder(View v) {
-        super(v);
-        title =  (TextView) v.findViewById(R.id.cardTitle);
-        yesterday =  (TextView) v.findViewById(R.id.yesterdayHour);
-        week =  (TextView) v.findViewById(R.id.weekHour);
-        month =  (TextView) v.findViewById(R.id.monthHour);
-        records =  (TextView) v.findViewById(R.id.recordTxt);
-        activeDot = v.findViewById(R.id.activeDot);
+    public SiteViewHolder(CollectionView cv) {
+        super(cv, R.layout.site_card_layout);
 
-        clicked(v.findViewById(R.id.moreInfoButton), ()-> recycleCallback.moreInfo(projectName));
-
-        clicked(v.findViewById(R.id.deleteButton), () -> recycleCallback.deleteProject(projectName, getAdapterPosition()));
+        title =  (TextView) findView(R.id.cardTitle);
+        yesterday =  (TextView) findView(R.id.yesterdayHour);
+        week =  (TextView) findView(R.id.weekHour);
+        month =  (TextView) findView(R.id.monthHour);
+        records =  (TextView) findView(R.id.recordTxt);
+        activeDot = findView(R.id.activeDot);
 
         clicked(card, ()->{
             if(isViewExpanded){
@@ -51,15 +46,13 @@ public class SiteViewHolder extends ItemHolder{
         });
     }
 
+    @Override
     public void init(Item item){
-        ProjectItem projectItem = (ProjectItem) item;
-        Project project = projectItem.project;
-        recycleCallback = (RecycleCallback) projectItem.context;
+        Project project = (Project) item.model;
+        StaffActivity staffActivity = (StaffActivity) context;
         setHeight(Kit.dps(120));
         title.setText(project.qrCodeIdentifier);
-        projectName = project.qrCodeIdentifier;
-        ShiftDAO shiftDAO = new ShiftDAO(projectItem.context);
-        ArrayList<Shift> shifts = shiftDAO.getBy("qrCodeIdentifier",project.qrCodeIdentifier);
+        ArrayList<Shift> shifts = Shift.get(context, "qrCodeIdentifier", project.qrCodeIdentifier);
         int counts = shifts.size();
         if(counts > 0){
             Date startdate = MyDate.strToDate(shifts.get(counts - 1).shiftTimeStartOnUtc);
@@ -69,12 +62,25 @@ public class SiteViewHolder extends ItemHolder{
             month.setText(MyDate.gethourMin(endDate.getTime() - startdate.getTime()));
         }
         records.setText(counts + " records in this project");
-        Pref pref = new Pref(projectItem.context);
+        Pref pref = new Pref(context);
         if(pref.getStr("currentProject").equals(project.qrCodeIdentifier)){
             activeDot.setBackgroundResource( R.drawable.green_dot );
         }
         else {
             activeDot.setBackgroundResource( R.drawable.red_dot );
         }
+
+        clicked(R.id.moreInfoButton, () -> {
+            pref.putStr("selectedProjectName", project.qrCodeIdentifier);
+            staffActivity.navigate(StaffHistoryActivity.class);
+        });
+
+        clicked(R.id.deleteButton, () -> {
+            project.delete(context);
+            delete();
+        });
     }
+
+    @Override
+    public void cleanUp() {}
 }

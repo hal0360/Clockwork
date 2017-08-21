@@ -1,5 +1,7 @@
 package nz.co.udenbrothers.clockwork.itemRecycler.viewHolders;
 
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -7,6 +9,7 @@ import android.widget.TextView;
 import java.util.Date;
 
 import nz.co.udenbrothers.clockwork.R;
+import nz.co.udenbrothers.clockwork.itemRecycler.CollectionView;
 import nz.co.udenbrothers.clockwork.itemRecycler.items.Item;
 import nz.co.udenbrothers.clockwork.itemRecycler.items.ShiftItem;
 import nz.co.udenbrothers.clockwork.models.Shift;
@@ -22,17 +25,19 @@ public class StampViewHolder extends ItemHolder{
     private boolean isViewExpanded = false;
     private TextView startTimeTxt ,endTimeTxt, workedTimeTxt, siteNameTxt, commentTxt;
 
-    public StampViewHolder(View v) {
-        super(v);
-        commentDot = v.findViewById(R.id.commentDot);
-        commentCircle = (RelativeLayout) v.findViewById(R.id.commentCircle);
-        siteNameTxt = (TextView) v.findViewById(R.id.siteNameTxt);
-        endTimeTxt = (TextView) v.findViewById(R.id.endTimeTxt);
-        workedTimeTxt = (TextView) v.findViewById(R.id.workedHourTxt);
-        startTimeTxt = (TextView) v.findViewById(R.id.startTimeTxt);
-        commentTxt = (TextView) v.findViewById(R.id.commentTxt);
+    public StampViewHolder(CollectionView cv) {
+        super(cv, R.layout.stamp_card_layout);
+
+        commentDot = findView(R.id.commentDot);
+        commentCircle = (RelativeLayout) findView(R.id.commentCircle);
+        siteNameTxt = (TextView) findView(R.id.siteNameTxt);
+        endTimeTxt = (TextView) findView(R.id.endTimeTxt);
+        workedTimeTxt = (TextView) findView(R.id.workedHourTxt);
+        startTimeTxt = (TextView) findView(R.id.startTimeTxt);
+        commentTxt = (TextView) findView(R.id.commentTxt);
     }
 
+    @Override
     public void init(Item item) {
         ShiftItem shiftItem = (ShiftItem) item;
         Shift shift = shiftItem.shift;
@@ -43,6 +48,19 @@ public class StampViewHolder extends ItemHolder{
         endTimeTxt.setText(MyDate.dateToStr(endDate, "HH:mm"));
 
         workedTimeTxt.setText(MyDate.gethourMin(endDate.getTime() - startdate.getTime()));
+
+
+        if(shift.stopped == 1){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                commentCircle.setBackground(ContextCompat.getDrawable(context, R.drawable.red_circle));
+                commentDot.setBackground(ContextCompat.getDrawable(context, R.drawable.red_dot));
+            }
+            else {
+                commentCircle.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.red_circle));
+                commentDot.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.red_dot));
+            }
+        }
+
 
         commentTxt.setText(shift.comment);
         card.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
@@ -73,4 +91,7 @@ public class StampViewHolder extends ItemHolder{
             }
         });
     }
+
+    @Override
+    public void cleanUp() {}
 }

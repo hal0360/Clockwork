@@ -1,9 +1,9 @@
 package nz.co.udenbrothers.clockwork.itemRecycler.viewHolders;
 
-import android.view.View;
 import android.widget.TextView;
 
 import nz.co.udenbrothers.clockwork.R;
+import nz.co.udenbrothers.clockwork.itemRecycler.CollectionView;
 import nz.co.udenbrothers.clockwork.itemRecycler.items.HeaderItem;
 import nz.co.udenbrothers.clockwork.itemRecycler.items.Item;
 import nz.co.udenbrothers.clockwork.tools.MyDate;
@@ -20,9 +20,13 @@ public class HeaderViewHolder extends ItemHolder {
         totalhour.setText(MyDate.gethourMin(headerItem.total));
     }
 
-    public HeaderViewHolder(View v) {
-        super(v);
-        dateHeader = (TextView) v.findViewById(R.id.dateHeader);
-        totalhour = (TextView) v.findViewById(R.id.totalHourMin);
+    public HeaderViewHolder(CollectionView cv) {
+        super(cv, R.layout.header_card_layout);
+
+        dateHeader = (TextView) findView(R.id.dateHeader);
+        totalhour = (TextView) findView(R.id.totalHourMin);
     }
+
+    @Override
+    public void cleanUp() {}
 }

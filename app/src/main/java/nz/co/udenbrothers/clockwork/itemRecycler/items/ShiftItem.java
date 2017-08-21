@@ -1,6 +1,5 @@
 package nz.co.udenbrothers.clockwork.itemRecycler.items;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 
 import java.util.Date;
@@ -10,12 +9,13 @@ import nz.co.udenbrothers.clockwork.models.Shift;
 
 
 public class ShiftItem extends Item  implements Comparable<ShiftItem>{
+
     public Shift shift;
     public Date startDate;
     public Date endDate;
 
-    public ShiftItem(Shift shift, Context context) {
-        super(Type.SHIFT, context);
+    public ShiftItem(Shift shift) {
+        super(Type.SHIFT);
         this.shift = shift;
     }
 

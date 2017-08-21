@@ -5,14 +5,6 @@
     android:layout_height="match_parent"
     android:background="#00BFFF">
 
-    <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        app:layout_marginTopPercent="2%"
-        app:layout_widthPercent="85%"
-        android:layout_centerHorizontal="true"
-        android:background="#FFFFFF" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -37,6 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
+            android:textStyle="bold"
             android:text="PROJECTS"
             android:textColor="#FFFFFF"
             android:layout_centerVertical="true"
@@ -46,14 +39,6 @@
             android:layout_marginStart="20dp" />
 
     </RelativeLayout>
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        app:layout_marginTopPercent="12%"
-        app:layout_widthPercent="85%"
-        android:layout_centerHorizontal="true"
-        android:background="#FFFFFF" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -79,6 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
+            android:textStyle="bold"
             android:text="PROFILE"
             android:textColor="#FFFFFF"
             android:layout_centerVertical="true"
@@ -88,14 +74,6 @@
             android:layout_marginStart="20dp" />
 
     </RelativeLayout>
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        app:layout_marginTopPercent="22%"
-        app:layout_widthPercent="85%"
-        android:layout_centerHorizontal="true"
-        android:background="#FFFFFF" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -121,6 +99,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
+            android:textStyle="bold"
             android:text="MY TEAM"
             android:textColor="#FFFFFF"
             android:layout_centerVertical="true"
@@ -130,14 +109,6 @@
             android:layout_marginStart="20dp" />
 
     </RelativeLayout>
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        app:layout_marginTopPercent="32%"
-        app:layout_widthPercent="85%"
-        android:layout_centerHorizontal="true"
-        android:background="#FFFFFF" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -163,7 +134,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:text="EXPORT TO CSV"
+            android:textStyle="bold"
+            android:text="EXPORT CSV"
             android:textColor="#FFFFFF"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/imageViewtt4"
@@ -172,14 +144,6 @@
             android:layout_marginStart="20dp" />
 
     </RelativeLayout>
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        app:layout_marginTopPercent="42%"
-        app:layout_widthPercent="85%"
-        android:layout_centerHorizontal="true"
-        android:background="#FFFFFF" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -205,6 +169,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
+            android:textStyle="bold"
             android:text="SETTINGS"
             android:textColor="#FFFFFF"
             android:layout_centerVertical="true"
@@ -215,14 +180,6 @@
 
     </RelativeLayout>
 
-    <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        app:layout_marginTopPercent="52%"
-        app:layout_widthPercent="85%"
-        android:layout_centerHorizontal="true"
-        android:background="#FFFFFF" />
-
     <Button
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -231,7 +188,7 @@
         app:layout_marginTopPercent="90%"
         android:layout_centerHorizontal="true"
         android:id="@+id/logoutButton"
-        android:textSize="17sp"
+        android:textSize="20sp"
         android:text="LOGOUT"
         android:textColor="#FFFFFF"
         android:background="@drawable/white_border_button"/>

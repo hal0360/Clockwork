@@ -1,20 +1,16 @@
 package nz.co.udenbrothers.clockwork;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +25,7 @@ public abstract class MainActivity extends AppCompatActivity implements View.OnC
     private SparseArray<Cmd> cmds = new SparseArray<>();
     protected Gson gson;
     private float startingY;
+    private ProgressDialog progressDialog;
     private InputMethodManager imm;
 
     @Override
@@ -37,10 +34,30 @@ public abstract class MainActivity extends AppCompatActivity implements View.OnC
         pref = new Pref(this);
         gson = new Gson();
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        progressDialog = new ProgressDialog(this);
+    }
+
+    protected final void block(String msg){
+        progressDialog.setMessage(msg);
+        progressDialog.show();
+    }
+
+    protected final void unblock() {
+        progressDialog.dismiss();
     }
 
     protected final void toActivity(Class actClass){
         Intent intent = new Intent(this, actClass);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
+        }
+        startActivity(intent);
+        this.finish();
+    }
+
+    protected final void toActivity(Class actClass, String val){
+        Intent intent = new Intent(this, actClass);
+        intent.putExtra("selected", val);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
         }

@@ -93,7 +93,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:text="YOUR DAY TODAY"
-            android:textSize="20sp"
+            android:textSize="19sp"
             android:textColor="#ffffff"
             android:ellipsize="end"
             android:lines="1"
@@ -113,33 +113,16 @@
 
     </RelativeLayout>
 
-    <TextView
-        android:text="149 Ilam Road"
-        android:textSize="18sp"
-        android:textColor="#000"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="15dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="135dp"
-        android:id="@+id/currentProjectTxt" />
-
     <Button
-        android:layout_width="130dp"
+        android:layout_width="240dp"
         android:layout_height="35dp"
         style="@style/Base.Widget.AppCompat.Button.Borderless"
-        android:text="Stop Session"
+        android:text="MANUALLY END ACTIVITY"
         android:textSize="17sp"
         android:textColor="#ffffff"
-        android:background="@drawable/blue_button"
+        android:background="@drawable/red_button"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="15dp"
-        android:layout_marginEnd="15dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="130dp"
         android:id="@+id/stopSessionButton" />
 

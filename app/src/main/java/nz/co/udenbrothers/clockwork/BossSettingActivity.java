@@ -1,13 +1,72 @@
 package nz.co.udenbrothers.clockwork;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.TimePickerDialog;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.os.Bundle;
+import android.widget.Switch;
+import android.widget.TextView;
 
-public class BossSettingActivity extends AppCompatActivity {
+import nz.co.udenbrothers.clockwork.receiver.ClockInReceiver;
+import nz.co.udenbrothers.clockwork.receiver.ClockOutReceiver;
 
+public class BossSettingActivity extends BossActivity {
+
+    @RequiresApi(api = Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_boss_setting);
+        setContentView(R.layout.activity_staff_setting);
+
+        clicked(R.id.imageHam, this::showMenu);
+
+        Switch COswitch = (Switch) findViewById(R.id.clockOutSwitch);
+        TextView COtxt = (TextView) findViewById(R.id.clockOutTxt);
+        Switch CIswitch = (Switch) findViewById(R.id.clockInSwitch);
+        TextView CItxt = (TextView) findViewById(R.id.clockInTxt);
+        ClockInReceiver clockInReceiver = new ClockInReceiver();
+        ClockOutReceiver clockOutReceiver = new ClockOutReceiver();
+
+        if(pref.getBool("clockOut",true)){
+            COtxt.setText(pref.getInt("COhour") + ":" + pref.getInt("COmin"));
+            COswitch.setChecked(true);
+        }
+
+        if(pref.getBool("clockIn",true)){
+            CItxt.setText(pref.getInt("CIhour") + ":" + pref.getInt("CImin"));
+            CIswitch.setChecked(true);
+        }
+
+        clicked(COswitch, () -> {
+            if(!COswitch.isChecked()){
+                clockOutReceiver.cancelling(this);
+                pref.putBool("clockOut",false);
+                return;
+            }
+            pref.putBool("clockOut",true);
+            clockOutReceiver.starting(this);
+            new TimePickerDialog(this, (timePicker, selectedHour, selectedMinute) -> {
+                COtxt.setText(selectedHour + ":" + selectedMinute);
+                pref.putInt("COhour", selectedHour);
+                pref.putInt("COmin", selectedMinute);
+                clockOutReceiver.starting(this);
+            }, pref.getInt("COhour"), pref.getInt("COmin"), true).show();
+        });
+
+        clicked(CIswitch, () -> {
+            if(!CIswitch.isChecked()){
+                pref.putBool("clockIn",false);
+                clockInReceiver.cancelling(this);
+                return;
+            }
+            pref.putBool("clockIn",true);
+            clockInReceiver.starting(this);
+            new TimePickerDialog(this, (timePicker, selectedHour, selectedMinute) -> {
+                CItxt.setText(selectedHour + ":" + selectedMinute);
+                pref.putInt("CIhour", selectedHour);
+                pref.putInt("CImin", selectedMinute);
+                clockInReceiver.starting(this);
+            }, pref.getInt("CIhour"), pref.getInt("CImin"), true).show();
+        });
     }
 }

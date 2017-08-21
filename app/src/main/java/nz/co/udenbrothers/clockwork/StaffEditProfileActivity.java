@@ -17,5 +17,7 @@ public class StaffEditProfileActivity extends MainActivity {
         editFname.setText(pref.getStr("firstName"));
         editLname.setText(pref.getStr("lastName"));
         editMail.setText(pref.getStr("profileEmail"));
+
+        clicked(R.id.addCompButton,()-> pushActivity(JoinBussActivity.class));
     }
 }

@@ -7,5 +7,4 @@ import nz.co.udenbrothers.clockwork.serverObjects.Response;
 
 public interface AsynCallback {
     public void postCallback(Response response);
-    public Context getContex();
 }

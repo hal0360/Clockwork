@@ -44,11 +44,12 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/relativeLayout3"
+        android:background="@drawable/orange_tab"
+        android:id="@+id/wifiTab"
         android:layout_width="match_parent"
-        app:layout_heightPercent="7%"
+        app:layout_heightPercent="9%"
         android:layout_below="@+id/relativeLayout2"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="15dp">
 
         <TextView
             android:text="Download on WIFI Only"
@@ -56,32 +57,33 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="10dp"
             android:textColor="#000"
             android:textSize="18sp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
             android:layout_centerVertical="true"
             android:id="@+id/textView4" />
 
-        <Switch
+        <android.support.v7.widget.SwitchCompat
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginRight="10dp"
-            android:layout_marginEnd="10dp"
-            android:id="@+id/switch1"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
+            android:id="@+id/wifiSwitch"
             tools:ignore="NewApi" />
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/relativeLayout4"
+        android:background="@drawable/orange_tab"
+        android:id="@+id/notiTab"
         android:layout_width="match_parent"
-        app:layout_heightPercent="7%"
-        android:layout_below="@+id/relativeLayout3"
-        android:layout_marginTop="30dp">
+        app:layout_heightPercent="9%"
+        android:layout_below="@+id/wifiTab"
+        android:layout_marginTop="5dp">
 
         <TextView
             android:text="Notifications"
@@ -89,30 +91,98 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:textColor="#000"
             android:textSize="18sp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="20dp"
             android:layout_centerVertical="true" />
 
-        <Switch
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/notificationSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginRight="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
             tools:ignore="NewApi" />
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/relativeLayout6"
+        android:background="@drawable/orange_tab"
+        android:id="@+id/wedgeTab"
         android:layout_width="match_parent"
         app:layout_heightPercent="9%"
-        android:layout_below="@+id/relativeLayout5"
-        android:layout_marginTop="30dp">
+        android:layout_below="@+id/notiTab"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:text="Launch wedge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="20dp"
+            android:textColor="#000"
+            android:textSize="18sp"
+            android:layout_marginStart="20dp"
+            android:layout_centerVertical="true" />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/wedgeSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
+            tools:ignore="NewApi" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:background="@drawable/orange_tab"
+        android:id="@+id/reminderTab"
+        android:layout_width="match_parent"
+        app:layout_heightPercent="9%"
+        android:layout_below="@+id/wedgeTab"
+        android:layout_marginTop="35dp">
+
+        <TextView
+            android:text="Reminder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="20dp"
+            android:textColor="#000"
+            android:textSize="18sp"
+            android:layout_marginStart="20dp"
+            android:layout_centerVertical="true" />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/reminderSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
+            tools:ignore="NewApi" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:background="@drawable/orange_tab"
+        android:id="@+id/clockOutTab"
+        android:layout_width="match_parent"
+        app:layout_heightPercent="9%"
+        android:layout_below="@+id/clockInTab"
+        android:layout_marginTop="5dp">
 
         <TextView
             android:text="Set Clock-out Reminder"
@@ -120,44 +190,34 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:textColor="#000"
             android:textSize="18sp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="20dp"
             android:layout_centerVertical="true" />
-
-        <Switch
-            android:id="@+id/clockOutSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_marginEnd="10dp"
-            tools:ignore="NewApi"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
 
         <TextView
             android:text="0:0"
-            android:textSize="15sp"
+            android:textSize="18sp"
             android:textColor="#000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/clockOutTxt"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="30dp"
             android:layout_marginEnd="30dp" />
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/relativeLayout5"
+        android:background="@drawable/orange_tab"
+        android:id="@+id/clockInTab"
         android:layout_width="match_parent"
         app:layout_heightPercent="9%"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/relativeLayout4"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/reminderTab"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
@@ -167,33 +227,59 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:textColor="#000"
             android:textSize="18sp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="20dp"
             android:layout_centerVertical="true" />
-
-        <Switch
-            android:id="@+id/clockInSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_marginEnd="10dp"
-            tools:ignore="NewApi"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
 
         <TextView
             android:text="0:0"
-            android:textSize="15sp"
+            android:textSize="18sp"
             android:textColor="#000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/clockInTxt"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"
+            android:layout_marginEnd="30dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:background="@drawable/orange_tab"
+        android:id="@+id/workDaysTab"
+        android:layout_width="match_parent"
+        app:layout_heightPercent="9%"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/clockOutTab"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:text="Set your work days"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="20dp"
+            android:textColor="#000"
+            android:textSize="18sp"
+            android:layout_marginStart="20dp"
+            android:layout_centerVertical="true" />
+
+        <TextView
+            android:id="@+id/workDaysTxt"
+            android:text="M,T,W,T,F,S,S"
+            android:textSize="18sp"
+            android:textColor="#000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="30dp"
             android:layout_marginEnd="30dp" />
 

@@ -10,14 +10,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import nz.co.udenbrothers.clockwork.global.SQL;
+
 
 public class SqlAccess extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 2;
-    private static final String DATABASE_NAME = "clockDB";
 
     public SqlAccess(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        super(context, SQL.DBNAME, null, SQL.VERSION);
     }
 
     @Override

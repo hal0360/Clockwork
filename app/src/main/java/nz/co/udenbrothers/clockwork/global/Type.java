@@ -13,4 +13,5 @@ public class Type {
     public static final int NULL = 5;
     public static final int NOTICE = 6;
     public static final int USER = 7;
+    public static final int SITE = 7;
 }

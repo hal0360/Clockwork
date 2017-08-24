@@ -4,10 +4,11 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewTreeObserver;
-import android.widget.ImageView;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -17,7 +18,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import nz.co.udenbrothers.clockwork.R;
 
 
-public class QRView extends ImageView{
+public class QRView extends AppCompatImageView{
 
     public QRView(Context context)
     {
@@ -58,7 +59,5 @@ public class QRView extends ImageView{
 
             return true;
         });
-
-
     }
 }

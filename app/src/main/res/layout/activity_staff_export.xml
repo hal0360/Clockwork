@@ -1,10 +1,16 @@
-<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="310dp"
     android:layout_height="500dp"
-    android:background="#fff"
+    android:background="@android:drawable/dialog_holo_light_frame"
     tools:context="nz.co.udenbrothers.clockwork.StaffExportActivity">
+
+    <android.support.percent.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff">
+
 
     <TextView
         android:layout_width="match_parent"
@@ -25,18 +31,22 @@
         app:layout_marginTopPercent="15%"
         app:layout_marginLeftPercent="5%"
         app:layout_marginStartPercent="5%"
-        android:text="Export to:"
+        android:text="Email address:"
         android:textColor="#000000"
         android:textSize="18sp" />
 
-    <Spinner
-        android:id="@+id/editExportTo"
+    <EditText
+        android:id="@+id/editSendMaill"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_heightPercent="8%"
         app:layout_marginTopPercent="20%"
         app:layout_widthPercent="90%"
-        android:layout_centerHorizontal="true" />
+        android:background="@null"
+        android:inputType="textEmailAddress"
+        android:textColor="#0000CD"
+        android:textSize="17sp"
+        android:layout_centerHorizontal="true"/>
 
     <View
         android:layout_width="0dp"
@@ -52,22 +62,18 @@
         app:layout_marginTopPercent="33%"
         app:layout_marginLeftPercent="5%"
         app:layout_marginStartPercent="5%"
-        android:text="Email address:"
+        android:text="Time period to export:"
         android:textColor="#000000"
         android:textSize="18sp" />
 
-    <EditText
-        android:id="@+id/editSendMaill"
+    <nz.co.udenbrothers.clockwork.tools.Choser
+        android:id="@+id/editPeriod"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_heightPercent="8%"
         app:layout_marginTopPercent="38%"
         app:layout_widthPercent="90%"
-        android:background="@null"
-        android:inputType="textEmailAddress"
-        android:textColor="#0000FF"
-        android:textSize="17sp"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true" />
 
     <View
         android:layout_width="0dp"
@@ -83,12 +89,12 @@
         app:layout_marginTopPercent="51%"
         app:layout_marginLeftPercent="5%"
         app:layout_marginStartPercent="5%"
-        android:text="Time period to export:"
+        android:text="Project to export:"
         android:textColor="#000000"
         android:textSize="18sp" />
 
-    <Spinner
-        android:id="@+id/editPeriod"
+    <nz.co.udenbrothers.clockwork.tools.Choser
+        android:id="@+id/editExpProject"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_heightPercent="8%"
@@ -104,33 +110,6 @@
         android:layout_centerHorizontal="true"
         android:background="#000" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_marginTopPercent="69%"
-        app:layout_marginLeftPercent="5%"
-        app:layout_marginStartPercent="5%"
-        android:text="Project to export:"
-        android:textColor="#000000"
-        android:textSize="18sp" />
-
-    <Spinner
-        android:id="@+id/editExpProject"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_heightPercent="8%"
-        app:layout_marginTopPercent="74%"
-        app:layout_widthPercent="90%"
-        android:layout_centerHorizontal="true" />
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        app:layout_marginTopPercent="82%"
-        app:layout_widthPercent="90%"
-        android:layout_centerHorizontal="true"
-        android:background="#000" />
-
     <Button
         android:id="@+id/doExportButton"
         style="@style/Base.Widget.AppCompat.Button.Borderless"
@@ -139,10 +118,12 @@
         android:layout_height="0dp"
         app:layout_widthPercent="90%"
         app:layout_heightPercent="11%"
-        app:layout_marginTopPercent="86%"
+        app:layout_marginTopPercent="87%"
         android:background="@drawable/blue_button"
         android:text="EXPORT"
         android:textColor="#FFFFFF"
         android:textSize="20sp" />
 
-</android.support.percent.PercentRelativeLayout>
+    </android.support.percent.PercentRelativeLayout>
+
+</RelativeLayout>

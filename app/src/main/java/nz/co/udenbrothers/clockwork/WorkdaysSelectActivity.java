@@ -10,13 +10,13 @@ public class WorkdaysSelectActivity extends MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workdays_select);
 
-        CheckBox mon = (CheckBox) findViewById(R.id.checkMon);
-        CheckBox tue = (CheckBox) findViewById(R.id.checkTue);
-        CheckBox wed = (CheckBox) findViewById(R.id.checkWed);
-        CheckBox thu = (CheckBox) findViewById(R.id.checkThu);
-        CheckBox fri = (CheckBox) findViewById(R.id.checkFri);
-        CheckBox sat = (CheckBox) findViewById(R.id.checkSat);
-        CheckBox sun = (CheckBox) findViewById(R.id.checkSun);
+        CheckBox mon = findViewById(R.id.checkMon);
+        CheckBox tue = findViewById(R.id.checkTue);
+        CheckBox wed = findViewById(R.id.checkWed);
+        CheckBox thu = findViewById(R.id.checkThu);
+        CheckBox fri = findViewById(R.id.checkFri);
+        CheckBox sat = findViewById(R.id.checkSat);
+        CheckBox sun = findViewById(R.id.checkSun);
 
         if(pref.getBool("monday",true)) mon.setChecked(true);
         if(pref.getBool("tuesday",true)) tue.setChecked(true);
@@ -97,6 +97,5 @@ public class WorkdaysSelectActivity extends MainActivity {
             }
         });
 
-        clicked(R.id.comButton, this::finish);
     }
 }

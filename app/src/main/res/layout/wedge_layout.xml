@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@android:drawable/dialog_holo_light_frame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:baselineAligned="false"
+        android:layout_height="83dp"
+        android:layout_marginTop="37dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/startedHour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00h 00m"
+                android:textSize="19sp"
+                android:textColor="#000000"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="18dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Started"
+                android:textSize="14sp"
+                android:textColor="#000000"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="43dp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <View
+                android:layout_centerVertical="true"
+                android:layout_width="0.5dp"
+                android:layout_height="55dp"
+                android:background="#595959"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"/>
+
+            <TextView
+                android:id="@+id/workedHour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00h 00m"
+                android:textSize="19sp"
+                android:textColor="#000000"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="18dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Worked"
+                android:textSize="14sp"
+                android:textColor="#000000"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="43dp"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:background="#32CD32"
+        android:layout_width="match_parent"
+        android:layout_height="37dp">
+
+        <TextView
+            android:id="@+id/cardTitle"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="YOUR DAY TODAY"
+            android:textSize="19sp"
+            android:textColor="#ffffff"
+            android:ellipsize="end"
+            android:lines="1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:background="#333333" />
+
+    </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -26,23 +26,16 @@ public class SignUpActivity extends MainActivity implements AsynCallback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        Efname = (EditText) findViewById(R.id.firstName);
-        Elname = (EditText) findViewById(R.id.lastName);
-        Email = (EditText) findViewById(R.id.editStaffMail);
-        Epass = (EditText) findViewById(R.id.editStaffPass);
-        Epass2 = (EditText) findViewById(R.id.editStaffPass2);
-        terms = (CheckBox) findViewById(R.id.termCondd);
+        Efname = findViewById(R.id.firstName);
+        Elname = findViewById(R.id.lastName);
+        Email = findViewById(R.id.editStaffMail);
+        Epass = findViewById(R.id.editStaffPass);
+        Epass2 = findViewById(R.id.editStaffPass2);
+        terms = findViewById(R.id.termCondd);
         terms.setText(Html.fromHtml("I agree to the <b>Terms and Service</b>"));
-        findViewById(R.id.staffCreateButton).setOnClickListener(this);
-        Dialog termPop = Kit.getDialog(this,R.layout.terms_cons_layout);
 
-        clicked(termPop.findViewById(R.id.acceptButton),()->{
-            terms.setChecked(true);
-            termPop.dismiss();
-        });
         clicked(terms, ()->{
             terms.setChecked(false);
-            termPop.show();
         });
         clicked(R.id.staffCreateButton, this::createAccount);
     }
@@ -61,7 +54,6 @@ public class SignUpActivity extends MainActivity implements AsynCallback {
             alert("Problem with connection or server. Try again later");
         }
     }
-
 
     private void createAccount(){
         String fusr = Efname.getText().toString().trim();

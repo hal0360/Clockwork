@@ -16,6 +16,7 @@ import nz.co.udenbrothers.clockwork.itemRecycler.items.Item;
 import nz.co.udenbrothers.clockwork.itemRecycler.viewHolders.HeaderViewHolder;
 import nz.co.udenbrothers.clockwork.itemRecycler.viewHolders.ItemHolder;
 import nz.co.udenbrothers.clockwork.itemRecycler.viewHolders.NoticeViewHolder;
+import nz.co.udenbrothers.clockwork.itemRecycler.viewHolders.ProjectViewHolder;
 import nz.co.udenbrothers.clockwork.itemRecycler.viewHolders.SiteViewHolder;
 import nz.co.udenbrothers.clockwork.itemRecycler.viewHolders.StampViewHolder;
 import nz.co.udenbrothers.clockwork.itemRecycler.viewHolders.TopViewHolder;
@@ -29,12 +30,13 @@ public class CollectionView extends RecyclerView{
     private SparseArray<Provider> holders = new SparseArray<>();
 
     private void setHolders(){
-        holders.put(Type.PROJECT, SiteViewHolder::new);
+        holders.put(Type.PROJECT, ProjectViewHolder::new);
         holders.put(Type.TOTAL, TotalViewHolder::new);
         holders.put(Type.TOP, TopViewHolder::new);
         holders.put(Type.SHIFT, StampViewHolder::new);
         holders.put(Type.HEADER, HeaderViewHolder::new);
         holders.put(Type.NOTICE, NoticeViewHolder::new);
+        holders.put(Type.SITE, SiteViewHolder::new);
     }
 
     public CollectionView(Context context)

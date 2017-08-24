@@ -10,9 +10,9 @@ public class StaffEditProfileActivity extends MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_staff_edit_profile);
 
-        TextView editFname = (TextView) findViewById(R.id.editEditFname);
-        TextView editLname = (TextView) findViewById(R.id.editEditLname);
-        TextView editMail = (TextView) findViewById(R.id.editEditMail);
+        TextView editFname = findViewById(R.id.editEditFname);
+        TextView editLname = findViewById(R.id.editEditLname);
+        TextView editMail = findViewById(R.id.editEditMail);
 
         editFname.setText(pref.getStr("firstName"));
         editLname.setText(pref.getStr("lastName"));

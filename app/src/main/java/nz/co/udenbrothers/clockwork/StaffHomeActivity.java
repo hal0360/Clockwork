@@ -1,18 +1,13 @@
 package nz.co.udenbrothers.clockwork;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.widget.EditText;
-import android.widget.TimePicker;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 
-import java.util.Calendar;
 import java.util.Date;
 
-import nz.co.udenbrothers.clockwork.abstractions.RecycleCallback;
 import nz.co.udenbrothers.clockwork.itemRecycler.CollectionView;
 import nz.co.udenbrothers.clockwork.itemRecycler.itemFactories.HomeItemMaker;
 import nz.co.udenbrothers.clockwork.models.Project;
@@ -32,12 +27,15 @@ public class StaffHomeActivity extends StaffActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_staff_home);
 
+        clicked(R.id.imageHam, ()-> sideMenu.show());
+
         homeItemMaker = new HomeItemMaker(this);
-        collectionView = (CollectionView) findViewById(R.id.siteList);
+        collectionView = findViewById(R.id.siteList);
         collectionView.init(homeItemMaker.fetch());
 
-        clicked(R.id.imageHam, this::showMenu);
         clicked(R.id.activityButton, ()-> new IntentIntegrator(this).initiateScan());
+
+        overlayPermission();
     }
 
     @Override
@@ -73,5 +71,4 @@ public class StaffHomeActivity extends StaffActivity{
         }
         collectionView.refresh(homeItemMaker.fetch());
     }
-
 }

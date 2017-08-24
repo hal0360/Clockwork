@@ -1,7 +1,6 @@
 package nz.co.udenbrothers.clockwork.itemRecycler.viewHolders;
 
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -10,7 +9,6 @@ import java.util.Date;
 import nz.co.udenbrothers.clockwork.R;
 import nz.co.udenbrothers.clockwork.StaffActivity;
 import nz.co.udenbrothers.clockwork.StaffHistoryActivity;
-import nz.co.udenbrothers.clockwork.abstractions.RecycleCallback;
 import nz.co.udenbrothers.clockwork.itemRecycler.CollectionView;
 import nz.co.udenbrothers.clockwork.itemRecycler.items.Item;
 import nz.co.udenbrothers.clockwork.models.Project;
@@ -51,7 +49,9 @@ public class ProjectViewHolder extends ItemHolder{
     @Override
     public void init(Item item){
         Project project = (Project) item.model;
+
         StaffActivity staffActivity = (StaffActivity) context;
+
         setHeight(Kit.dps(120));
         title.setText(project.qrCodeIdentifier);
         ArrayList<Shift> shifts = Shift.get(context, "qrCodeIdentifier", project.qrCodeIdentifier);

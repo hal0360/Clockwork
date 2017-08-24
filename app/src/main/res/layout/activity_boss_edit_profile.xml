@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context="nz.co.udenbrothers.clockwork.BossEditProfileActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#1E90FF"
+        app:layout_heightPercent="8%">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:text="EDIT PROFILE"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:id="@+id/textView3"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_marginTopPercent="10%"
+        app:layout_marginLeftPercent="5%"
+        app:layout_marginStartPercent="5%"
+        android:text="Email:"
+        android:textColor="#000000"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/editEditMail"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_heightPercent="7%"
+        app:layout_marginTopPercent="14%"
+        app:layout_widthPercent="90%"
+        android:background="@null"
+        android:inputType="text"
+        android:textColor="#0000CD"
+        android:layout_centerHorizontal="true"
+        android:textSize="17sp" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_marginTopPercent="21%"
+        app:layout_widthPercent="90%"
+        android:layout_centerHorizontal="true"
+        android:background="#000" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_marginTopPercent="26%"
+        app:layout_marginLeftPercent="5%"
+        app:layout_marginStartPercent="5%"
+        android:text="First name:"
+        android:textColor="#000000"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/editEditFname"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_heightPercent="7%"
+        app:layout_marginTopPercent="30%"
+        app:layout_widthPercent="90%"
+        android:background="@null"
+        android:inputType="text"
+        android:textColor="#0000CD"
+        android:layout_centerHorizontal="true"
+        android:textSize="17sp" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_marginTopPercent="37%"
+        app:layout_widthPercent="90%"
+        android:layout_centerHorizontal="true"
+        android:background="#000" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_marginTopPercent="42%"
+        app:layout_marginLeftPercent="5%"
+        app:layout_marginStartPercent="5%"
+        android:text="Last name:"
+        android:textColor="#000000"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/editEditLname"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_heightPercent="7%"
+        app:layout_marginTopPercent="46%"
+        app:layout_widthPercent="90%"
+        android:background="@null"
+        android:inputType="text"
+        android:textColor="#0000CD"
+        android:layout_centerHorizontal="true"
+        android:textSize="17sp" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_marginTopPercent="53%"
+        app:layout_widthPercent="90%"
+        android:layout_centerHorizontal="true"
+        android:background="#000" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_marginTopPercent="58%"
+        app:layout_marginLeftPercent="5%"
+        app:layout_marginStartPercent="5%"
+        android:text="Company:"
+        android:textColor="#000000"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/editCompany"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_heightPercent="7%"
+        app:layout_marginTopPercent="62%"
+        app:layout_widthPercent="60%"
+        android:textColor="#0000CD"
+        app:layout_marginLeftPercent="5%"
+        app:layout_marginStartPercent="5%"
+        android:textSize="17sp" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_marginTopPercent="69%"
+        app:layout_widthPercent="90%"
+        android:layout_centerHorizontal="true"
+        android:background="#000" />
+
+    <Button
+        android:layout_width="0dp"
+        app:layout_widthPercent="90%"
+        android:layout_height="0dp"
+        app:layout_heightPercent="8%"
+        android:id="@+id/saveChangeButton"
+        app:layout_marginTopPercent="90%"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:text="SAVE CHANGES"
+        android:textSize="18sp"
+        android:textColor="#ffffff"
+        android:background="@drawable/orange_button"
+        android:layout_centerHorizontal="true" />
+
+</android.support.percent.PercentRelativeLayout>

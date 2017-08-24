@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="com.android.vending.BILLING" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.ACTION_MANAGE_OVERLAY_PERMISSION" />
 
     <supports-screens
         android:anyDensity="true"
@@ -122,11 +124,36 @@
             android:name=".JoinBussActivity"
             android:screenOrientation="portrait"
             android:theme="@style/StaffTheme" />
-
         <activity
+            android:name=".WorkdaysSelectActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/WorkDaysTheme"
-            android:name=".WorkdaysSelectActivity"/>
+            android:theme="@style/FloatTheme" />
+        <activity
+            android:name=".BossEditProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BossTheme" />
+        <activity
+            android:name=".AddStaffActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BossTheme" />
+        <activity
+            android:name=".BossExportActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/FloatTheme" />
+
+        <service
+            android:name=".serverices.WedgeService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <receiver
+            android:name=".receiver.WedgeReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

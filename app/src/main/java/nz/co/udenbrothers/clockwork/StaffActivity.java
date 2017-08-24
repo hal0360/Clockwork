@@ -1,34 +1,34 @@
 package nz.co.udenbrothers.clockwork;
 
-import android.app.Dialog;
-import android.content.Intent;
-import android.graphics.Rect;
-import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
-import android.view.Window;
 
 import nz.co.udenbrothers.clockwork.global.Screen;
+import nz.co.udenbrothers.clockwork.tools.Popup;
 
 
 public abstract class StaffActivity extends MainActivity{
 
-    protected Dialog sideMenu;
+    protected Popup sideMenu;
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        sideMenu = new Dialog(this, R.style.MyMenuDialog);
-        sideMenu.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        sideMenu.setContentView(R.layout.side_menu_layout);
-        clicked(sideMenu.findViewById(R.id.homeButton), ()-> navigate(StaffHomeActivity.class));
-        clicked(sideMenu.findViewById(R.id.profileButton), ()-> navigate(StaffProfileActivity.class));
-        clicked(sideMenu.findViewById(R.id.historyButton), ()-> navigate(StaffHistoryActivity.class));
-        clicked(sideMenu.findViewById(R.id.settingsButton), ()-> navigate(StaffSettingActivity.class));
-        clicked(sideMenu.findViewById(R.id.exportCSVButton), ()-> pushActivity(StaffExportActivity.class));
-        clicked(sideMenu.findViewById(R.id.noAdsButton), ()-> pushActivity(UpgradeActivity.class));
-        clicked(sideMenu.findViewById(R.id.logoutButton), this::logout);
+        handler = new Handler();
+
+        sideMenu = new Popup(this, R.layout.side_menu_layout, R.style.MyMenuDialog);
+        sideMenu.clicked(R.id.homeButton, ()-> navigate(StaffHomeActivity.class));
+        sideMenu.clicked(R.id.profileButton, ()-> navigate(StaffProfileActivity.class));
+        sideMenu.clicked(R.id.historyButton, ()-> navigate(StaffHistoryActivity.class));
+        sideMenu.clicked(R.id.settingsButton, ()-> navigate(StaffSettingActivity.class));
+        sideMenu.clicked(R.id.exportCSVButton, ()-> pushActivity(StaffExportActivity.class));
+        sideMenu.clicked(R.id.noAdsButton, ()-> pushActivity(UpgradeActivity.class));
+        sideMenu.clicked(R.id.logoutButton, this::logout);
+        sideMenu.setDimension(Screen.width*0.6, Screen.height*0.921);
+        sideMenu.setGravity(Gravity.BOTTOM | Gravity.END);
     }
 
     protected final void logout(){
@@ -46,36 +46,16 @@ public abstract class StaffActivity extends MainActivity{
     }
 
     public void navigate(Class actClass){
-        Intent intent = new Intent(this, actClass);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
-        }
-        startActivity(intent);
-        if (sideMenu != null && sideMenu.isShowing()) {
+        if (sideMenu.isShowing()){
             sideMenu.dismiss();
+            handler.postDelayed(()->toActivity(actClass), 300);
         }
-        this.finish();
+        else toActivity(actClass);
     }
 
-    protected final void showMenu(){
-        if (sideMenu != null && sideMenu.isShowing()) {
-            sideMenu.dismiss();
-            return;
-        }
-
-        Rect rectangle = new Rect();
-        Window win = getWindow();
-        win.getDecorView().getWindowVisibleDisplayFrame(rectangle);
-
-
-        Window window = sideMenu.getWindow();
-        assert window != null;
-        window.setLayout((int)(Screen.width * 0.6), (int)((Screen.height) * 0.921));
-        window.setGravity(Gravity.BOTTOM | Gravity.END);
-        sideMenu.show();
-    }
-
-    protected final void hideMenu(){
-        sideMenu.dismiss();
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacksAndMessages(null);
     }
 }

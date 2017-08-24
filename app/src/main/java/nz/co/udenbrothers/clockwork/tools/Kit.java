@@ -30,10 +30,4 @@ public class Kit {
         return (int)((dp * Screen.density) + 0.5);
     }
 
-    public static Dialog getDialog(Context context, int id){
-        Dialog dialog = new Dialog(context);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(id);
-        return dialog;
-    }
 }

@@ -6,6 +6,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Date;
 
+import nz.co.udenbrothers.clockwork.BossActivity;
+import nz.co.udenbrothers.clockwork.BossMyTeamActivity;
 import nz.co.udenbrothers.clockwork.R;
 import nz.co.udenbrothers.clockwork.StaffActivity;
 import nz.co.udenbrothers.clockwork.StaffHistoryActivity;
@@ -49,7 +51,9 @@ public class SiteViewHolder extends ItemHolder{
     @Override
     public void init(Item item){
         Project project = (Project) item.model;
-        StaffActivity staffActivity = (StaffActivity) context;
+
+        BossActivity bossActivity = (BossActivity) context;
+
         setHeight(Kit.dps(120));
         title.setText(project.qrCodeIdentifier);
         ArrayList<Shift> shifts = Shift.get(context, "qrCodeIdentifier", project.qrCodeIdentifier);
@@ -72,7 +76,7 @@ public class SiteViewHolder extends ItemHolder{
 
         clicked(R.id.moreInfoButton, () -> {
             pref.putStr("selectedProjectName", project.qrCodeIdentifier);
-            staffActivity.navigate(StaffHistoryActivity.class);
+            bossActivity.navigate(BossMyTeamActivity.class);
         });
 
         clicked(R.id.deleteButton, () -> {

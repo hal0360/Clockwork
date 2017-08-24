@@ -15,6 +15,7 @@ public class HomeItemMaker extends ItemMaker {
     }
 
     public ArrayList<Item> fetch() {
+
         ArrayList<Project> projects = Project.get(context);
         ArrayList<Item> items = new ArrayList<>();
         if(Project.search(context, pref.getStr("currentProject"))){
@@ -24,11 +25,16 @@ public class HomeItemMaker extends ItemMaker {
             pref.putStr("currentProject","");
         }
 
-        for (Project model : projects){
-            Item item = new Item(Type.PROJECT);
-            item.model = model;
-            items.add(item);
+        if(pref.getInt("profileRole") == 1){
+            for (Project model : projects) items.add(newItem(Type.PROJECT, model));
         }
+        else if (pref.getInt("profileRole") == 2){
+            for (Project model : projects) items.add(newItem(Type.SITE, model));
+        }
+        else {
+            throw new ArithmeticException("Fatal");
+        }
+
         items.add(newItem(Type.TOTAL,"TOTAL"));
         return items;
     }

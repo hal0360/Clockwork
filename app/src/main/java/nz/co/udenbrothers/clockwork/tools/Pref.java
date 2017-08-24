@@ -1,5 +1,6 @@
 package nz.co.udenbrothers.clockwork.tools;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -8,13 +9,15 @@ import static android.content.Context.MODE_PRIVATE;
 public class Pref {
 
     private SharedPreferences p;
+    private SharedPreferences.Editor editor;
 
+    @SuppressLint("CommitPrefEdits")
     public Pref(Context context){
         p = context.getSharedPreferences("app", MODE_PRIVATE);
+        editor = p.edit();
     }
 
     public void putStr(String key, String val){
-        SharedPreferences.Editor editor = p.edit();
         if(val == null) editor.putString(key, "");
         else editor.putString(key, val);
         editor.apply();
@@ -25,7 +28,6 @@ public class Pref {
     }
 
     public void putInt( String key, int val){
-        SharedPreferences.Editor editor = p.edit();
         editor.putInt(key, val);
         editor.apply();
     }
@@ -35,7 +37,6 @@ public class Pref {
     }
 
     public void putBool(String key, Boolean val){
-        SharedPreferences.Editor editor = p.edit();
         editor.putBoolean(key, val);
         editor.apply();
     }
@@ -44,9 +45,8 @@ public class Pref {
         return p.getBoolean(key, def);
     }
 
-    public void clear(String key){
-        SharedPreferences.Editor editor = p.edit();
-        editor.remove(key);
+    public void clear(){
+        editor.clear();
         editor.apply();
     }
 }

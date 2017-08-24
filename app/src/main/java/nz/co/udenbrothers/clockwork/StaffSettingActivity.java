@@ -23,7 +23,7 @@ public class StaffSettingActivity extends StaffActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_staff_setting);
 
-        clicked(R.id.imageHam, this::showMenu);
+        clicked(R.id.imageHam, ()-> sideMenu.show());
 
         ClockInReceiver clockInReceiver = new ClockInReceiver();
         ClockOutReceiver clockOutReceiver = new ClockOutReceiver();
@@ -34,13 +34,17 @@ public class StaffSettingActivity extends StaffActivity {
         TextView COtxt = findViewById(R.id.clockOutTxt);
         TextView CItxt = findViewById(R.id.clockInTxt);
         wDaysTxt = findViewById(R.id.workDaysTxt);
+        wifiSwitch.setClickable(false);
+        notiSwitch.setClickable(false);
+        reminderSwitch.setClickable(false);
+        wedgeSwitch.setClickable(false);
 
         COtxt.setText(pref.getInt("COhour") + ":" + pref.getInt("COmin"));
         CItxt.setText(pref.getInt("CIhour") + ":" + pref.getInt("CImin"));
         if(pref.getBool("wifi",false)) wifiSwitch.setChecked(true);
         if(pref.getBool("notification",true)) notiSwitch.setChecked(true);
         if(pref.getBool("reminder",true)) reminderSwitch.setChecked(true);
-        if(pref.getBool("wedge",true)) reminderSwitch.setChecked(true);
+        if(pref.getBool("wedge",true)) wedgeSwitch.setChecked(true);
 
         clicked(R.id.wifiTab,()->{
             if(pref.getBool("wifi",false)){
@@ -54,7 +58,7 @@ public class StaffSettingActivity extends StaffActivity {
         });
 
         clicked(R.id.wedgeTab,()->{
-            if(pref.getBool("wedge",false)){
+            if(pref.getBool("wedge",true)){
                 pref.putBool("wedge",false);
                 wedgeSwitch.setChecked(false);
             }

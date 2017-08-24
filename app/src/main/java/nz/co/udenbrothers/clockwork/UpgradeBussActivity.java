@@ -1,6 +1,5 @@
 package nz.co.udenbrothers.clockwork;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.widget.EditText;
 
@@ -19,7 +18,7 @@ public class UpgradeBussActivity extends MainActivity implements AsynCallback {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upgrade_buss);
 
-        Ecom = (EditText) findViewById(R.id.companyEdit);
+        Ecom = findViewById(R.id.companyEdit);
 
         clicked(R.id.upgradeComfirmButton,()->{
             String com = Ecom.getText().toString().trim();

@@ -8,20 +8,19 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import nz.co.udenbrothers.clockwork.abstractions.AsynCallback;
 import nz.co.udenbrothers.clockwork.global.URL;
 import nz.co.udenbrothers.clockwork.serverObjects.LinkInfo;
-import nz.co.udenbrothers.clockwork.serverObjects.LoginInfo;
 import nz.co.udenbrothers.clockwork.serverObjects.Response;
 import nz.co.udenbrothers.clockwork.tools.Kit;
 import nz.co.udenbrothers.clockwork.tools.QRView;
 import nz.co.udenbrothers.clockwork.tools.RequestTask;
 
-public class JoinBussActivity extends StaffActivity implements AsynCallback {
+public class JoinBussActivity extends MainActivity implements AsynCallback {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_buss);
 
-        QRView qrView = (QRView) findViewById(R.id.qrCode);
+        QRView qrView = findViewById(R.id.qrCode);
         qrView.set(pref.getStr("userId"));
 
         clicked(R.id.openScanerButton, ()-> new IntentIntegrator(this).initiateScan());

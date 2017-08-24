@@ -25,8 +25,8 @@ public class SignInActivity extends MainActivity implements AsynCallback {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        Email = (EditText) findViewById(R.id.editMail);
-        Epass = (EditText) findViewById(R.id.editPass);
+        Email = findViewById(R.id.editMail);
+        Epass = findViewById(R.id.editPass);
 
         clicked(R.id.signInButton,()->{
             String pass = Epass.getText().toString().trim();
@@ -56,60 +56,56 @@ public class SignInActivity extends MainActivity implements AsynCallback {
     @Override
     public void postCallback(Response response) {
 
-        if(response.url.equals(URL.GET_PROJECTS)){
-            if(response.statusCode == 200){
-                Project[] projects = gson.fromJson(response.content, Project[].class);
-                for(Project project: projects){
-                    project.save(this);
+        switch (response.url) {
+            case URL.GET_PROJECTS:
+                if (response.statusCode == 200) {
+                    Project[] projects = gson.fromJson(response.content, Project[].class);
+                    for (Project project : projects) {
+                        project.save(this);
+                    }
+                } else {
+                    alert("Failed to download projects");
                 }
-            }
-            else {
-                alert("Failed to download projects");
-            }
-           // GetShiftsInfo getShiftsInfo = new GetShiftsInfo(pref.getStr("userId"));
-           // new RequestTask(this,"GET",getShiftsInfo.toJson(),pref.getStr("token")).execute(URL.GET_SHIFTS);
+                // GetShiftsInfo getShiftsInfo = new GetShiftsInfo(pref.getStr("userId"));
+                // new RequestTask(this,"GET",getShiftsInfo.toJson(),pref.getStr("token")).execute(URL.GET_SHIFTS);
 
-            toActivity(SplashActivity.class);
-        }
-        else if(response.url.equals(URL.GET_SHIFTS)){
-            if(response.statusCode == 200){
-                Shift[] shifts = gson.fromJson(response.content, Shift[].class);
-                for(Shift shift: shifts){
-                    shift.save(this);
+                toActivity(SplashActivity.class);
+                break;
+            case URL.GET_SHIFTS:
+                if (response.statusCode == 200) {
+                    Shift[] shifts = gson.fromJson(response.content, Shift[].class);
+                    for (Shift shift : shifts) {
+                        shift.save(this);
+                    }
+                } else {
+                    alert("Failed to download shifts");
                 }
-            }
-            else {
-                alert("Failed to download shifts");
-            }
-           // toActivity(SplashActivity.class);
-        }
-        else {
-            if(response.statusCode == 200){
-                alert("Sign in successful");
-                LoginInfo loginInfo = LoginInfo.fromJsom(response.content);
-                if (loginInfo != null) {
-                    pref.putStr("firstName",loginInfo.firstName);
-                    pref.putStr("lastName",loginInfo.lastName);
-                    pref.putStr("token",loginInfo.apiToken);
-                    pref.putInt("profileRole",loginInfo.userRoleId + 1);
-                    pref.putStr("userId",loginInfo.userId);
-                    new RequestTask(this,"GET",null,loginInfo.apiToken).execute(URL.GET_PROJECTS);
+                // toActivity(SplashActivity.class);
+                break;
+            default:
+                if (response.statusCode == 200) {
+                    alert("Sign in successful");
+                    LoginInfo loginInfo = LoginInfo.fromJsom(response.content);
+                    if (loginInfo != null) {
+                        pref.putStr("firstName", loginInfo.firstName);
+                        pref.putStr("lastName", loginInfo.lastName);
+                        pref.putStr("token", loginInfo.apiToken);
+                        pref.putInt("profileRole", loginInfo.userRoleId + 1);
+                        pref.putStr("userId", loginInfo.userId);
+                        new RequestTask(this, "GET", null, loginInfo.apiToken).execute(URL.GET_PROJECTS);
+                    } else {
+                        alert("Error occured");
+                    }
+                } else if (response.statusCode == 404) {
+                    Email.requestFocus();
+                    Email.setError("Email not found");
+                } else if (response.statusCode == 401) {
+                    Epass.requestFocus();
+                    Epass.setError("Invalid password");
+                } else {
+                    alert("Problem with connection or server. Try again later");
                 }
-                else{
-                    alert("Error occured");
-                }
-            }
-            else if(response.statusCode == 404){
-                Email.requestFocus();
-                Email.setError("Email not found");
-            }
-            else if(response.statusCode == 401){
-                Epass.requestFocus();
-                Epass.setError("Invalid password");
-            }
-            else {
-                alert("Problem with connection or server. Try again later");
-            }
+                break;
         }
 
     }

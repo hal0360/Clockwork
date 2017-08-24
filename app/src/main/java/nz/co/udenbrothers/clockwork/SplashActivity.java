@@ -1,20 +1,14 @@
 package nz.co.udenbrothers.clockwork;
 
-import android.graphics.Bitmap;
-import android.graphics.Color;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.ViewTreeObserver;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.QRCodeWriter;
-
 import nz.co.udenbrothers.clockwork.global.Screen;
+
 
 public class SplashActivity extends MainActivity {
 
@@ -25,11 +19,17 @@ public class SplashActivity extends MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        try {
+            int versionCode = this.getPackageManager().getPackageInfo(this.getPackageName(), 0).versionCode;
+            if(versionCode != pref.getInt("version")){
+                pref.clear();
+                pref.putInt("version", versionCode);
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            alert("problem versioning this app");
+        }
+
         handler = new Handler();
-
-      //  alert(getNavigationBarHeight()+"");
-
-      //  pref.putInt("profileRole",2);
 
         if(pref.getInt("profileRole") == 1){
             handler.postDelayed(()->toActivity(StaffHomeActivity.class), 600);
@@ -40,7 +40,6 @@ public class SplashActivity extends MainActivity {
         else {
             handler.postDelayed(()->toActivity(SignInActivity.class), 600);
         }
-
     }
 
     @Override
@@ -50,7 +49,7 @@ public class SplashActivity extends MainActivity {
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         Screen.density = metrics.density;
 
-        RelativeLayout mainRe = (RelativeLayout) findViewById(R.id.SplashMainScreen);
+        RelativeLayout mainRe = findViewById(R.id.SplashMainScreen);
         final ViewTreeObserver observer= mainRe.getViewTreeObserver();
         observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @SuppressWarnings("deprecation")

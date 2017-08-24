@@ -18,7 +18,7 @@
     </style>
 
     <style name="BossTheme" parent="AppTheme">
-        <item name="android:statusBarColor" tools:ignore="NewApi">#00BFFF</item>
+        <item name="android:statusBarColor" tools:ignore="NewApi">#1E90FF</item>
     </style>
 
     <style name="MenuAnimation">
@@ -32,10 +32,21 @@
         <item name="android:windowBackground">@null</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowAnimationStyle">@style/MenuAnimation</item>
-        <item name="android:windowCloseOnTouchOutside" tools:targetApi="honeycomb">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
     </style>
 
-    <style name="FloatTheme" parent="Theme.AppCompat">
+    <style name="MyDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.5</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+
+    <style name="FloatTheme" parent="Theme.AppCompat.Light">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowContentOverlay">@null</item>
@@ -44,19 +55,10 @@
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:backgroundDimEnabled">true</item>
-        <item name="android:backgroundDimAmount">0.6</item>
-        <item name="colorControlActivated">#0000FF</item>
-        <item name="colorControlNormal">#0000FF</item>
-        <item name="android:windowCloseOnTouchOutside" tools:targetApi="honeycomb">true</item>
-    </style>
-
-    <style name="TimeDialogTheme" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorAccent">#00BFFF</item>
-    </style>
-
-    <style name="WorkDaysTheme" parent="FloatTheme">
-        <item name="colorControlActivated">#FFFFFF</item>
-        <item name="colorControlNormal">#FFFFFF</item>
+        <item name="android:backgroundDimAmount">0.5</item>
+        <item name="colorControlActivated">#0000CD</item>
+        <item name="colorControlNormal">#0000CD</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
     </style>
 
 </resources>

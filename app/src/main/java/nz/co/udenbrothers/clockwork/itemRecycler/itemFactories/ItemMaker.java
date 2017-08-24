@@ -30,9 +30,12 @@ public class ItemMaker {
         return items;
     }
 
-    public final Item newItem(int type) {
-        return new Item(type);
+    public final Item newItem(int type, Model model) {
+        Item item = new Item(type);
+        item.model = model;
+        return item;
     }
+
 
     public final Item newItem(int type, String des) {
         Item item = new Item(type);

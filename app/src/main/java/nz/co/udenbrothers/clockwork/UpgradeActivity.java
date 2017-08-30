@@ -1,42 +1,45 @@
 package nz.co.udenbrothers.clockwork;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import nz.co.udenbrothers.clockwork.global.INAPP;
+import nz.co.udenbrothers.clockwork.temps.Profile;
 import nz.co.udenbrothers.clockwork.util.IabHelper;
 
 
 public class UpgradeActivity extends MainActivity {
 
-    private static final String TAG = "InAppBilling";
-    IabHelper mHelper;
-    static final String ITEM_SKU = "business_subscription";
+    private IabHelper mHelper;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upgrade);
 
-        block("Wait....");
+        progressDialog = new ProgressDialog(this);
 
-        String base64EncodedPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkrF+o0Ii99Vh1iJ9tIrNpiiCeDkb46HlW+WzNE3GaJxfG18Fc9IJfKvpQlsev9MP4op8v6KxIrRGR5H6xpqp34OFvraHoTd/VDdJfQ8nMzVbgpV+cwcsTAwVnIdtwzpBaF5NFaFGDTlL0bbUxVawxRoyYas7E6M4lDoKVO7x0hm4bJ1hyXvPRPfebFzvIyNjn6z4ziryVn2fDH/OuE2jw2LynKNH8BCKhfbEoxaV9tTBL/v/4LsO8eN6cHKiuC0ME9d0BwG6kcQ7hMRIexni2PjVw5NKYp1ME4FEFfMaWeiux1id63/AIAdeAowUe7J1ELCCweO1jdlC/W+GXl9UJwIDAQAB";
-        mHelper = new IabHelper(this, base64EncodedPublicKey);
+        progressDialog.setMessage("Please wait...");
+        progressDialog.show();
 
+        mHelper = new IabHelper(this, INAPP.PUB_KEY);
         mHelper.startSetup(result -> {
-            unblock();
+            progressDialog.dismiss();
             if (!result.isSuccess()) {
-                Log.d(TAG, "In-app Billing setup failed: " + result);
+                Log.d(INAPP.TAG, "In-app Billing setup failed: " + result);
                 alert("Fatal Error");
                 finish();
             } else {
-                Log.d(TAG, "In-app Billing is set up OK");
+                mHelper.queryInventoryAsync(mGotInventoryListener);
             }
         });
 
         clicked(R.id.buyit,()-> {
             try {
-                mHelper.launchPurchaseFlow(this, ITEM_SKU, 10001, mPurchaseFinishedListener, pref.getStr("userId"));
+                mHelper.launchPurchaseFlow(this, INAPP.BUSS_SKU, 10001, mPurchaseFinishedListener, Profile.userID());
             }
             catch(IllegalStateException ex){
                 alert("Error: Pls try again");
@@ -52,14 +55,28 @@ public class UpgradeActivity extends MainActivity {
         }
     }
 
+    IabHelper.QueryInventoryFinishedListener mGotInventoryListener = (result, inventory) -> {
+        if (result.isFailure()) {
+            alert("Failed to query inventory: " + result);
+            return;
+        }
+        if(inventory.hasPurchase(INAPP.BUSS_SKU)){
+            toActivity(UpgradeBussActivity.class);
+        }
+
+    };
+
     IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener = (result, purchase) -> {
         if (result.isFailure()) {
-            Log.d(TAG, "failed: " + result);
+            Log.d(INAPP.TAG, "failed: " + result);
             alert("Error: Pls try again");
+            return;
         }
-        else{
-            //  purchase.getSku().equals(ITEM_SKU)
+        if(purchase.getSku().equals(INAPP.BUSS_SKU)){
             toActivity(UpgradeBussActivity.class);
+        }
+        else {
+            alert("Something is wrong. Pls contact the owner of this app");
         }
     };
 

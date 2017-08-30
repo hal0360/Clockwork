@@ -1,18 +1,15 @@
 package nz.co.udenbrothers.clockwork;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 
 import nz.co.udenbrothers.clockwork.abstractions.AsynCallback;
-import nz.co.udenbrothers.clockwork.global.URL;
-import nz.co.udenbrothers.clockwork.serverObjects.LinkInfo;
 import nz.co.udenbrothers.clockwork.serverObjects.Response;
+import nz.co.udenbrothers.clockwork.temps.Profile;
 import nz.co.udenbrothers.clockwork.tools.Kit;
-import nz.co.udenbrothers.clockwork.tools.QRView;
-import nz.co.udenbrothers.clockwork.tools.RequestTask;
+import nz.co.udenbrothers.clockwork.customWigets.QRView;
 
 public class AddStaffActivity extends MainActivity implements AsynCallback {
 
@@ -22,7 +19,7 @@ public class AddStaffActivity extends MainActivity implements AsynCallback {
         setContentView(R.layout.activity_add_staff);
 
         QRView qrView = findViewById(R.id.qrCode);
-        qrView.set(pref.getStr("userId"));
+        qrView.set(Profile.userID());
 
         clicked(R.id.openScanerButton, ()-> new IntentIntegrator(this).initiateScan());
     }

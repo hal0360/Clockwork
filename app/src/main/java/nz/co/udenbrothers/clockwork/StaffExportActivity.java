@@ -1,19 +1,26 @@
 package nz.co.udenbrothers.clockwork;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 
+import com.opencsv.CSVWriter;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
-import nz.co.udenbrothers.clockwork.abstractions.AsynCallback;
-import nz.co.udenbrothers.clockwork.global.URL;
+import nz.co.udenbrothers.clockwork.customWigets.Choser;
 import nz.co.udenbrothers.clockwork.models.Project;
-import nz.co.udenbrothers.clockwork.serverObjects.ExportInfo;
-import nz.co.udenbrothers.clockwork.serverObjects.Response;
-import nz.co.udenbrothers.clockwork.tools.Choser;
-import nz.co.udenbrothers.clockwork.tools.RequestTask;
+import nz.co.udenbrothers.clockwork.models.Shift;
+import nz.co.udenbrothers.clockwork.sql_stuff.SQL;
+import nz.co.udenbrothers.clockwork.temps.Profile;
 
-public class StaffExportActivity extends MainActivity implements AsynCallback {
+public class StaffExportActivity extends MainActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +28,7 @@ public class StaffExportActivity extends MainActivity implements AsynCallback {
         setContentView(R.layout.activity_staff_export);
 
         EditText email = findViewById(R.id.editSendMaill);
-        email.setText(pref.getStr("profileEmail"));
+        email.setText(Profile.email());
 
         String[] categories = {"ALL TIME","THIS YEAR","THIS MONTH","THIS WEEK","TODAY"};
         Choser spinner1 = findViewById(R.id.editPeriod);
@@ -30,8 +37,8 @@ public class StaffExportActivity extends MainActivity implements AsynCallback {
 
         });
 
-        ArrayList<String> categories3 = new ArrayList<>();
-        ArrayList<Project> projects = Project.get(this);
+        List<String> categories3 = new ArrayList<>();
+        List<Project> projects = SQL.get(Project.class);
         for(Project project: projects) categories3.add(project.qrCodeIdentifier);
         Choser spinner2 = findViewById(R.id.editExpProject);
         spinner2.init(categories3, R.layout.export_spinner_iem);
@@ -40,19 +47,38 @@ public class StaffExportActivity extends MainActivity implements AsynCallback {
         });
 
         clicked(R.id.doExportButton,()->{
-            ExportInfo exportInfo = new ExportInfo(pref.getStr("userId"),email.getText().toString().trim(),"1999-11-11");
-            new RequestTask(this,"POST",exportInfo.toJson(),pref.getStr("token")).execute(URL.EXPORT_SHIFTS);
+
+            File file =  new File(getExternalFilesDir(null), "Shift.csv");
+
+            try {
+                file.createNewFile();
+                System.out.println(file.getAbsolutePath());
+                CSVWriter writer = new CSVWriter(new FileWriter(file));
+                writer.writeAll(toStringArray(SQL.get(Shift.class)));
+                writer.close();
+            } catch (IOException e) {
+                Log.e("CSV error: ",e+"");
+            }
+
+            Uri path = Uri.fromFile(file);
+            Intent emailIntent = new Intent(Intent.ACTION_SEND);
+            emailIntent .setType("vnd.android.cursor.dir/email");
+            String to[] = {Profile.email()};
+            emailIntent .putExtra(Intent.EXTRA_EMAIL, to);
+            emailIntent .putExtra(Intent.EXTRA_STREAM, path);
+            emailIntent .putExtra(Intent.EXTRA_SUBJECT, "Your subject");
+            startActivity(Intent.createChooser(emailIntent , "Sending CSV file..."));
+
         });
 
     }
 
-    @Override
-    public void postCallback(Response response) {
-        if(response.statusCode == 200){
-            alert("Export  successful");
+    private static List<String[]> toStringArray(List<Shift> shifts) {
+        List<String[]> records = new ArrayList<>();
+        records.add(new String[] { "QR Code", "start time", "end time", "user ID" });
+        for(Shift shift: shifts){
+            records.add(new String[] { shift.qrCodeIdentifier, shift.shiftTimeStartOnUtc, shift.shiftTimeEndOnUtc, shift.userId });
         }
-        else {
-            alert("Error: " + response.statusCode);
-        }
+        return records;
     }
 }

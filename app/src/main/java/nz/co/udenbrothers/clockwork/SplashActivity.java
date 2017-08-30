@@ -7,7 +7,13 @@ import android.util.DisplayMetrics;
 import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 
-import nz.co.udenbrothers.clockwork.global.Screen;
+import java.util.List;
+
+import nz.co.udenbrothers.clockwork.models.Project;
+import nz.co.udenbrothers.clockwork.models.Shift;
+import nz.co.udenbrothers.clockwork.sql_stuff.SQL;
+import nz.co.udenbrothers.clockwork.temps.Profile;
+import nz.co.udenbrothers.clockwork.temps.Screen;
 
 
 public class SplashActivity extends MainActivity {
@@ -21,20 +27,22 @@ public class SplashActivity extends MainActivity {
 
         try {
             int versionCode = this.getPackageManager().getPackageInfo(this.getPackageName(), 0).versionCode;
-            if(versionCode != pref.getInt("version")){
-                pref.clear();
-                pref.putInt("version", versionCode);
+            if(versionCode != App.getInt("version")){
+                App.clear();
+                App.putInt("version", versionCode);
             }
         } catch (PackageManager.NameNotFoundException e) {
             alert("problem versioning this app");
         }
 
+
         handler = new Handler();
 
-        if(pref.getInt("profileRole") == 1){
+
+        if(Profile.role() == 1){
             handler.postDelayed(()->toActivity(StaffHomeActivity.class), 600);
         }
-        else if (pref.getInt("profileRole") == 2){
+        else if (Profile.role() == 2){
             handler.postDelayed(()->toActivity(BossHomeActivity.class), 600);
         }
         else {

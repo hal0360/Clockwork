@@ -58,7 +58,7 @@
             android:contentDescription="@string/imgDes"
             android:src="@drawable/email_icon" />
 
-        <EditText
+        <nz.co.udenbrothers.clockwork.customWigets.TextInput
             android:id="@+id/editMail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

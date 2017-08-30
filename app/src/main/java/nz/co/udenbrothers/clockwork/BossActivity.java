@@ -1,11 +1,11 @@
 package nz.co.udenbrothers.clockwork;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
 
-import nz.co.udenbrothers.clockwork.global.Screen;
+import nz.co.udenbrothers.clockwork.temps.Profile;
+import nz.co.udenbrothers.clockwork.temps.Screen;
 import nz.co.udenbrothers.clockwork.tools.Popup;
 
 public abstract class BossActivity extends MainActivity{
@@ -25,15 +25,12 @@ public abstract class BossActivity extends MainActivity{
         sideMenu.clicked(R.id.myTeamButton, ()-> navigate(BossMyTeamActivity.class));
         sideMenu.clicked(R.id.settingsButton, ()-> navigate(BossSettingActivity.class));
         sideMenu.clicked(R.id.exportCSVButton, ()-> pushActivity(BossExportActivity.class));
-        sideMenu.clicked(R.id.logoutButton, this::logout);
+        sideMenu.clicked(R.id.logoutButton, ()->{
+            logout();
+            navigate(SplashActivity.class);
+        });
         sideMenu.setDimension(Screen.width*0.6, Screen.height*0.921);
         sideMenu.setGravity(Gravity.BOTTOM | Gravity.END);
-    }
-
-    protected final void logout(){
-        pref.putStr("profileName","");
-        pref.putInt("profileRole",0);
-        navigate(SplashActivity.class);
     }
 
     public void navigate(Class actClass){
@@ -47,7 +44,7 @@ public abstract class BossActivity extends MainActivity{
     @Override
     protected void onResume(){
         super.onResume();
-        if(pref.getInt("profileRole") != 2){
+        if(Profile.role() != 2){
             navigate(SplashActivity.class);
         }
     }

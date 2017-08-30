@@ -3,6 +3,8 @@ package nz.co.udenbrothers.clockwork;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import nz.co.udenbrothers.clockwork.temps.Profile;
+
 public class StaffEditProfileActivity extends MainActivity {
 
     @Override
@@ -14,9 +16,9 @@ public class StaffEditProfileActivity extends MainActivity {
         TextView editLname = findViewById(R.id.editEditLname);
         TextView editMail = findViewById(R.id.editEditMail);
 
-        editFname.setText(pref.getStr("firstName"));
-        editLname.setText(pref.getStr("lastName"));
-        editMail.setText(pref.getStr("profileEmail"));
+        editFname.setText(Profile.firstName());
+        editLname.setText(Profile.lastName());
+        editMail.setText(Profile.email());
 
         clicked(R.id.addCompButton,()-> pushActivity(JoinBussActivity.class));
     }

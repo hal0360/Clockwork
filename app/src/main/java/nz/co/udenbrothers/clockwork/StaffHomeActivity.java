@@ -12,10 +12,12 @@ import nz.co.udenbrothers.clockwork.itemRecycler.CollectionView;
 import nz.co.udenbrothers.clockwork.itemRecycler.itemFactories.HomeItemMaker;
 import nz.co.udenbrothers.clockwork.models.Project;
 import nz.co.udenbrothers.clockwork.models.Shift;
+import nz.co.udenbrothers.clockwork.serverices.UploadService;
+import nz.co.udenbrothers.clockwork.temps.Act;
+import nz.co.udenbrothers.clockwork.temps.Profile;
 import nz.co.udenbrothers.clockwork.tools.Kit;
 import nz.co.udenbrothers.clockwork.tools.MyDate;
 import nz.co.udenbrothers.clockwork.tools.Popup;
-import nz.co.udenbrothers.clockwork.tools.UploadShift;
 
 public class StaffHomeActivity extends StaffActivity{
 
@@ -43,32 +45,30 @@ public class StaffHomeActivity extends StaffActivity{
         String newName = Kit.QrScanResult(IntentIntegrator.parseActivityResult(requestCode, resultCode, data));
         if(newName.equals("")) return;
         Project newPro = new Project(newName);
-        if(!Project.search(this, newName)) newPro.save(this);
-        if(!pref.getStr("currentProject").equals("")){
-            Shift shift = new Shift(pref.getStr("currentProject"),pref.getStr("startTime"), MyDate.dateToStr(new Date()),pref.getStr("uid"));
-            shift.save(this);
+        if(!homeItemMaker.search(newName)) newPro.save();
+        if(!(Act.current() == null)){
+            Shift shift = new Shift(Act.current(), Act.startTime(), MyDate.dateToStr(new Date()), Profile.userID());
+            shift.save();
 
             Popup popup = new Popup(this, R.layout.comment_layout);
-            EditText commentBox = (EditText) popup.getView(R.id.commentBox);
+            EditText commentBox = popup.getView(R.id.commentBox);
             popup.clicked(R.id.saveButton, ()->{
                 shift.comment = commentBox.getText().toString().trim();
-                commentBox.setText("");
-                shift.save(this);
-                new UploadShift(this).upload(shift);
+                shift.save();
+                startService(new Intent(this, UploadService.class));
                 popup.dismiss();
             });
             popup.show();
 
-            if(!pref.getStr("currentProject").equals(newName)){
-                pref.putStr("currentProject", newName);
-                pref.putStr("startTime", MyDate.dateToStr(new Date()));
-            }
-            else{ pref.putStr("currentProject", ""); }
+            if(!Act.current().equals(newName)) setNameNtime(newName);
+            else Act.current(null);
         }
-        else {
-            pref.putStr("currentProject", newName);
-            pref.putStr("startTime", MyDate.dateToStr(new Date()));
-        }
+        else {setNameNtime(newName);}
         collectionView.refresh(homeItemMaker.fetch());
+    }
+
+    private void setNameNtime(String name){
+        Act.current(name);
+        Act.startTime(MyDate.dateToStr(new Date()));
     }
 }

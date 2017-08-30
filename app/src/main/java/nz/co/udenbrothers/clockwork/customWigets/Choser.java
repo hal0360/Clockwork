@@ -1,4 +1,4 @@
-package nz.co.udenbrothers.clockwork.tools;
+package nz.co.udenbrothers.clockwork.customWigets;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -7,11 +7,9 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import nz.co.udenbrothers.clockwork.R;
 import nz.co.udenbrothers.clockwork.abstractions.SpinnerFace;
 
 public class Choser extends AppCompatSpinner implements AdapterView.OnItemSelectedListener {
@@ -25,12 +23,12 @@ public class Choser extends AppCompatSpinner implements AdapterView.OnItemSelect
         setUp();
     }
 
-    public void init(ArrayList<String> strings, int rid){
+    public void init(List<String> strings, int rid){
         dataAdapter = new ArrayAdapter<>(context, rid, strings);
         setUp();
     }
 
-    public void init(ArrayList<String> strings){
+    public void init(List<String> strings){
         dataAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, strings);
         setUp();
     }

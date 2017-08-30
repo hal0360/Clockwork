@@ -1,7 +1,6 @@
 package nz.co.udenbrothers.clockwork;
 
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -16,18 +15,14 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
 import nz.co.udenbrothers.clockwork.abstractions.Cmd;
-import nz.co.udenbrothers.clockwork.tools.Pref;
+import nz.co.udenbrothers.clockwork.sql_stuff.SqlAccess;
+import nz.co.udenbrothers.clockwork.temps.Profile;
 
 public abstract class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    protected Pref pref;
     private SparseArray<Cmd> cmds = new SparseArray<>();
-    protected Gson gson;
     private float startingY;
-    private ProgressDialog progressDialog;
     private InputMethodManager imm;
 
     /*
@@ -48,15 +43,8 @@ public abstract class MainActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pref = new Pref(this);
-        gson = new Gson();
-        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        progressDialog = new ProgressDialog(this);
-    }
 
-    protected final void block(String msg){
-        progressDialog.setMessage(msg);
-        progressDialog.show();
+        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
     }
 
     protected final void overlayPermission() {
@@ -70,15 +58,17 @@ public abstract class MainActivity extends AppCompatActivity implements View.OnC
         }
     }
 
-    protected final void unblock() {
-        progressDialog.dismiss();
-    }
-
     protected final void toActivity(Class actClass){
         Intent intent = new Intent(this, actClass);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
         startActivity(intent);
         this.finish();
+    }
+
+    protected final void logout(){
+        Profile.logout();
+        SqlAccess sql = SqlAccess.getInstance();
+        sql.dropAll();
     }
 
     protected final void toActivity(Class actClass, String val){

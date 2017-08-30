@@ -1,13 +1,11 @@
 package nz.co.udenbrothers.clockwork.tools;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.view.Window;
 import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentResult;
 
-import nz.co.udenbrothers.clockwork.global.Screen;
+import nz.co.udenbrothers.clockwork.temps.Screen;
 
 public class Kit {
 

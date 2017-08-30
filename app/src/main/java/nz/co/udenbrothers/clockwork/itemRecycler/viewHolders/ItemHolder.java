@@ -1,14 +1,13 @@
 package nz.co.udenbrothers.clockwork.itemRecycler.viewHolders;
 
 import android.animation.ValueAnimator;
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Checkable;
 import android.widget.RelativeLayout;
 
 import nz.co.udenbrothers.clockwork.R;
@@ -30,7 +29,7 @@ public abstract class ItemHolder extends RecyclerView.ViewHolder implements View
         collectionView = cv;
     }
 
-    protected final View findView(int Rid){
+    protected final <T extends View & Checkable> T findView(int Rid){
         return itemView.findViewById(Rid);
     }
 
@@ -54,7 +53,6 @@ public abstract class ItemHolder extends RecyclerView.ViewHolder implements View
         cmds.put(id,cd);
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     protected final void expandView(int height) {
         ValueAnimator anim = ValueAnimator.ofInt(card.getMeasuredHeightAndState(), height);
         anim.addUpdateListener(valueAnimator -> {

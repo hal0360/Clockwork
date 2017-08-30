@@ -48,7 +48,7 @@
             android:contentDescription="@string/imgDes"
             android:src="@drawable/company_icon" />
 
-        <EditText
+        <nz.co.udenbrothers.clockwork.customWigets.TextInput
             android:id="@+id/companyEdit"
             android:layout_width="match_parent"
             android:layout_height="0dp"

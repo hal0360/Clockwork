@@ -23,6 +23,17 @@ public class RequestTask extends AsyncTask<String,String,Response>
     private String method;
     private String aus;
     private ProgressDialog progressDialog;
+    private boolean block = true;
+
+    public RequestTask(Context con, String meth, String content, String au, boolean block) {
+        uploadString = content;
+        method = meth;
+        asynCallback = (AsynCallback) con;
+        aus = au;
+        progressDialog = new ProgressDialog(con);
+        this.block = block;
+    }
+
 
     public RequestTask(Context con, String meth, String content, String au) {
         uploadString = content;
@@ -35,8 +46,11 @@ public class RequestTask extends AsyncTask<String,String,Response>
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        progressDialog.setMessage("Please wait...");
-        progressDialog.show();
+        if(block){
+            progressDialog.setMessage("Please wait...");
+            progressDialog.show();
+        }
+
     }
 
     @Override
@@ -46,11 +60,15 @@ public class RequestTask extends AsyncTask<String,String,Response>
 
     @Override
     protected void onPostExecute(Response response) {
-        progressDialog.dismiss();
+
+        if(block){
+            progressDialog.dismiss();
+        }
+
         asynCallback.postCallback(response);
     }
 
-    private Response myHttpConnection(String method, String content, String url, String aus){
+    public static Response myHttpConnection(String method, String content, String url, String aus){
         HttpURLConnection urlConnection = null;
         String result = "N/A";
         int statusCode = 900;

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
+    android:animateLayoutChanges="true"
     tools:context="nz.co.udenbrothers.clockwork.BossSettingActivity">
 
     <RelativeLayout
@@ -67,6 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:clickable="false"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_marginRight="20dp"
@@ -81,8 +83,7 @@
         android:id="@+id/notiTab"
         android:layout_width="match_parent"
         app:layout_heightPercent="9%"
-        android:layout_below="@+id/wifiTab"
-        android:layout_marginTop="5dp">
+        android:layout_below="@+id/wifiTab">
 
         <TextView
             android:text="Notifications"
@@ -103,6 +104,7 @@
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
+            android:clickable="false"
             android:layout_marginRight="20dp"
             android:layout_marginEnd="20dp" />
 
@@ -113,8 +115,7 @@
         android:id="@+id/wedgeTab"
         android:layout_width="match_parent"
         app:layout_heightPercent="9%"
-        android:layout_below="@+id/notiTab"
-        android:layout_marginTop="5dp">
+        android:layout_below="@+id/workDaysTab">
 
         <TextView
             android:text="Launch wedge"
@@ -134,6 +135,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
+            android:clickable="false"
             android:layout_alignParentEnd="true"
             android:layout_marginRight="20dp"
             android:layout_marginEnd="20dp" />
@@ -145,8 +147,7 @@
         android:id="@+id/reminderTab"
         android:layout_width="match_parent"
         app:layout_heightPercent="9%"
-        android:layout_below="@+id/wedgeTab"
-        android:layout_marginTop="35dp">
+        android:layout_below="@+id/notiTab">
 
         <TextView
             android:text="Reminder"
@@ -167,6 +168,7 @@
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
+            android:clickable="false"
             android:layout_marginRight="20dp"
             android:layout_marginEnd="20dp"
             tools:ignore="NewApi" />
@@ -178,8 +180,7 @@
         android:id="@+id/clockOutTab"
         android:layout_width="match_parent"
         app:layout_heightPercent="9%"
-        android:layout_below="@+id/clockInTab"
-        android:layout_marginTop="5dp">
+        android:layout_below="@+id/clockInTab">
 
         <TextView
             android:text="Set Clock-out Reminder"
@@ -213,7 +214,6 @@
         android:id="@+id/clockInTab"
         android:layout_width="match_parent"
         app:layout_heightPercent="9%"
-        android:layout_marginTop="5dp"
         android:layout_below="@+id/reminderTab"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
@@ -250,7 +250,6 @@
         android:id="@+id/workDaysTab"
         android:layout_width="match_parent"
         app:layout_heightPercent="9%"
-        android:layout_marginTop="5dp"
         android:layout_below="@+id/clockOutTab"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">

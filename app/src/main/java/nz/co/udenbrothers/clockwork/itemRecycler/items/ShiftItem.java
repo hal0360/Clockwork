@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import java.util.Date;
 
-import nz.co.udenbrothers.clockwork.global.Type;
+import nz.co.udenbrothers.clockwork.global.V;
 import nz.co.udenbrothers.clockwork.models.Shift;
 
 
@@ -15,7 +15,7 @@ public class ShiftItem extends Item  implements Comparable<ShiftItem>{
     public Date endDate;
 
     public ShiftItem(Shift shift) {
-        super(Type.SHIFT);
+        super(V.SHIFT);
         this.shift = shift;
     }
 

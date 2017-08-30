@@ -6,6 +6,7 @@ import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
+import android.widget.Checkable;
 
 import nz.co.udenbrothers.clockwork.R;
 import nz.co.udenbrothers.clockwork.abstractions.Cmd;
@@ -57,7 +58,7 @@ public class Popup implements View.OnClickListener{
         dialog.show();
     }
 
-    public View getView(int id){
+    public <T extends View & Checkable> T getView(int id){
         return dialog.findViewById(id);
     }
 

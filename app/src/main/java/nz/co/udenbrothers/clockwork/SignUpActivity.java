@@ -1,30 +1,27 @@
 package nz.co.udenbrothers.clockwork;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.text.Html;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import nz.co.udenbrothers.clockwork.abstractions.AsynCallback;
-import nz.co.udenbrothers.clockwork.global.URL;
-import nz.co.udenbrothers.clockwork.serverObjects.Profile;
+import nz.co.udenbrothers.clockwork.customWigets.TextInput;
+import nz.co.udenbrothers.clockwork.global.Api;
 import nz.co.udenbrothers.clockwork.serverObjects.Response;
-import nz.co.udenbrothers.clockwork.tools.Kit;
+import nz.co.udenbrothers.clockwork.serverObjects.SigninInfo;
+import nz.co.udenbrothers.clockwork.tools.Match;
 import nz.co.udenbrothers.clockwork.tools.RequestTask;
 
 public class SignUpActivity extends MainActivity implements AsynCallback {
 
     private CheckBox terms;
-    private EditText Efname, Elname, Email, Epass, Epass2;
+    private TextInput Efname, Elname, Email, Epass, Epass2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_sign_up);
         Efname = findViewById(R.id.firstName);
         Elname = findViewById(R.id.lastName);
@@ -34,21 +31,16 @@ public class SignUpActivity extends MainActivity implements AsynCallback {
         terms = findViewById(R.id.termCondd);
         terms.setText(Html.fromHtml("I agree to the <b>Terms and Service</b>"));
 
-        clicked(terms, ()->{
-            terms.setChecked(false);
-        });
         clicked(R.id.staffCreateButton, this::createAccount);
     }
 
     public void postCallback(Response response){
-        unblock();
         if(response.statusCode == 204){
             alert("Sign up successful");
             toActivity(SignInActivity.class);
         }
         else if(response.statusCode == 400){
-            Email.requestFocus();
-            Email.setError("Email already in use");
+            Email.error("Email already in use");
         }
         else {
             alert("Problem with connection or server. Try again later");
@@ -56,41 +48,35 @@ public class SignUpActivity extends MainActivity implements AsynCallback {
     }
 
     private void createAccount(){
-        String fusr = Efname.getText().toString().trim();
-        String lusr = Elname.getText().toString().trim();
-        String pass = Epass.getText().toString().trim();
-        String pass2 = Epass2.getText().toString().trim();
-        String mail = Email.getText().toString().trim();
+        String fusr = Efname.getTxt();
+        String lusr = Elname.getTxt();
+        String pass = Epass.getTxt();
+        String pass2 = Epass2.getTxt();
+        String mail = Email.getTxt();
 
         if (fusr.equals("")){
-            Efname.requestFocus();
-            Efname.setError("Invalid name");
+            Efname.error("Invalid first name");
             return;
         }
 
-        if (fusr.equals("")){
-            Elname.requestFocus();
-            Elname.setError("Invalid name");
+        if (lusr.equals("")){
+            Elname.error("Invalid last name");
             return;
         }
 
-        Matcher m = Pattern.compile("^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*$").matcher(mail);
-        if (!m.matches( )) {
-            Email.requestFocus();
-            Email.setError("Invaid email");
+        if (!Match.mail(mail)) {
+            Email.error("Invaid email");
             return;
         }
 
         if (pass.length() < 6){
-            Epass.requestFocus();
-            Epass.setError("Must be at least 6 length");
+            Epass.error("Must be at least 6 length");
             Email.setText("");
             return;
         }
 
         if (!pass.equals(pass2)){
-            Epass2.requestFocus();
-            Epass2.setError("Password not match");
+            Epass2.error("Password not match");
             Epass2.setText("");
             return;
         }
@@ -100,9 +86,8 @@ public class SignUpActivity extends MainActivity implements AsynCallback {
             return;
         }
 
-        Profile profile = new Profile(fusr, lusr, mail, pass);
-        block("Please wait....");
-        new RequestTask(this,"POST", profile.toJson(), null).execute(URL.SIGNUP);
+        SigninInfo profile = new SigninInfo(fusr, lusr, mail, pass);
+        new RequestTask(this,"POST", profile.toJson(), null).execute(Api.SIGNUP);
     }
 
     @Override

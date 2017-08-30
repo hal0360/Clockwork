@@ -1,4 +1,4 @@
-package nz.co.udenbrothers.clockwork.tools;
+package nz.co.udenbrothers.clockwork.customWigets;
 
 import android.content.Context;
 import android.graphics.Bitmap;

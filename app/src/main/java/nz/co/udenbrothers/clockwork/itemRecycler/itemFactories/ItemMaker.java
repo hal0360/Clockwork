@@ -3,25 +3,23 @@ package nz.co.udenbrothers.clockwork.itemRecycler.itemFactories;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import nz.co.udenbrothers.clockwork.itemRecycler.items.Item;
 import nz.co.udenbrothers.clockwork.models.Model;
-import nz.co.udenbrothers.clockwork.tools.Pref;
 
 
 
 public class ItemMaker {
 
-    protected Pref pref;
     protected Context context;
 
     public ItemMaker(Context context){
-        pref = new Pref(context);
         this.context = context;
     }
 
-    public final ArrayList<Item> toItems(ArrayList<? extends Model> models, int type){
-        ArrayList<Item> items = new ArrayList<>();
+    public final List<Item> toItems(List<? extends Model> models, int type){
+        List<Item> items = new ArrayList<>();
         for (Model model : models){
             Item item = new Item(type);
             item.model = model;

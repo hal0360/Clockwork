@@ -46,7 +46,7 @@
         android:gravity="center"
         android:textColor="#fff" />
 
-    <nz.co.udenbrothers.clockwork.tools.QRView
+    <nz.co.udenbrothers.clockwork.customWigets.QRView
         android:id="@+id/qrCode"
         android:layout_width="225dp"
         android:layout_height="225dp"

@@ -3,24 +3,16 @@ package nz.co.udenbrothers.clockwork.itemRecycler.viewHolders;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 import nz.co.udenbrothers.clockwork.R;
-import nz.co.udenbrothers.clockwork.abstractions.RecycleCallback;
 import nz.co.udenbrothers.clockwork.itemRecycler.CollectionView;
 import nz.co.udenbrothers.clockwork.itemRecycler.items.Item;
-import nz.co.udenbrothers.clockwork.models.Shift;
-import nz.co.udenbrothers.clockwork.models.User;
 import nz.co.udenbrothers.clockwork.tools.Kit;
-import nz.co.udenbrothers.clockwork.tools.MyDate;
 
 public class UserViewHolder extends ItemHolder {
 
     private boolean isViewExpanded = false;
     private TextView title, yesterday, week, month, records;
     private View activeDot;
-    private RecycleCallback recycleCallback;
     private String uid;
 
     public UserViewHolder(CollectionView cv) {

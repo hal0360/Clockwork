@@ -11,14 +11,19 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="colorControlActivated">#fff</item>
+        <item name="colorControlNormal">#fff</item>
     </style>
 
     <style name="StaffTheme" parent="AppTheme">
         <item name="android:statusBarColor" tools:ignore="NewApi">#FF8C00</item>
+        <item name="colorControlActivated">#32CD32</item>
+
     </style>
 
     <style name="BossTheme" parent="AppTheme">
         <item name="android:statusBarColor" tools:ignore="NewApi">#1E90FF</item>
+        <item name="colorControlActivated">#32CD32</item>
     </style>
 
     <style name="MenuAnimation">
@@ -59,6 +64,11 @@
         <item name="colorControlActivated">#0000CD</item>
         <item name="colorControlNormal">#0000CD</item>
         <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+
+    <style name="WorkFloatTheme" parent="FloatTheme">
+        <item name="colorControlActivated">#fff</item>
+        <item name="colorControlNormal">#fff</item>
     </style>
 
 </resources>

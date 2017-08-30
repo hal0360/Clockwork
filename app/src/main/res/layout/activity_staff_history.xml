@@ -42,7 +42,7 @@
 
     </RelativeLayout>
 
-    <nz.co.udenbrothers.clockwork.tools.Choser
+    <nz.co.udenbrothers.clockwork.customWigets.Choser
         android:layout_width="0dp"
         app:layout_widthPercent="90%"
         android:layout_height="0dp"
@@ -80,6 +80,12 @@
             android:layout_centerHorizontal="true"
             android:id="@+id/totalStampHourTxt"
             android:layout_alignParentTop="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#000"
+            android:layout_below="@+id/totalStampHourTxt" />
 
         <TextView
             android:text=""

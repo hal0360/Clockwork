@@ -2,6 +2,9 @@ package nz.co.udenbrothers.clockwork;
 
 import android.os.Bundle;
 import android.widget.CheckBox;
+import android.widget.RelativeLayout;
+
+import nz.co.udenbrothers.clockwork.temps.Profile;
 
 public class WorkdaysSelectActivity extends MainActivity {
 
@@ -9,6 +12,10 @@ public class WorkdaysSelectActivity extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workdays_select);
+
+        RelativeLayout backG = findViewById(R.id.backG);
+        if(Profile.role() == 1) backG.setBackgroundColor(0xFFFFAF4D);
+        else backG.setBackgroundColor(0xFF00BFFF);
 
         CheckBox mon = findViewById(R.id.checkMon);
         CheckBox tue = findViewById(R.id.checkTue);
@@ -18,84 +25,85 @@ public class WorkdaysSelectActivity extends MainActivity {
         CheckBox sat = findViewById(R.id.checkSat);
         CheckBox sun = findViewById(R.id.checkSun);
 
-        if(pref.getBool("monday",true)) mon.setChecked(true);
-        if(pref.getBool("tuesday",true)) tue.setChecked(true);
-        if(pref.getBool("wednesday",true)) wed.setChecked(true);
-        if(pref.getBool("thursday",true)) thu.setChecked(true);
-        if(pref.getBool("friday",true)) fri.setChecked(true);
-        if(pref.getBool("sunday",true)) sun.setChecked(true);
-        if(pref.getBool("saturday",true)) sat.setChecked(true);
+        if(App.getBool("monday",true)) mon.setChecked(true);
+        if(App.getBool("tuesday",true)) tue.setChecked(true);
+        if(App.getBool("wednesday",true)) wed.setChecked(true);
+        if(App.getBool("thursday",true)) thu.setChecked(true);
+        if(App.getBool("friday",true)) fri.setChecked(true);
+        if(App.getBool("sunday",true)) sun.setChecked(true);
+        if(App.getBool("saturday",true)) sat.setChecked(true);
 
         clicked(mon,()->{
-            if(pref.getBool("monday",true)){
-                pref.putBool("monday", false);
+            if(App.getBool("monday",true)){
+                App.putBool("monday", false);
                 mon.setChecked(false);
             }
             else {
-                pref.putBool("monday", true);
+                App.putBool("monday", true);
                 mon.setChecked(true);
             }
         });
         clicked(tue,()->{
-            if(pref.getBool("tuesday",true)){
-                pref.putBool("tuesday", false);
+            if(App.getBool("tuesday",true)){
+                App.putBool("tuesday", false);
                 tue.setChecked(false);
             }
             else {
-                pref.putBool("tuesday", true);
+                App.putBool("tuesday", true);
                 tue.setChecked(true);
             }
         });
         clicked(wed,()->{
-            if(pref.getBool("wednesday",true)){
-                pref.putBool("wednesday", false);
+            if(App.getBool("wednesday",true)){
+                App.putBool("wednesday", false);
                 wed.setChecked(false);
             }
             else {
-                pref.putBool("wednesday", true);
+                App.putBool("wednesday", true);
                 wed.setChecked(true);
             }
         });
         clicked(thu,()->{
-            if(pref.getBool("thursday",true)){
-                pref.putBool("thursday", false);
+            if(App.getBool("thursday",true)){
+                App.putBool("thursday", false);
                 thu.setChecked(false);
             }
             else {
-                pref.putBool("thursday", true);
+                App.putBool("thursday", true);
                 thu.setChecked(true);
             }
         });
         clicked(fri,()->{
-            if(pref.getBool("friday",true)){
-                pref.putBool("friday", false);
+            if(App.getBool("friday",true)){
+                App.putBool("friday", false);
                 fri.setChecked(false);
             }
             else {
-                pref.putBool("friday", true);
+                App.putBool("friday", true);
                 fri.setChecked(true);
             }
         });
         clicked(sat,()->{
-            if(pref.getBool("saturday",true)){
-                pref.putBool("saturday", false);
+            if(App.getBool("saturday",true)){
+                App.putBool("saturday", false);
                 sat.setChecked(false);
             }
             else {
-                pref.putBool("saturday", true);
+                App.putBool("saturday", true);
                 sat.setChecked(true);
             }
         });
         clicked(sun,()->{
-            if(pref.getBool("sunday",true)){
-                pref.putBool("sunday", false);
+            if(App.getBool("sunday",true)){
+                App.putBool("sunday", false);
                 sun.setChecked(false);
             }
             else {
-                pref.putBool("sunday", true);
+                App.putBool("sunday", true);
                 sun.setChecked(true);
             }
         });
 
+        clicked(R.id.comButton, this::finish);
     }
 }

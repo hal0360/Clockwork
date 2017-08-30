@@ -8,8 +8,8 @@ android {
         applicationId "nz.co.udenbrothers.clockwork"
         minSdkVersion 14
         targetSdkVersion 26
-        versionCode 7
-        versionName "7.0"
+        versionCode 10
+        versionName "10.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -39,5 +39,6 @@ dependencies {
     compile 'com.journeyapps:zxing-android-embedded:3.5.0'
     compile 'com.wdullaer:materialdatetimepicker:3.3.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.opencsv:opencsv:4.0'
     testCompile 'junit:junit:4.12'
 }

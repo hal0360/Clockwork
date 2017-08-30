@@ -1,5 +1,6 @@
 package nz.co.udenbrothers.clockwork.itemRecycler.viewHolders;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
 import android.widget.EditText;
@@ -14,11 +15,12 @@ import nz.co.udenbrothers.clockwork.R;
 import nz.co.udenbrothers.clockwork.itemRecycler.CollectionView;
 import nz.co.udenbrothers.clockwork.itemRecycler.items.Item;
 import nz.co.udenbrothers.clockwork.models.Shift;
+import nz.co.udenbrothers.clockwork.serverices.UploadService;
+import nz.co.udenbrothers.clockwork.temps.Act;
+import nz.co.udenbrothers.clockwork.temps.Profile;
 import nz.co.udenbrothers.clockwork.tools.Kit;
 import nz.co.udenbrothers.clockwork.tools.MyDate;
 import nz.co.udenbrothers.clockwork.tools.Popup;
-import nz.co.udenbrothers.clockwork.tools.Pref;
-import nz.co.udenbrothers.clockwork.tools.UploadShift;
 
 public class TopViewHolder extends ItemHolder {
 
@@ -30,9 +32,9 @@ public class TopViewHolder extends ItemHolder {
     public TopViewHolder(CollectionView cv) {
         super(cv, R.layout.top_card_layout);
 
-        started =  (TextView) findView(R.id.startedHour);
-        worked =  (TextView) findView(R.id.workedHour);
-        title =  (TextView) findView(R.id.cardTitle);
+        started = findView(R.id.startedHour);
+        worked = findView(R.id.workedHour);
+        title = findView(R.id.cardTitle);
         handler = new Handler();
 
         clicked(card, ()->{
@@ -71,23 +73,22 @@ public class TopViewHolder extends ItemHolder {
     public void init(Item item){
         title.setText("Working now: " + item.des);
         setHeight(Kit.dps(120));
-        Pref pref = new Pref(context);
 
-        startDate = MyDate.strToDate(pref.getStr("startTime"));
+        startDate = MyDate.strToDate(Act.startTime());
         started.setText(MyDate.dateToStr(startDate,"HH:mm"));
         countDownStart();
 
         clicked(R.id.stopSessionButton, ()-> {
 
-            Shift shift = new Shift(pref.getStr("currentProject"),pref.getStr("startTime"), MyDate.dateToStr(new Date()),pref.getStr("uid"));
+            Shift shift = new Shift(item.des, Act.startTime(), MyDate.dateToStr(new Date()), Profile.userID());
             shift.comment = "This shift was force stopped by the user: ";
-            shift.save(context);
+            shift.save();
             shift.stopped = 1;
-            pref.putStr("currentProject", "");
+            Act.current(null);
 
             Calendar rightNow = Calendar.getInstance();
             Popup popup = new Popup(context, R.layout.time_comment_layout);
-            TimePicker timePicker = (TimePicker) popup.getView(R.id.stopTimePicker);
+            TimePicker timePicker = popup.getView(R.id.stopTimePicker);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 timePicker.setHour(rightNow.get(Calendar.HOUR_OF_DAY));
             }
@@ -100,13 +101,12 @@ public class TopViewHolder extends ItemHolder {
             else {
                 timePicker.setCurrentMinute(rightNow.get(Calendar.MINUTE));
             }
-            EditText commentBox = (EditText) popup.getView(R.id.commentBox);
+            EditText commentBox = popup.getView(R.id.commentBox);
 
             popup.clicked(R.id.saveButton, ()->{
                 shift.comment =  shift.comment + commentBox.getText().toString().trim();
-                commentBox.setText("");
-                shift.save(context);
-                new UploadShift(context).upload(shift);
+                shift.save();
+                context.startService(new Intent(context, UploadService.class));
                 popup.dismiss();
                 delete();
             });

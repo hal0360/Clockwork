@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import nz.co.udenbrothers.clockwork.itemRecycler.items.ShiftItem;
 import nz.co.udenbrothers.clockwork.models.Shift;
@@ -12,9 +13,9 @@ import nz.co.udenbrothers.clockwork.models.Shift;
 
 public class ShiftRecord {
 
-    private ArrayList<ShiftItem> shiftItems;
+    private List<ShiftItem> shiftItems;
 
-    public ShiftRecord( ArrayList<Shift> shifts){
+    public ShiftRecord( List<Shift> shifts){
         shiftItems = new ArrayList<>();
         for (Shift shift : shifts){
             ShiftItem shiftItem = new ShiftItem(shift);
@@ -25,9 +26,9 @@ public class ShiftRecord {
         Collections.sort(shiftItems);
     }
 
-    public ArrayList<ShiftItem> getBefore(int days){
+    public List<ShiftItem> getBefore(int days){
         if(days <= 0) return shiftItems;
-        ArrayList<ShiftItem> newShifts = new ArrayList<>();
+        List<ShiftItem> newShifts = new ArrayList<>();
         Calendar c = Calendar.getInstance();
         c.setTime(new Date());
         c.add(Calendar.DATE, -1*days);

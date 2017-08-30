@@ -16,8 +16,8 @@ import java.util.Date;
 import java.util.Locale;
 
 import nz.co.udenbrothers.clockwork.R;
+import nz.co.udenbrothers.clockwork.temps.Act;
 import nz.co.udenbrothers.clockwork.tools.MyDate;
-import nz.co.udenbrothers.clockwork.tools.Pref;
 
 public class WedgeService extends Service {
 
@@ -38,7 +38,6 @@ public class WedgeService extends Service {
     @Override public void onCreate() {
         super.onCreate();
 
-        Pref pref = new Pref(this);
         WindowManager.LayoutParams params;
         handler = new Handler();
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
@@ -71,8 +70,8 @@ public class WedgeService extends Service {
         TextView worked = wedgeView.findViewById(R.id.workedHour);
         TextView title =  wedgeView.findViewById(R.id.cardTitle);
 
-        title.setText("Working now: " + pref.getStr("currentProject"));
-        Date startDate = MyDate.strToDate(pref.getStr("startTime"));
+        title.setText("Working now: " + Act.current());
+        Date startDate = MyDate.strToDate(Act.startTime());
         started.setText(MyDate.dateToStr(startDate,"HH:mm"));
 
         Date curDate = new Date();

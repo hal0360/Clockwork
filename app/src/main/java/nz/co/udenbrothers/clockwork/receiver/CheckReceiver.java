@@ -5,7 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import nz.co.udenbrothers.clockwork.tools.Pref;
+import nz.co.udenbrothers.clockwork.temps.Setting;
 
 public class CheckReceiver extends BroadcastReceiver {
     public CheckReceiver() {
@@ -14,20 +14,17 @@ public class CheckReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Pref pref = new Pref(context);
-        if(!pref.getBool("reminder",true)) return;
+        if(!Setting.reminder()) return;
 
         boolean alarmUpO = (PendingIntent.getBroadcast(context, 0, new Intent("clockWorkClockOut"), PendingIntent.FLAG_NO_CREATE) != null);
         if (!alarmUpO)
         {
-            ClockOutReceiver clockOutReceiver = new ClockOutReceiver();
-            clockOutReceiver.starting(context);
+            ClockOutReceiver.starting(context);
         }
         boolean alarmUpI = (PendingIntent.getBroadcast(context, 0, new Intent("clockWorkClockIn"), PendingIntent.FLAG_NO_CREATE) != null);
         if (!alarmUpI)
         {
-            ClockInReceiver clockInReceiver = new ClockInReceiver();
-            clockInReceiver.starting(context);
+            ClockInReceiver.starting(context);
         }
     }
 }

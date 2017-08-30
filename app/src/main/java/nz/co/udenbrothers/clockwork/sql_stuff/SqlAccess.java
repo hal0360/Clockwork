@@ -1,4 +1,4 @@
-package nz.co.udenbrothers.clockwork.tools;
+package nz.co.udenbrothers.clockwork.sql_stuff;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,21 +9,28 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
-import nz.co.udenbrothers.clockwork.global.SQL;
+import nz.co.udenbrothers.clockwork.App;
 
 
 public class SqlAccess extends SQLiteOpenHelper {
 
+    private static SqlAccess sInstance;
 
-    public SqlAccess(Context context) {
+    private SqlAccess(Context context) {
         super(context, SQL.DBNAME, null, SQL.VERSION);
+    }
+
+    public static synchronized SqlAccess getInstance() {
+        if (sInstance == null) sInstance = new SqlAccess(App.get());
+        return sInstance;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {}
 
-    public void makeTable(HashSet<String> fields, String table) {
+    public synchronized void makeTable(HashSet<String> fields, String table) {
         SQLiteDatabase db = getWritableDatabase();
         String CREATE_TABLE_NEW = "CREATE TABLE IF NOT EXISTS " + table + " (";
 
@@ -38,7 +45,7 @@ public class SqlAccess extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void createTable(String sqls) {
+    public synchronized void createTable(String sqls) {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL(sqls);
         db.close();
@@ -46,16 +53,7 @@ public class SqlAccess extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Cursor c = db.rawQuery("SELECT name FROM clockDB WHERE type='table'", null);
-        ArrayList<String> tables = new ArrayList<>();
-        while (c.moveToNext()) {
-            tables.add(c.getString(0));
-        }
-        for (String table : tables) {
-            String dropQuery = "DROP TABLE IF EXISTS " + table;
-            db.execSQL(dropQuery);
-        }
-        c.close();
+        dropAll();
     }
 
     public int update(String table, ContentValues cv, String field, String value){
@@ -65,20 +63,29 @@ public class SqlAccess extends SQLiteOpenHelper {
         return rows;
     }
 
-    public void drop(String table){
+    public synchronized void dropAll(){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DROP TABLE IF EXISTS " + table);
+        Cursor c = db.rawQuery("SELECT name FROM " + SQL.DBNAME + " WHERE type='table'", null);
+        List<String> tables = new ArrayList<>();
+        while (c.moveToNext()) {
+            tables.add(c.getString(0));
+        }
+        for (String table : tables) {
+            String dropQuery = "DROP TABLE IF EXISTS " + table;
+            db.execSQL(dropQuery);
+        }
+        c.close();
         db.close();
     }
 
-    public int add(String table, ContentValues cv){
+    public synchronized long add(String table, ContentValues cv){
         SQLiteDatabase db = this.getWritableDatabase();
-        int id = (int) db.insert(table, null, cv);
+        long id = db.insert(table, null, cv);
         db.close();
         return id;
     }
 
-    public void get(String table, Cur cur) {
+    public synchronized void get(String table, Cur cur) {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT  * FROM " + table;
         try {
@@ -88,7 +95,7 @@ public class SqlAccess extends SQLiteOpenHelper {
         }
     }
 
-    public void get(String table, String field, String value, Cur cur) {
+    public synchronized void get(String table, String field, String value, Cur cur) {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT  * FROM " + table + " WHERE " + field + "= ?";
         try {
@@ -98,18 +105,18 @@ public class SqlAccess extends SQLiteOpenHelper {
         }
     }
 
-    public void getByQuery(String query, Cur cur){
+    public synchronized void getByQuery(String query, Cur cur){
         SQLiteDatabase db = this.getWritableDatabase();
         cur.setup(db.rawQuery(query, null),db);
     }
 
-    public void delete(String table, String field, String value){
+    public synchronized void delete(String table, String field, String value){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + table + " WHERE " + field + "= '" + value + "'");
         db.close();
     }
 
-    public void clear(String table){
+    public synchronized void clear(String table){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(table, null, null);
         db.close();

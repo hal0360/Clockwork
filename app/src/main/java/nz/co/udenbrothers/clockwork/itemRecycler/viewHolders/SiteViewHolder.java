@@ -3,21 +3,20 @@ package nz.co.udenbrothers.clockwork.itemRecycler.viewHolders;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import nz.co.udenbrothers.clockwork.BossActivity;
 import nz.co.udenbrothers.clockwork.BossMyTeamActivity;
 import nz.co.udenbrothers.clockwork.R;
-import nz.co.udenbrothers.clockwork.StaffActivity;
-import nz.co.udenbrothers.clockwork.StaffHistoryActivity;
 import nz.co.udenbrothers.clockwork.itemRecycler.CollectionView;
 import nz.co.udenbrothers.clockwork.itemRecycler.items.Item;
 import nz.co.udenbrothers.clockwork.models.Project;
 import nz.co.udenbrothers.clockwork.models.Shift;
+import nz.co.udenbrothers.clockwork.sql_stuff.SQL;
+import nz.co.udenbrothers.clockwork.temps.Act;
 import nz.co.udenbrothers.clockwork.tools.Kit;
 import nz.co.udenbrothers.clockwork.tools.MyDate;
-import nz.co.udenbrothers.clockwork.tools.Pref;
 
 
 public class SiteViewHolder extends ItemHolder{
@@ -29,11 +28,11 @@ public class SiteViewHolder extends ItemHolder{
     public SiteViewHolder(CollectionView cv) {
         super(cv, R.layout.site_card_layout);
 
-        title =  (TextView) findView(R.id.cardTitle);
-        yesterday =  (TextView) findView(R.id.yesterdayHour);
-        week =  (TextView) findView(R.id.weekHour);
-        month =  (TextView) findView(R.id.monthHour);
-        records =  (TextView) findView(R.id.recordTxt);
+        title = findView(R.id.cardTitle);
+        yesterday = findView(R.id.yesterdayHour);
+        week = findView(R.id.weekHour);
+        month = findView(R.id.monthHour);
+        records = findView(R.id.recordTxt);
         activeDot = findView(R.id.activeDot);
 
         clicked(card, ()->{
@@ -56,7 +55,7 @@ public class SiteViewHolder extends ItemHolder{
 
         setHeight(Kit.dps(120));
         title.setText(project.qrCodeIdentifier);
-        ArrayList<Shift> shifts = Shift.get(context, "qrCodeIdentifier", project.qrCodeIdentifier);
+        List<Shift> shifts = SQL.get(Shift.class);
         int counts = shifts.size();
         if(counts > 0){
             Date startdate = MyDate.strToDate(shifts.get(counts - 1).shiftTimeStartOnUtc);
@@ -65,9 +64,9 @@ public class SiteViewHolder extends ItemHolder{
             week.setText(MyDate.dateToStr(endDate, "HH:mm"));
             month.setText(MyDate.gethourMin(endDate.getTime() - startdate.getTime()));
         }
-        records.setText(counts + " records in this project");
-        Pref pref = new Pref(context);
-        if(pref.getStr("currentProject").equals(project.qrCodeIdentifier)){
+        records.setText("0 staff working  in this project");
+
+        if(Act.current() != null && Act.current().equals(project.qrCodeIdentifier)){
             activeDot.setBackgroundResource( R.drawable.green_dot );
         }
         else {
@@ -75,12 +74,12 @@ public class SiteViewHolder extends ItemHolder{
         }
 
         clicked(R.id.moreInfoButton, () -> {
-            pref.putStr("selectedProjectName", project.qrCodeIdentifier);
+           // pref.putStr("selectedProjectName", project.qrCodeIdentifier);
             bossActivity.navigate(BossMyTeamActivity.class);
         });
 
         clicked(R.id.deleteButton, () -> {
-            project.delete(context);
+            project.delete();
             delete();
         });
     }

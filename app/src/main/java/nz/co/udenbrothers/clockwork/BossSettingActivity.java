@@ -3,14 +3,22 @@ package nz.co.udenbrothers.clockwork;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import nz.co.udenbrothers.clockwork.receiver.ClockInReceiver;
 import nz.co.udenbrothers.clockwork.receiver.ClockOutReceiver;
+import nz.co.udenbrothers.clockwork.temps.Noti;
+import nz.co.udenbrothers.clockwork.temps.Setting;
 
 public class BossSettingActivity extends BossActivity {
 
-    private TextView wDaysTxt;
+    private TextView wDaysTxt, COtxt, CItxt;
+    private SwitchCompat wifiSwitch, notiSwitch, reminderSwitch, wedgeSwitch;
+    private RelativeLayout COtab, CItab, WDtab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,112 +27,99 @@ public class BossSettingActivity extends BossActivity {
 
         clicked(R.id.imageHam, ()-> sideMenu.show());
 
-        ClockInReceiver clockInReceiver = new ClockInReceiver();
-        ClockOutReceiver clockOutReceiver = new ClockOutReceiver();
-        SwitchCompat wifiSwitch = findViewById(R.id.wifiSwitch);
-        SwitchCompat notiSwitch = findViewById(R.id.notificationSwitch);
-        SwitchCompat reminderSwitch = findViewById(R.id.reminderSwitch);
-        SwitchCompat wedgeSwitch = findViewById(R.id.wedgeSwitch);
-        TextView COtxt = findViewById(R.id.clockOutTxt);
-        TextView CItxt = findViewById(R.id.clockInTxt);
+        wifiSwitch = findViewById(R.id.wifiSwitch);
+        notiSwitch = findViewById(R.id.notificationSwitch);
+        reminderSwitch = findViewById(R.id.reminderSwitch);
+        wedgeSwitch = findViewById(R.id.wedgeSwitch);
+        COtxt = findViewById(R.id.clockOutTxt);
+        CItxt = findViewById(R.id.clockInTxt);
         wDaysTxt = findViewById(R.id.workDaysTxt);
-        wifiSwitch.setClickable(false);
-        notiSwitch.setClickable(false);
-        reminderSwitch.setClickable(false);
-        wedgeSwitch.setClickable(false);
-
-        COtxt.setText(pref.getInt("COhour") + ":" + pref.getInt("COmin"));
-        CItxt.setText(pref.getInt("CIhour") + ":" + pref.getInt("CImin"));
-        if(pref.getBool("wifi",false)) wifiSwitch.setChecked(true);
-        if(pref.getBool("notification",true)) notiSwitch.setChecked(true);
-        if(pref.getBool("reminder",true)) reminderSwitch.setChecked(true);
-        if(pref.getBool("wedge",true)) wedgeSwitch.setChecked(true);
+        COtab = findViewById(R.id.clockOutTab);
+        CItab = findViewById(R.id.clockInTab);
+        WDtab = findViewById(R.id.workDaysTab);
+        setUp();
 
         clicked(R.id.wifiTab,()->{
-            if(pref.getBool("wifi",false)){
-                pref.putBool("wifi",false);
-                wifiSwitch.setChecked(false);
-            }
-            else {
-                pref.putBool("wifi",true);
-                wifiSwitch.setChecked(true);
-            }
+            if(Setting.wifi()) Setting.wifi(false);
+            else Setting.wifi(true);
+            wifiSwitch.setChecked(Setting.wifi());
         });
 
         clicked(R.id.wedgeTab,()->{
-            if(pref.getBool("wedge",true)){
-                pref.putBool("wedge",false);
-                wedgeSwitch.setChecked(false);
-            }
-            else {
-                pref.putBool("wedge",true);
-                wedgeSwitch.setChecked(true);
-            }
+            if(Setting.wedge()) Setting.wedge(false);
+            else Setting.wedge(true);
+            wedgeSwitch.setChecked(Setting.wedge());
         });
 
         clicked(R.id.notiTab,()->{
-            if(pref.getBool("notification",true)){
-                pref.putBool("notification",false);
-                notiSwitch.setChecked(false);
-            }
-            else {
-                pref.putBool("notification",true);
-                notiSwitch.setChecked(true);
-            }
+            if(Setting.notification()) Setting.notification(false);
+            else Setting.notification(true);
+            notiSwitch.setChecked(Setting.notification());
         });
 
         clicked(R.id.reminderTab,()->{
-            if(pref.getBool("reminder",true)){
-                pref.putBool("reminder",false);
-                reminderSwitch.setChecked(false);
-                clockOutReceiver.cancelling(this);
-                clockInReceiver.cancelling(this);
-            }
-            else {
-                pref.putBool("reminder",true);
-                reminderSwitch.setChecked(true);
-                clockOutReceiver.starting(this);
-                clockInReceiver.starting(this);
-            }
+            if(Setting.reminder()) Setting.reminder(false);
+            else Setting.reminder(true);
+            setUp();
         });
 
         clicked(R.id.clockOutTab,()->{
-            com.wdullaer.materialdatetimepicker.time.TimePickerDialog timepickerdialog = com.wdullaer.materialdatetimepicker.time.TimePickerDialog.newInstance((view, hour, min, sec) -> {
-                COtxt.setText(hour + ":" + min);
-                pref.putInt("COhour", hour);
-                pref.putInt("COmin", min);
-                clockOutReceiver.starting(this);
-            }, pref.getInt("COhour"), pref.getInt("COmin"), true);
-            timepickerdialog.setAccentColor(Color.parseColor("#FF8C00"));
+            TimePickerDialog timepickerdialog = TimePickerDialog.newInstance((view, hour, min, sec) -> {
+                Noti.COhour(hour);
+                Noti.COmin(min);
+                setUp();
+            }, Noti.COhour(), Noti.COmin(), true);
+            timepickerdialog.setAccentColor(Color.parseColor("#00BFFF"));
             timepickerdialog.show(getFragmentManager(), "Timepickerdialog");
         });
 
-
         clicked(R.id.clockInTab,()->{
-            com.wdullaer.materialdatetimepicker.time.TimePickerDialog timepickerdialog = com.wdullaer.materialdatetimepicker.time.TimePickerDialog.newInstance((view, hour, min, sec) -> {
-                CItxt.setText(hour + ":" + min);
-                pref.putInt("CIhour", hour);
-                pref.putInt("CImin", min);
-                clockInReceiver.starting(this);
-            }, pref.getInt("CIhour"), pref.getInt("CImin"), true);
-            timepickerdialog.setAccentColor(Color.parseColor("#FF8C00"));
+            TimePickerDialog timepickerdialog = TimePickerDialog.newInstance((view, hour, min, sec) -> {
+                Noti.CIhour(hour);
+                Noti.CImin(min);
+                setUp();
+            }, Noti.CIhour(), Noti.CImin(), true);
+            timepickerdialog.setAccentColor(Color.parseColor("#00BFFF"));
             timepickerdialog.show(getFragmentManager(), "Timepickerdialog");
         });
 
         clicked(R.id.workDaysTab,()-> pushActivity(WorkdaysSelectActivity.class));
     }
 
+    private void setUp(){
+        wifiSwitch.setChecked(Setting.wifi());
+        notiSwitch.setChecked(Setting.notification());
+        reminderSwitch.setChecked(Setting.reminder());
+        wedgeSwitch.setChecked(Setting.wedge());
+        COtxt.setText(Noti.COhour() + ":" + Noti.COmin());
+        CItxt.setText(Noti.CIhour() + ":" + Noti.CImin());
+
+        if(Setting.reminder()){
+            ClockInReceiver.starting(this);
+            ClockOutReceiver.starting(this);
+            COtab.setVisibility(View.VISIBLE);
+            CItab.setVisibility(View.VISIBLE);
+            WDtab.setVisibility(View.VISIBLE);
+        }else {
+            ClockInReceiver.cancelling(this);
+            ClockOutReceiver.cancelling(this);
+            COtab.setVisibility(View.GONE);
+            CItab.setVisibility(View.GONE);
+            WDtab.setVisibility(View.GONE);
+        }
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         String daysTxt = "";
-        if(pref.getBool("monday",true)) daysTxt = daysTxt + ",M";
-        if(pref.getBool("tuesday",true)) daysTxt = daysTxt + ",T";
-        if(pref.getBool("wednesday",true)) daysTxt = daysTxt + ",W";
-        if(pref.getBool("thursday",true)) daysTxt = daysTxt + ",T";
-        if(pref.getBool("friday",true)) daysTxt = daysTxt + ",F";
-        if(pref.getBool("saturday",true)) daysTxt = daysTxt + ",S";
-        if(pref.getBool("sunday",true)) daysTxt = daysTxt + ",S";
+        if(App.getBool("monday",true)) daysTxt = daysTxt + ",M";
+        if(App.getBool("tuesday",true)) daysTxt = daysTxt + ",T";
+        if(App.getBool("wednesday",true)) daysTxt = daysTxt + ",W";
+        if(App.getBool("thursday",true)) daysTxt = daysTxt + ",T";
+        if(App.getBool("friday",true)) daysTxt = daysTxt + ",F";
+        if(App.getBool("saturday",true)) daysTxt = daysTxt + ",S";
+        if(App.getBool("sunday",true)) daysTxt = daysTxt + ",S";
         wDaysTxt.setText(daysTxt.substring(1));
     }
 }

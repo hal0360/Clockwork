@@ -1,30 +1,27 @@
 package nz.co.udenbrothers.clockwork.models;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
 
 import java.lang.reflect.Field;
 
-import nz.co.udenbrothers.clockwork.tools.Cur;
-import nz.co.udenbrothers.clockwork.tools.Kit;
-import nz.co.udenbrothers.clockwork.tools.SqlAccess;
+import nz.co.udenbrothers.clockwork.sql_stuff.SqlAccess;
 
 public abstract class Model{
 
-    public int id = -1;
+    public long id = -1;
 
     public String toJson(){
         Gson gson = new Gson();
         return gson.toJson(this);
     }
 
-    public void save(Context context){
+    public void save(){
 
         String table = this.getClass().getSimpleName();
-        SqlAccess sql = new SqlAccess(context);;
+        SqlAccess sql = SqlAccess.getInstance();
         ContentValues cv = new ContentValues();
         String CREATE_TABLE_NEW = "CREATE TABLE IF NOT EXISTS " + table + " (id integer primary key, ";
 
@@ -54,7 +51,6 @@ public abstract class Model{
             }
         } catch (Exception e) {
             Log.e("Class reflection Error",e+"");
-            Kit.show(context,e+"");
             return;
         }
 
@@ -71,16 +67,8 @@ public abstract class Model{
         cv.clear();
     }
 
-    protected static Cur load(Context context, String table){
-        return new Cur(table,context);
-    }
-
-    protected static Cur load(Context context, String table, String field, String value){
-        return new Cur(table,context,field,value);
-    }
-
-    public void delete(Context context){
-        SqlAccess sql = new SqlAccess(context);
+    public void delete(){
+        SqlAccess sql = SqlAccess.getInstance();
         String table = this.getClass().getSimpleName();
         sql.delete(table, "id", id+"");
     }

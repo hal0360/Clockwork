@@ -2,14 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="200dp"
-    android:layout_height="365dp"
+    android:layout_height="420dp"
     tools:context="nz.co.udenbrothers.clockwork.WorkdaysSelectActivity"
     android:background="@android:drawable/dialog_holo_light_frame">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#fff">
+        android:id="@+id/backG"
+        android:background="#000">
 
     <CheckBox
         android:text="MONDAY"
@@ -18,7 +19,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textColor="#0000CD"
+        android:textColor="#fff"
         android:layout_marginLeft="5dp"
         android:layout_marginStart="5dp"
         android:paddingLeft="10dp"
@@ -33,7 +34,7 @@
         android:layout_below="@+id/checkMon"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textColor="#0000CD"
+        android:textColor="#fff"
         android:layout_marginLeft="5dp"
         android:layout_marginStart="5dp"
         android:paddingLeft="10dp"
@@ -48,7 +49,7 @@
         android:layout_below="@+id/checkTue"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textColor="#0000CD"
+        android:textColor="#fff"
         android:layout_marginLeft="5dp"
         android:layout_marginStart="5dp"
         android:paddingLeft="10dp"
@@ -63,7 +64,7 @@
         android:layout_below="@+id/checkWed"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textColor="#0000CD"
+        android:textColor="#fff"
         android:layout_marginLeft="5dp"
         android:layout_marginStart="5dp"
         android:paddingLeft="10dp"
@@ -78,7 +79,7 @@
         android:layout_below="@+id/checkThu"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textColor="#0000CD"
+        android:textColor="#fff"
         android:layout_marginLeft="5dp"
         android:layout_marginStart="5dp"
         android:paddingLeft="10dp"
@@ -93,7 +94,7 @@
         android:layout_below="@+id/checkFri"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textColor="#0000CD"
+        android:textColor="#fff"
         android:layout_marginLeft="5dp"
         android:layout_marginStart="5dp"
         android:paddingLeft="10dp"
@@ -108,13 +109,25 @@
         android:layout_below="@+id/checkSat"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textColor="#0000CD"
+        android:textColor="#fff"
         android:layout_marginLeft="5dp"
         android:layout_marginStart="5dp"
         android:paddingLeft="10dp"
         android:paddingStart="10dp"
         android:textSize="21sp"
         android:id="@+id/checkSun" />
+
+        <Button
+            android:layout_width="170dp"
+            android:layout_height="40dp"
+            android:id="@+id/comButton"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/checkSun"
+            android:layout_marginTop="5dp"
+            android:textSize="18sp"
+            android:text="COMFIRM"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/white_border_button"/>
 
     </RelativeLayout>
 

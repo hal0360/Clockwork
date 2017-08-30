@@ -48,7 +48,7 @@
             android:contentDescription="@string/imgDes"
             android:src="@drawable/name_icon" />
 
-        <EditText
+        <nz.co.udenbrothers.clockwork.customWigets.TextInput
             android:id="@+id/firstName"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -77,7 +77,7 @@
             android:contentDescription="@string/imgDes"
             android:src="@drawable/name_icon" />
 
-        <EditText
+        <nz.co.udenbrothers.clockwork.customWigets.TextInput
             android:id="@+id/lastName"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -106,7 +106,7 @@
             android:contentDescription="@string/imgDes"
             android:src="@drawable/email_icon" />
 
-        <EditText
+        <nz.co.udenbrothers.clockwork.customWigets.TextInput
             android:id="@+id/editStaffMail"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -135,7 +135,7 @@
             android:contentDescription="@string/imgDes"
             android:src="@drawable/password_icon" />
 
-        <EditText
+        <nz.co.udenbrothers.clockwork.customWigets.TextInput
             android:id="@+id/editStaffPass"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -164,7 +164,7 @@
             android:contentDescription="@string/imgDes"
             android:src="@drawable/password_icon" />
 
-        <EditText
+        <nz.co.udenbrothers.clockwork.customWigets.TextInput
             android:id="@+id/editStaffPass2"
             android:layout_width="match_parent"
             android:layout_height="0dp"

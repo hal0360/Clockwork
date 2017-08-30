@@ -23,13 +23,23 @@ public class MyDate {
         return hours + "h " + mins + "m";
     }
 
+    public static String convert(String s)  {
+        Date datek;
+        try {
+            datek = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH).parse(s);
+        } catch (ParseException e) {
+            return null;
+        }
+        return dateToStr(datek);
+    }
+
     public static String dateToStr(Date date, String format){
         SimpleDateFormat df = new SimpleDateFormat(format, Locale.ENGLISH);
         df.setTimeZone(TimeZone.getDefault());
         return df.format(date);
     }
 
-    public static Date strToDate(String dateStr){
+    public static Date strToDate(String dateStr) {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
         try {
             return df.parse(dateStr);

@@ -7,8 +7,8 @@ import com.google.gson.Gson;
 
 import java.util.HashSet;
 
-import nz.co.udenbrothers.clockwork.tools.Cur;
-import nz.co.udenbrothers.clockwork.tools.SqlAccess;
+import nz.co.udenbrothers.clockwork.sql_stuff.Cur;
+import nz.co.udenbrothers.clockwork.sql_stuff.SqlAccess;
 
 public abstract class ModelDAO {
 
@@ -23,11 +23,11 @@ public abstract class ModelDAO {
 
     public ModelDAO(Context context){
         gson = new Gson();
-        sql = new SqlAccess(context);
+        sql = SqlAccess.getInstance();
         fields.add("id integer primary key");
         init();
         sql.makeTable(fields, table);
-        cur = new Cur(table,context);
+        cur = new Cur(table);
     }
 
     protected final void field(String name, String type){
@@ -53,7 +53,7 @@ public abstract class ModelDAO {
     }
 
     protected final int save(){
-        int id = sql.add(table, key);
+        int id = (int) sql.add(table, key);
         key.clear();
         return id;
     }

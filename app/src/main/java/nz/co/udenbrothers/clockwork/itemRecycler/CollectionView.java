@@ -8,10 +8,10 @@ import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import nz.co.udenbrothers.clockwork.abstractions.Provider;
-import nz.co.udenbrothers.clockwork.global.Type;
+import nz.co.udenbrothers.clockwork.global.V;
 import nz.co.udenbrothers.clockwork.itemRecycler.items.Item;
 import nz.co.udenbrothers.clockwork.itemRecycler.viewHolders.HeaderViewHolder;
 import nz.co.udenbrothers.clockwork.itemRecycler.viewHolders.ItemHolder;
@@ -30,13 +30,13 @@ public class CollectionView extends RecyclerView{
     private SparseArray<Provider> holders = new SparseArray<>();
 
     private void setHolders(){
-        holders.put(Type.PROJECT, ProjectViewHolder::new);
-        holders.put(Type.TOTAL, TotalViewHolder::new);
-        holders.put(Type.TOP, TopViewHolder::new);
-        holders.put(Type.SHIFT, StampViewHolder::new);
-        holders.put(Type.HEADER, HeaderViewHolder::new);
-        holders.put(Type.NOTICE, NoticeViewHolder::new);
-        holders.put(Type.SITE, SiteViewHolder::new);
+        holders.put(V.PROJECT, ProjectViewHolder::new);
+        holders.put(V.TOTAL, TotalViewHolder::new);
+        holders.put(V.TOP, TopViewHolder::new);
+        holders.put(V.SHIFT, StampViewHolder::new);
+        holders.put(V.HEADER, HeaderViewHolder::new);
+        holders.put(V.NOTICE, NoticeViewHolder::new);
+        holders.put(V.SITE, SiteViewHolder::new);
     }
 
     public CollectionView(Context context)
@@ -56,7 +56,7 @@ public class CollectionView extends RecyclerView{
         this.context = context;
     }
 
-    public void init(ArrayList<Item> items){
+    public void init(List<Item> items){
         setHolders();
         myAdaptor = new MyAdaptor(items);
         setHasFixedSize(true);
@@ -76,7 +76,7 @@ public class CollectionView extends RecyclerView{
         myAdaptor.notifyItemRemoved(index);
     }
 
-    public void refresh(ArrayList<Item> newItems){
+    public void refresh(List<Item> newItems){
         myAdaptor.items.clear();
         myAdaptor.items.addAll(newItems);
         myAdaptor.notifyDataSetChanged();
@@ -89,9 +89,9 @@ public class CollectionView extends RecyclerView{
 
     private class MyAdaptor extends RecyclerView.Adapter<ItemHolder>{
 
-        public ArrayList<Item> items;
+        public List<Item> items;
 
-        public MyAdaptor(ArrayList<Item> items) {
+        public MyAdaptor(List<Item> items) {
             this.items = items;
         }
 
@@ -118,6 +118,11 @@ public class CollectionView extends RecyclerView{
 
         @Override
         public void onViewDetachedFromWindow(ItemHolder holder) {
+            holder.cleanUp();
+        }
+
+        @Override
+        public void onViewRecycled (ItemHolder holder) {
             holder.cleanUp();
         }
     }

@@ -1,45 +1,50 @@
 package nz.co.udenbrothers.clockwork.tools;
 
+import android.util.Log;
 
-import com.google.gson.JsonObject;
+import com.google.gson.Gson;
+import com.google.gson.JsonParseException;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import nz.co.udenbrothers.clockwork.sql_stuff.ListOfJson;
+
+/**
+ * Created by user on 28/08/2017.
+ */
 
 public class Json {
 
-    private JsonObject obj;
-
-    public Json(){
-        obj = new JsonObject();
+    public static <T> List<T> parse(String js, Class<T> tClass){
+        Gson gson = new Gson();
+        try {
+            return gson.fromJson(js, new ListOfJson<>(tClass));
+        }
+        catch (JsonParseException e) {
+            Log.e("Error json from string",e+"");
+            return new ArrayList<>();
+        }
     }
 
-    public void put(String key, String val){
-        obj.addProperty(key,val);
+    public static <T> T from(String js, Class<T> tClass){
+        Gson gson = new Gson();
+        try {
+            return gson.fromJson(js, tClass);
+        }
+        catch (JsonParseException e) {
+            Log.e("Error json from string",e+"");
+            return null;
+        }
     }
 
-    public void put(String key, int val){
-        obj.addProperty(key,val);
+    public static <T> String to(T t){
+        Gson gson = new Gson();
+        return gson.toJson(t);
     }
 
-    public void put(String key, long val){
-        obj.addProperty(key,val);
-    }
-
-    public void put(String key, float val){
-        obj.addProperty(key,val);
-    }
-
-    public int getInt(String key){
-        return obj.get(key).getAsInt();
-    }
-
-    public String getStr(String key){
-        return obj.get(key).getAsString();
-    }
-
-    public long getLong(String key){
-        return obj.get(key).getAsLong();
-    }
-
-    public long getFloat(String key){
-        return obj.get(key).getAsLong();
+    public static <T> String to(List<T> ts){
+        Gson gson = new Gson();
+        return gson.toJson(ts);
     }
 }
